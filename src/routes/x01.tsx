@@ -163,15 +163,15 @@ function RouteComponent() {
       if (multiplier === 1 && config.doublein && currentScore === config.goal) {
         return;
       }
-
+      
+      setCurrentScore(currentScore-totalPoints)
       if (currentScore-totalPoints < 0) return setBusted(true);
       if (config.doubleout && currentScore-totalPoints === 1) return setBusted(true);
 
       if (currentScore-totalPoints === 0) {
         if (config.doubleout && multiplier === 1) return setBusted(true);
         setGameOver(true)
-      } 
-      setCurrentScore(currentScore-totalPoints) 
+      }
       
    }
   };
@@ -199,9 +199,42 @@ function RouteComponent() {
     setCurrentScore(nextPlayer.id === playerTurn ? currentScore : nextPlayer.score)
     setPlayerTurn(nextPlayer.id)
   }
+function handleDeleteLast() {
+  // 1. Guard against undoing on an empty turn
+  if (currentTurn.length === 0) {
+    return;
+  }
+
+  // 2. Get the last throw (same as before)
+  const lastThrow = currentTurn.at(-1);
+
+  // This check is important if the array could be empty
+  if (!lastThrow) {
+    return;
+  }
+
+  // 3. Create a NEW array with the last element removed
+  const newCurrentTurn = currentTurn.slice(0, -1);
+
+  // 4. Calculate the score to add back
+  const scoreToRestore = lastThrow.multiplier * lastThrow.score;
+  const newCurrentScore = currentScore + scoreToRestore;
+
+  // 5. Update the state with the new values
+  setCurrentScore(newCurrentScore);
+  setCurrentTurn(newCurrentTurn); // React will see a new array and re-render!
+
+  // 6. Update the 'busted' state based on the new score
+  if (busted) {
+    // This logic can be simplified. If we are undoing a busted turn,
+    // the new score will always be valid.
+    setBusted(false);
+  }
+}
+
 
   const activePlayer = players.find((p)=>p.id===playerTurn)
-  
+  console.log(currentTurn.length)
   if (activePlayer?.score === 0) handleNextPlayer()
   return (
     <div className="flex flex-col px-2 gap-2">
@@ -227,11 +260,12 @@ function RouteComponent() {
      </div>
        <Button 
        variant="default" 
-       disabled={currentTurn.length !== 3 && !busted} 
-       className={`border ${currentTurn.length === 3 || busted ? "shadow shadow-accent border-accent" : "border-secondary" } w-1/2 m-auto`} 
+       disabled={(currentTurn.length !== 3 && !busted) && activePlayer?.score !== 0} 
+       className={`border ${(currentTurn.length === 3 || busted) || activePlayer?.score == 0 ? "shadow shadow-accent border-accent" : "border-secondary" } w-1/2 m-auto`} 
        size="lg" 
        onClick={handleNextPlayer}> Next </Button>
        <Button variant="destructive" className={`border w-1/2 m-auto`} onClick={handleMiss} size="lg"> Miss </Button>
+       <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}> Undo Last </Button>
 
   <Dialog open={gameOver}>
     <DialogContent>
