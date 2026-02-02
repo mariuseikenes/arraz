@@ -68,6 +68,7 @@ function RouteComponent() {
   const [currentTurn, setCurrentTurn] = useState<Throw[]>([]);
   const [currentScore, setCurrentScore] = useState<number>(501)
   const [gameOver, setGameOver] = useState(false)
+  const [busted, setBusted] = useState(false)
   
   const handleUpdatePlayerNameById = (idToUpdate: string, newName: string) => {
     setPlayers(prevPlayers =>
@@ -158,7 +159,16 @@ function RouteComponent() {
       
       // Update the turn's score and highlight the segment
       setCurrentTurn(prev => [...prev, {score, multiplier}]);
+      
+      if (multiplier === 1 && config.doublein && currentScore === config.goal) {
+        return;
+      }
+
+      if (currentScore-totalPoints < 0) return setBusted(true);
+      if (config.doubleout && currentScore-totalPoints === 1) return setBusted(true);
+
       if (currentScore-totalPoints === 0) {
+        if (config.doubleout && multiplier === 1) return setBusted(true);
         setGameOver(true)
       } 
       setCurrentScore(currentScore-totalPoints) 
@@ -178,7 +188,7 @@ function RouteComponent() {
    setPlayers(prevPlayers =>
      prevPlayers.map(player =>
        player.id === playerTurn
-         ? { ...player, score: currentScore < 0 ? finishedPlayer?.score ?? 0 : currentScore }
+         ? { ...player, score: busted ? finishedPlayer?.score ?? 0 : currentScore }
          : player
      )
     );
@@ -203,22 +213,22 @@ function RouteComponent() {
         <InteractiveDartboard />
       </div>
       
-      <div className={`${currentScore < 0 && "text-red-500"} flex flex-row px-4 h-fit`}>
+      <div className={`${busted && "text-red-500"} flex flex-row px-4 h-fit`}>
         <div className="flex flex-col">
           <p> Score: </p>
          <p className={`font-semibold text-7xl`}> {currentScore} </p>
         </div>
         <div className="flex flex-row text-7xl m-auto items-center h-full justify-center">
-          <Dart className={`${currentTurn.length >= 1 ? "opacity-30" : ""} ${currentScore < 0 ? "text-red-500" : ""}`} />  
-          <Dart className={`${currentTurn.length >= 2 ? "opacity-30" : ""} ${currentScore < 0 ? "text-red-500" : ""}`} />  
-          <Dart className={`${currentTurn.length >= 3 ? "opacity-30" : ""} ${currentScore < 0 ? "text-red-500" : ""}`} />  
+          <Dart className={`${currentTurn.length >= 1 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
+          <Dart className={`${currentTurn.length >= 2 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
+          <Dart className={`${currentTurn.length >= 3 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
       </div>
 
      </div>
        <Button 
        variant="default" 
-       disabled={currentTurn.length !== 3 && currentScore > 1} 
-       className={`border ${currentTurn.length === 3 || currentScore <= 0 ? "shadow shadow-accent border-accent" : "border-secondary" } w-1/2 m-auto`} 
+       disabled={currentTurn.length !== 3 && !busted} 
+       className={`border ${currentTurn.length === 3 || busted ? "shadow shadow-accent border-accent" : "border-secondary" } w-1/2 m-auto`} 
        size="lg" 
        onClick={handleNextPlayer}> Next </Button>
        <Button variant="destructive" className={`border w-1/2 m-auto`} onClick={handleMiss} size="lg"> Miss </Button>
