@@ -1,7 +1,7 @@
 import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
-import { Home, Menu, X } from 'lucide-react'
+import { Home, X } from 'lucide-react'
 import { GiDart } from "react-icons/gi"
 
 export default function Header() {

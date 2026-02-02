@@ -13,7 +13,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 
 export const Route = createFileRoute('/x01')({
@@ -23,19 +22,19 @@ export const Route = createFileRoute('/x01')({
 type Player = {
   name: string;
   rounds: [Throw, Throw, Throw][];
-  id: number;
+  id: string;
   score: number;
 }
 
 type Throw = {
-  multiplier: 1 | 2 | 3;
+  multiplier: number;
   score: number;
 }
 
 type Config = {
   goal: number;
-  out: boolean;
-  in: boolean;
+  doubleout: boolean;
+  doublein: boolean;
   legs: number; // first to
   sets: number; // first to
 }
@@ -50,7 +49,7 @@ function RouteComponent() {
     legs: 1,
     sets: 1
   });
-  const [players, setPlayers] = useState<Player>([
+  const [players, setPlayers] = useState<Player[]>([
     {
       name: "Player 1",
       rounds: [],
@@ -66,7 +65,6 @@ function RouteComponent() {
   ]);
   const [playerTurn, setPlayerTurn] = useState<string>("");
   const [ready, setReady] = useState(false);
-  const [lastHitId, setLastHitId] = useState<string | null>(null);
   const [currentTurn, setCurrentTurn] = useState<Throw[]>([]);
   const [currentScore, setCurrentScore] = useState<number>(501)
   const [gameOver, setGameOver] = useState(false)
@@ -122,20 +120,20 @@ function RouteComponent() {
               <input 
                 type="number" 
                 className="bg-text rounded-sm text-center active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none " 
-                onChange={(e)=>setConfig((old)=>({...old, legs: e.target.value}))} 
+                onChange={(e)=>setConfig((old)=>({...old, legs: Number(e.target.value)}))} 
                 value={config.legs} />
            </div>
             <div className="inline-flex justify-between w-full">
               <label className="text-left">Sets: </label>
-              <input type="number" className="bg-text text-center rounded-sm active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none " onChange={(e)=>setConfig((old)=>({...old, sets: e.target.value}))} value={config.sets} />
+              <input type="number" className="bg-text text-center rounded-sm active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none " onChange={(e)=>setConfig((old)=>({...old, sets: Number(e.target.value)}))} value={config.sets} />
             </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
-            <label className="text-xl font-semibold inline-flex justify-between">Players <button className="bg-text text-bg w-8 h-8 font-normal rounded-sm flex items-center justify-center text-xs" onClick={()=>{setPlayers([...players, {name: "New Player", rounds: [], id: generateUUID()}])}} > <Plus /> </button> </label>
+            <label className="text-xl font-semibold inline-flex justify-between">Players <button className="bg-text text-bg w-8 h-8 font-normal rounded-sm flex items-center justify-center text-xs" onClick={()=>{setPlayers([...players, {score: 0, name: "New Player", rounds: [], id: generateUUID()}])}} > <Plus /> </button> </label>
                         {players.map((p)=>(
               <div className="inline-flex gap-2" key={p.id}>
                 <input value={p.name} onChange={(e)=>{handleUpdatePlayerNameById(p.id, e.target.value)}} className="bg-text rounded-sm text-bg p-1" />
-                <button className="text-xl text-text/50 hover:text-text" onClick={(e)=>{setPlayers(players.filter((pl)=>pl.id!==p.id))}}> <X /> </button>
+                <button className="text-xl text-text/50 hover:text-text" onClick={()=>{setPlayers(players.filter((pl)=>pl.id!==p.id))}}> <X /> </button>
               </div>
             ))}
 
@@ -180,12 +178,12 @@ function RouteComponent() {
    setPlayers(prevPlayers =>
      prevPlayers.map(player =>
        player.id === playerTurn
-         ? { ...player, score: currentScore < 0 ? finishedPlayer.score : currentScore }
+         ? { ...player, score: currentScore < 0 ? finishedPlayer?.score ?? 0 : currentScore }
          : player
      )
     );
 
-    const nextIndex = players.indexOf(players.find(p=>p.id===playerTurn))+1;
+    const nextIndex = players.indexOf(players.find(p=>p.id===playerTurn) as Player)+1;
     const nextPlayer = nextIndex > players.length-1 ? players[0] : players[nextIndex];
     setCurrentTurn([])
     setCurrentScore(nextPlayer.id === playerTurn ? currentScore : nextPlayer.score)
@@ -194,14 +192,15 @@ function RouteComponent() {
 
   const activePlayer = players.find((p)=>p.id===playerTurn)
   
-  if (activePlayer.score === 0) handleNextPlayer()
+  if (activePlayer?.score === 0) handleNextPlayer()
   return (
     <div className="flex flex-col px-2 gap-2">
 
-      <h2 className="text-2xl font-bold text-center">{players.find((p)=>p.id===playerTurn).name}'s turn </h2> 
-     
+      <h2 className="text-2xl font-bold text-center">{players.find((p)=>p.id===playerTurn)?.name}'s turn </h2> 
+    
+      { /* @ts-ignore */ }
       <div onClick={handleBoardClick} className="dartboard-container h-auto w-full">
-        <InteractiveDartboard lastHitId={lastHitId} />
+        <InteractiveDartboard />
       </div>
       
       <div className={`${currentScore < 0 && "text-red-500"} flex flex-row px-4 h-fit`}>
@@ -227,7 +226,7 @@ function RouteComponent() {
   <Dialog open={gameOver}>
     <DialogContent>
      <DialogHeader>
-      <DialogTitle>{players.find(p=>p.id===playerTurn).name} won!</DialogTitle>
+      <DialogTitle>{players.find(p=>p.id===playerTurn)?.name} won!</DialogTitle>
       <DialogDescription>
        <Button onClick={()=>setGameOver(false)}>Continue</Button> 
       </DialogDescription>
