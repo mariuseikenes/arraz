@@ -159,7 +159,6 @@ function RouteComponent() {
 
       console.log(`Hit: ${segmentId}, Points: ${totalPoints}`);
       
-      // Update the turn's score and highlight the segment
       setCurrentTurn(prev => [...prev, {score, multiplier}]);
       
       if (multiplier === 1 && config.doublein && currentScore === config.goal) {
@@ -202,34 +201,25 @@ function RouteComponent() {
     setPlayerTurn(nextPlayer.id)
   }
 function handleDeleteLast() {
-  // 1. Guard against undoing on an empty turn
   if (currentTurn.length === 0) {
     return;
   }
 
-  // 2. Get the last throw (same as before)
   const lastThrow = currentTurn.at(-1);
 
-  // This check is important if the array could be empty
   if (!lastThrow) {
     return;
   }
 
-  // 3. Create a NEW array with the last element removed
   const newCurrentTurn = currentTurn.slice(0, -1);
 
-  // 4. Calculate the score to add back
   const scoreToRestore = currentScore === config.goal ? 0 : lastThrow.multiplier * lastThrow.score;
   const newCurrentScore = currentScore + scoreToRestore;
 
-  // 5. Update the state with the new values
   setCurrentScore(newCurrentScore);
-  setCurrentTurn(newCurrentTurn); // React will see a new array and re-render!
+  setCurrentTurn(newCurrentTurn); 
 
-  // 6. Update the 'busted' state based on the new score
   if (busted) {
-    // This logic can be simplified. If we are undoing a busted turn,
-    // the new score will always be valid.
     setBusted(false);
   }
 }
