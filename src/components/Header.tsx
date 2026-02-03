@@ -2,7 +2,6 @@ import { Link } from '@tanstack/react-router'
 
 import { useState } from 'react'
 import { Home, X } from 'lucide-react'
-import { GiDart } from "react-icons/gi"
 import Logo from "../logo.svg?react"
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
