@@ -24,7 +24,7 @@ export default function Header() {
     <h1 className="ml-4 text-xl font-semibold inline-flex">
           <Link to="/" className="flex gap-2 text-2xl flex-row">
           <div className="text-left inline-flex h-full">
-            <Logo className="h-fit my-auto h-18 w-18" /> 
+            <Logo className="h-18 w-18" /> 
           </div>
           <div className=" text-left flex flex-col">
               <div className="font-bold text-3xl">Arraz </div>
