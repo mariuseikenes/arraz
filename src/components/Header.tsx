@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { useState } from 'react'
 import { Home, X } from 'lucide-react'
 import { GiDart } from "react-icons/gi"
-
+import Logo from "../logo.svg?react"
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
@@ -24,8 +24,8 @@ export default function Header() {
      */}
     <h1 className="ml-4 text-xl font-semibold inline-flex">
           <Link to="/" className="flex gap-2 text-2xl flex-row">
-          <div className="text-left inline-flex">
-            <GiDart className="text-4xl my-auto" /> 
+          <div className="text-left inline-flex h-full">
+            <Logo className="h-fit my-auto h-18 w-18" /> 
           </div>
           <div className=" text-left flex flex-col">
               <div className="font-bold text-3xl">Arraz </div>

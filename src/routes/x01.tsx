@@ -5,7 +5,9 @@ import { ButtonGroup } from "@/components/ui/button-group"
 import { Switch } from "@/components/ui/switch"
 import { Plus, X } from "lucide-react"
 import InteractiveDartboard from '../components/InteractiveDartboard'; // Import your new component
-import {GiDart as Dart } from "react-icons/gi"
+
+import Dart from "../logo.svg?react"
+
 import { generateUUID } from "../lib/uuid.ts";
 import {
   Dialog,
@@ -146,7 +148,7 @@ function RouteComponent() {
   }
 
   const handleBoardClick = (event: React.MouseEvent<SVGSVGElement>) => {
-    if (currentTurn.length >= 3 || currentScore <= 0) return;
+    if (currentTurn.length >= 3 || busted) return;
     const target = event.target as SVGElement;
     
    if (target.id && target.dataset.score && target.dataset.multiplier) {
@@ -177,13 +179,13 @@ function RouteComponent() {
   };
 
   const handleMiss = () => {
-     if (currentTurn.length >= 3) return;
+     if (currentTurn.length >= 3 || busted) return;
 
       setCurrentTurn(prev => [...prev, {score: 0, multiplier: 1}])   
   }
 
   function handleNextPlayer() {
-  
+    setBusted(false) 
     const finishedPlayer = players.find(p=>p.id===playerTurn)
    setPlayers(prevPlayers =>
      prevPlayers.map(player =>
@@ -196,7 +198,7 @@ function RouteComponent() {
     const nextIndex = players.indexOf(players.find(p=>p.id===playerTurn) as Player)+1;
     const nextPlayer = nextIndex > players.length-1 ? players[0] : players[nextIndex];
     setCurrentTurn([])
-    setCurrentScore(nextPlayer.id === playerTurn ? currentScore : nextPlayer.score)
+    setCurrentScore(nextPlayer.id === playerTurn && !busted ? currentScore : nextPlayer.score)
     setPlayerTurn(nextPlayer.id)
   }
 function handleDeleteLast() {
@@ -217,7 +219,7 @@ function handleDeleteLast() {
   const newCurrentTurn = currentTurn.slice(0, -1);
 
   // 4. Calculate the score to add back
-  const scoreToRestore = lastThrow.multiplier * lastThrow.score;
+  const scoreToRestore = currentScore === config.goal ? 0 : lastThrow.multiplier * lastThrow.score;
   const newCurrentScore = currentScore + scoreToRestore;
 
   // 5. Update the state with the new values
@@ -252,9 +254,18 @@ function handleDeleteLast() {
          <p className={`font-semibold text-7xl`}> {currentScore} </p>
         </div>
         <div className="flex flex-row text-7xl m-auto items-center h-full justify-center">
-          <Dart className={`${currentTurn.length >= 1 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
-          <Dart className={`${currentTurn.length >= 2 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
-          <Dart className={`${currentTurn.length >= 3 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""}`} />  
+        <div className="relative flex items-center justify-center">
+          {currentTurn[0] && <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">{currentTurn[0].score*currentTurn[0].multiplier}</p>}
+          <Dart className={`${currentTurn.length >= 1 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`} />  
+        </div>  
+          <div className="relative flex items-center justify-center">
+          {currentTurn[1] && <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">{currentTurn[1].score*currentTurn[1].multiplier}</p>}
+          <Dart className={`${currentTurn.length >= 2 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`} />  
+        </div>
+        <div className="relative flex items-center justify-center">
+          {currentTurn[2] && <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">{currentTurn[2].score*currentTurn[2].multiplier}</p>}
+          <Dart className={`${currentTurn.length >= 3 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`} />  
+        </div>
       </div>
 
      </div>
