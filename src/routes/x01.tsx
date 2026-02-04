@@ -28,6 +28,11 @@ type Player = {
   score: number;
 }
 
+type Turn = {
+  playerId: string;
+  throws: Throw[];
+}
+
 type Throw = {
   multiplier: number;
   score: number;
@@ -39,6 +44,17 @@ type Config = {
   doublein: boolean;
   legs: number; // first to
   sets: number; // first to
+}
+
+type Leg = {
+  id: string;
+  winnerId: string | null; // player id 
+  history: Turn[];
+}
+
+type Set = {
+  winnerId: string | null;
+  legs: Leg[];
 }
 
 const isSelectedGoal = (goal: number, config: Config) => (goal === config.goal); 
@@ -70,8 +86,21 @@ function RouteComponent() {
   const [currentTurn, setCurrentTurn] = useState<Throw[]>([]);
   const [currentScore, setCurrentScore] = useState<number>(501)
   const [gameOver, setGameOver] = useState(false)
+  const [legEnded, setLegEnded] = useState(false)
   const [busted, setBusted] = useState(false)
+  const [currentLeg, setCurrentLeg] = useState<Leg>({
+    id: generateUUID(),
+    winnerId: null,
+    history: [],
+  })
   
+  const [currentSet, setCurrentSet] = useState<Set>({
+    winnerId: null,
+    legs: []
+  });
+  const [setEnded, setSetEnded] = useState(false);
+  const [sets, setSets] = useState<Set[]>([]);
+
   const handleUpdatePlayerNameById = (idToUpdate: string, newName: string) => {
     setPlayers(prevPlayers =>
      prevPlayers.map(player =>
@@ -90,7 +119,6 @@ function RouteComponent() {
   }
 
   if (!ready) {
-//    handleReady()
     return (
       <div className="flex flex-col p-2 gap-4 items-center w-2/3 mx-auto justify-center">
       <h1 className="text-3xl text-center font-bold">X01</h1>
@@ -161,7 +189,7 @@ function RouteComponent() {
       
       setCurrentTurn(prev => [...prev, {score, multiplier}]);
       
-      if (multiplier === 1 && config.doublein && currentScore === config.goal) {
+      if (multiplier !== 2 && config.doublein && currentScore === config.goal) {
         return;
       }
       
@@ -171,7 +199,12 @@ function RouteComponent() {
 
       if (currentScore-totalPoints === 0) {
         if (config.doubleout && multiplier === 1) return setBusted(true);
-        setGameOver(true)
+        setLegEnded(true)
+        setCurrentLeg(o=>({
+          ...o,
+          winnerId: playerTurn,
+          history: [...o.history, {throws: currentTurn, playerId: playerTurn}]
+        }))
       }
       
    }
@@ -183,10 +216,73 @@ function RouteComponent() {
       setCurrentTurn(prev => [...prev, {score: 0, multiplier: 1}])   
   }
 
+  const handleNewLeg = () => {
+    if (!legEnded) return;
+    const winner = currentLeg.winnerId;
+    console.log(winner)
+    console.log(currentSet.legs)
+    let winCount = 0;
+    for (const leg of currentSet.legs) {
+      if (leg.winnerId === winner) winCount+=1;
+    }
+    console.log("wc ", winCount)
+    console.log(Math.ceil(config.legs/2))
+    if (winCount+1 >= Math.ceil(config.legs/2)) {
+      console.log("set finished!");
+      setCurrentSet(o=>({
+        ...o,
+        winnerId: winner
+      }))
+      setSetEnded(true);
+    }
+
+    setLegEnded(false);
+    setCurrentSet(o=>({
+      ...o,
+      legs: [...o.legs, currentLeg]
+    }))
+    setCurrentLeg({
+      id: generateUUID(),
+      winnerId: null,
+      history: [],
+    })
+    setPlayers(players.map((o)=>({...o, score: config.goal, rounds: [] })));
+    setPlayerTurn(players[0].id)
+    setCurrentTurn([])
+    setCurrentScore(config.goal)
+  }
+
+  const handleNewSet = () => {
+    
+    const winner = currentSet.winnerId
+    let winCount = 0;
+    for (const set of sets) {
+      if (set.winnerId === winner) winCount+=1
+    }
+    setSets(o=>[...o, {
+      winnerId: currentSet.winnerId,
+      legs: [...currentSet.legs, currentLeg]  
+    }]); 
+    if (winCount+1 >= Math.ceil(config.sets/2)) {
+      setGameOver(true)
+    }
+   
+    setCurrentSet({
+      winnerId: null,
+      legs: []
+    });
+    setSetEnded(false);
+    setPlayerTurn(players[0].id);
+    setCurrentTurn([])
+    setCurrentScore(config.goal)
+    setPlayers(players.map((o)=>({...o, score: config.goal, rounds: []})))
+
+  }
+
   function handleNextPlayer() {
     setBusted(false) 
     const finishedPlayer = players.find(p=>p.id===playerTurn)
-   setPlayers(prevPlayers =>
+    setPlayers(prevPlayers =>
      prevPlayers.map(player =>
        player.id === playerTurn
          ? { ...player, score: busted ? finishedPlayer?.score ?? 0 : currentScore }
@@ -196,43 +292,58 @@ function RouteComponent() {
 
     const nextIndex = players.indexOf(players.find(p=>p.id===playerTurn) as Player)+1;
     const nextPlayer = nextIndex > players.length-1 ? players[0] : players[nextIndex];
+    setCurrentLeg(o=>({
+      ...o,
+      history: [...o.history, {
+        playerId: finishedPlayer?.id || "",
+        throws: currentTurn
+      }]
+    }))
     setCurrentTurn([])
     setCurrentScore(nextPlayer.id === playerTurn && !busted ? currentScore : nextPlayer.score)
     setPlayerTurn(nextPlayer.id)
   }
-function handleDeleteLast() {
-  if (currentTurn.length === 0) {
-    return;
+
+  function handleGameOver() {
+    setGameOver(true);
   }
 
-  const lastThrow = currentTurn.at(-1);
+  function handleDeleteLast() {
+    if (currentTurn.length === 0) {
+     return;
+    }
 
-  if (!lastThrow) {
-    return;
+   const lastThrow = currentTurn.at(-1);
+
+    if (!lastThrow) {
+     return;
+     }
+
+   const newCurrentTurn = currentTurn.slice(0, -1);
+
+    const scoreToRestore = currentScore === config.goal ? 0 : lastThrow.multiplier * lastThrow.score;
+    const newCurrentScore = currentScore + scoreToRestore;
+
+    setCurrentScore(newCurrentScore);
+    setCurrentTurn(newCurrentTurn); 
+
+    if (busted) {
+      setBusted(false);
+    }
   }
-
-  const newCurrentTurn = currentTurn.slice(0, -1);
-
-  const scoreToRestore = currentScore === config.goal ? 0 : lastThrow.multiplier * lastThrow.score;
-  const newCurrentScore = currentScore + scoreToRestore;
-
-  setCurrentScore(newCurrentScore);
-  setCurrentTurn(newCurrentTurn); 
-
-  if (busted) {
-    setBusted(false);
-  }
-}
 
 
   const activePlayer = players.find((p)=>p.id===playerTurn)
-  console.log(currentTurn.length)
+  
   if (activePlayer?.score === 0) handleNextPlayer()
   return (
     <div className="flex flex-col px-2 gap-2">
-
-      <h2 className="text-2xl font-bold text-center">{players.find((p)=>p.id===playerTurn)?.name}'s turn </h2> 
-    
+      
+    <div className="inline-flex justify-between">
+      <p>Leg {currentSet.legs.length+1}/{config.legs}</p>
+      <h2 className="w-fit text-2xl font-bold text-center">{players.find((p)=>p.id===playerTurn)?.name}'s turn </h2> 
+      <p>Set {sets.length+1}/{config.sets}</p>
+      </div>
       { /* @ts-ignore */ }
       <div onClick={handleBoardClick} className="dartboard-container h-auto w-full">
         <InteractiveDartboard />
@@ -267,17 +378,54 @@ function handleDeleteLast() {
        onClick={handleNextPlayer}> Next </Button>
        <Button variant="destructive" className={`border w-1/2 m-auto`} onClick={handleMiss} size="lg"> Miss </Button>
        <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}> Undo Last </Button>
+     <LegOverDialog players={players} legEnded={legEnded} currentLeg={currentLeg} continueGame={handleNewLeg}/>
+     <SetOverDialog setEnded={setEnded} players={players} currentSet={currentSet} continueGame={handleNewSet}/>
+     <GameOverDialog gameOver={gameOver} players={players} sets={sets} />
+     </div>
 
-  <Dialog open={gameOver}>
+  )
+}
+
+function LegOverDialog({legEnded, currentLeg, continueGame, players}: {legEnded: boolean; currentLeg: Leg; continueGame: () => void; players: Player[]}) {
+  return ( 
+  <Dialog open={legEnded}>
     <DialogContent>
      <DialogHeader>
-      <DialogTitle>{players.find(p=>p.id===playerTurn)?.name} won!</DialogTitle>
+      <DialogTitle>{players.find(p=>p.id===currentLeg.winnerId)?.name} won this leg!</DialogTitle>
       <DialogDescription>
-       <Button onClick={()=>setGameOver(false)}>Continue</Button> 
+       <Button onClick={continueGame}>Continue</Button> 
       </DialogDescription>
       </DialogHeader>
     </DialogContent>
-  </Dialog>
-     </div>
-  )
+  </Dialog>)
+}
+
+function SetOverDialog({setEnded, currentSet, continueGame, players}: {setEnded: boolean; currentSet: Set; continueGame: () => void; players: Player[]}) {
+  return ( 
+  <Dialog open={setEnded}>
+    <DialogContent>
+     <DialogHeader>
+      <DialogTitle>{players.find(p=>p.id===currentSet.winnerId)?.name} won this set!</DialogTitle>
+      <DialogDescription>
+       <Button onClick={continueGame}>Continue</Button> 
+      </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>)
+}
+
+function GameOverDialog({gameOver, sets, players}: {gameOver: boolean; sets: Set[]; players: Player[]}) {
+  const winner = sets.at(-1)?.winnerId ?? "None"
+
+  return ( 
+  <Dialog open={gameOver}>
+    <DialogContent>
+     <DialogHeader>
+      <DialogTitle>{players.find(p=>p.id===winner)?.name} won the game!</DialogTitle>
+      <DialogDescription>
+       <Button onClick={()=>window.location.reload()}>Play Again</Button> 
+      </DialogDescription>
+      </DialogHeader>
+    </DialogContent>
+  </Dialog>)
 }
