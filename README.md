@@ -98,7 +98,7 @@ To run Arraz locally, you'll need [Bun](https://github.com/oven-sh/bun?tab=readm
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are greatly inspired - try keeping the design language consistent, and keep UI minimal and uncluttered. 
+Contributions are greatly appreciated  - try keeping the design language consistent, and keep UI minimal and uncluttered. 
 Starring this project is greatly appreciated!
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
