@@ -125,6 +125,8 @@ Distributed under the GNU GENERAL PUBLIC LICENSE. See `LICENSE.txt` for more inf
 
 Marius Eikenes - [@spicyjungle](https://twitter.com/spicyjungle) - hello@mariuseikenes.com
 
+Join the [Junglab Discord](https://discord.com/invite/HjmpRsBqXh)
+
 Project Link: [https://github.com/mariuseikenes/arraz](https://github.com/mariuseikenes/arraz)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
