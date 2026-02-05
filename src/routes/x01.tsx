@@ -303,11 +303,6 @@ function RouteComponent() {
     setCurrentScore(nextPlayer.id === playerTurn && !busted ? currentScore : nextPlayer.score)
     setPlayerTurn(nextPlayer.id)
   }
-
-  function handleGameOver() {
-    setGameOver(true);
-  }
-
   function handleDeleteLast() {
     if (currentTurn.length === 0) {
      return;
@@ -337,18 +332,20 @@ function RouteComponent() {
   
   if (activePlayer?.score === 0) handleNextPlayer()
   return (
-    <div className="flex flex-col px-2 gap-2">
+    <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">
       
-    <div className="inline-flex justify-between">
+    <div className="flex-row flex md:flex-row justify-between md:w-1/2 md:m-auto">
       <p>Leg {currentSet.legs.length+1}/{config.legs}</p>
       <h2 className="w-fit text-2xl font-bold text-center">{players.find((p)=>p.id===playerTurn)?.name}'s turn </h2> 
       <p>Set {sets.length+1}/{config.sets}</p>
-      </div>
+    </div>
+      <div className="flex md:flex-row flex-col md:h-full md:px-18">
       { /* @ts-ignore */ }
-      <div onClick={handleBoardClick} className="dartboard-container h-auto w-full">
+      <div onClick={handleBoardClick} className="dartboard-container h-auto md:w-1/2 md:p-8">
         <InteractiveDartboard />
       </div>
-      
+     
+      <div className="h-full flex flex-col gap-4 m-auto">
       <div className={`${busted && "text-red-500"} flex flex-row px-4 h-fit`}>
         <div className="flex flex-col">
           <p> Score: </p>
@@ -378,7 +375,10 @@ function RouteComponent() {
        onClick={handleNextPlayer}> Next </Button>
        <Button variant="destructive" className={`border w-1/2 m-auto`} onClick={handleMiss} size="lg"> Miss </Button>
        <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}> Undo Last </Button>
-     <LegOverDialog players={players} legEnded={legEnded} currentLeg={currentLeg} continueGame={handleNewLeg}/>
+     </div>
+
+     </div>
+      <LegOverDialog players={players} legEnded={legEnded} currentLeg={currentLeg} continueGame={handleNewLeg}/>
      <SetOverDialog setEnded={setEnded} players={players} currentSet={currentSet} continueGame={handleNewSet}/>
      <GameOverDialog gameOver={gameOver} players={players} sets={sets} />
      </div>
