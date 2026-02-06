@@ -83,6 +83,13 @@ I created Arraz as I found most existing scorekeeping webapps for darts either o
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+## Planned Features
+
+* More games: Killer and Cricket are next up.
+* Improved dartboard UX (the bull/doublebull may be a bit tricky to reliably hit)
+* Points per darts (and end-of-game stats)
+* See every players scores during others turns
+* See all available checkouts
 
 <!-- GETTING STARTED -->
 ## Getting Started
