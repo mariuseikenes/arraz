@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Gamebutton from "../components/Gamebutton.tsx"
+import { LucideGithub, LucideMail } from 'lucide-react'
 export const Route = createFileRoute('/')({
   component: App,
 })
@@ -16,6 +17,13 @@ function App() {
         <Gamebutton gamename="Killer" comingsoon/>
         <Gamebutton gamename="Cricket" comingsoon/>
         <p> Looking for something else? Contact me! </p>
+        <hr />
+        <p className='inline-flex gap-2 items-center justify-center'>
+         <LucideMail /> hello@mariuseikenes.com
+        </p>
+        <p className='inline-flex gap-2 items-center justify-center underline'>
+         <LucideGithub /> <a href="https://github.com/mariuseikenes/arraz">Repo Link</a>
+        </p>
       </div>
     </div>
   )
