@@ -10,11 +10,23 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as X01RouteImport } from './routes/x01'
+import { Route as KillerRouteImport } from './routes/killer'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
 const X01Route = X01RouteImport.update({
   id: '/x01',
   path: '/x01',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KillerRoute = KillerRouteImport.update({
+  id: '/killer',
+  path: '/killer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +37,35 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/killer': typeof KillerRoute
   '/x01': typeof X01Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/killer': typeof KillerRoute
   '/x01': typeof X01Route
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/killer': typeof KillerRoute
   '/x01': typeof X01Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/x01'
+  fullPaths: '/' | '/about' | '/killer' | '/x01'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/x01'
-  id: '__root__' | '/' | '/x01'
+  to: '/' | '/about' | '/killer' | '/x01'
+  id: '__root__' | '/' | '/about' | '/killer' | '/x01'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  KillerRoute: typeof KillerRoute
   X01Route: typeof X01Route
 }
 
@@ -56,6 +76,20 @@ declare module '@tanstack/react-router' {
       path: '/x01'
       fullPath: '/x01'
       preLoaderRoute: typeof X01RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/killer': {
+      id: '/killer'
+      path: '/killer'
+      fullPath: '/killer'
+      preLoaderRoute: typeof KillerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +104,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  KillerRoute: KillerRoute,
   X01Route: X01Route,
 }
 export const routeTree = rootRouteImport
