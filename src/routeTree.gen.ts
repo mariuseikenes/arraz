@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as X01RouteImport } from './routes/x01'
 import { Route as TosRouteImport } from './routes/tos'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as KillerRouteImport } from './routes/killer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -30,11 +29,6 @@ const TosRoute = TosRouteImport.update({
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KillerRoute = KillerRouteImport.update({
-  id: '/killer',
-  path: '/killer',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -57,7 +51,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
@@ -66,7 +59,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
@@ -76,36 +68,20 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/killer'
-    | '/privacy-policy'
-    | '/tos'
-    | '/x01'
+  fullPaths: '/' | '/about' | '/contact' | '/privacy-policy' | '/tos' | '/x01'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/contact'
-    | '/killer'
-    | '/privacy-policy'
-    | '/tos'
-    | '/x01'
+  to: '/' | '/about' | '/contact' | '/privacy-policy' | '/tos' | '/x01'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
-    | '/killer'
     | '/privacy-policy'
     | '/tos'
     | '/x01'
@@ -115,7 +91,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
-  KillerRoute: typeof KillerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
@@ -142,13 +117,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/killer': {
-      id: '/killer'
-      path: '/killer'
-      fullPath: '/killer'
-      preLoaderRoute: typeof KillerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -179,7 +147,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
-  KillerRoute: KillerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TosRoute: TosRoute,
   X01Route: X01Route,

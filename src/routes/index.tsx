@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Gamebutton from "../components/Gamebutton.tsx"
-import { Github, LucideMail } from 'lucide-react'
+import { Github } from 'lucide-react'
 import { Button } from '@/components/ui/button.tsx'
 export const Route = createFileRoute('/')({
   component: App,

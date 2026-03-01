@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Switch } from "@/components/ui/switch";
 import { Plus, X } from "lucide-react";
-import InteractiveDartboard from "../components/InteractiveDartboard"; // Import your new component
+import InteractiveDartboard from "../components/InteractiveDartboard"; 
 
 import Dart from "../logo.svg?react";
 
