@@ -29,6 +29,10 @@ function App() {
         <a href="/about"><Button className='border-light-charcoal border' variant={"default"}> About </Button></a>
         </div>
         <hr /> 
+       <div className='inline-flex gap-2 justify-center'> 
+        <a href="/tos"><Button className='border-light-charcoal border' variant={"default"}> Terms of Service </Button></a>
+        <a href="/privacy-policy"><Button className='border-light-charcoal border' variant={"default"}> Privacy </Button></a>
+        </div>
         <p className='inline-flex gap-2 items-center justify-center'>
          <LucideMail /> hello@mariuseikenes.com
         </p>

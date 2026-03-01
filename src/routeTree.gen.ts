@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as X01RouteImport } from './routes/x01'
+import { Route as TosRouteImport } from './routes/tos'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as KillerRouteImport } from './routes/killer'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -17,6 +19,16 @@ import { Route as IndexRouteImport } from './routes/index'
 const X01Route = X01RouteImport.update({
   id: '/x01',
   path: '/x01',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TosRoute = TosRouteImport.update({
+  id: '/tos',
+  path: '/tos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KillerRoute = KillerRouteImport.update({
@@ -39,12 +51,16 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/killer': typeof KillerRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/tos': typeof TosRoute
   '/x01': typeof X01Route
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/killer': typeof KillerRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/tos': typeof TosRoute
   '/x01': typeof X01Route
 }
 export interface FileRoutesById {
@@ -52,20 +68,31 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/killer': typeof KillerRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/tos': typeof TosRoute
   '/x01': typeof X01Route
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/killer' | '/x01'
+  fullPaths: '/' | '/about' | '/killer' | '/privacy-policy' | '/tos' | '/x01'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/killer' | '/x01'
-  id: '__root__' | '/' | '/about' | '/killer' | '/x01'
+  to: '/' | '/about' | '/killer' | '/privacy-policy' | '/tos' | '/x01'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/killer'
+    | '/privacy-policy'
+    | '/tos'
+    | '/x01'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   KillerRoute: typeof KillerRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  TosRoute: typeof TosRoute
   X01Route: typeof X01Route
 }
 
@@ -76,6 +103,20 @@ declare module '@tanstack/react-router' {
       path: '/x01'
       fullPath: '/x01'
       preLoaderRoute: typeof X01RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tos': {
+      id: '/tos'
+      path: '/tos'
+      fullPath: '/tos'
+      preLoaderRoute: typeof TosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/killer': {
@@ -106,6 +147,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   KillerRoute: KillerRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  TosRoute: TosRoute,
   X01Route: X01Route,
 }
 export const routeTree = rootRouteImport
