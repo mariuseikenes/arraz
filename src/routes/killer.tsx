@@ -25,6 +25,18 @@ import {
 } from "@/components/ui/dialog";
 export const Route = createFileRoute("/killer")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        title: "Killer Darts Scorekeeping",
+      },
+      {
+        name: "description",
+        content:
+          "Scorekeeping for the Darts-game Killer. Gain lives and eliminate your opponents to be the last one standing!",
+      },
+    ],
+  }),
 });
 
 type Player = {

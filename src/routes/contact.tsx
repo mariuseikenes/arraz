@@ -12,6 +12,13 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/contact')({
   component: ContactComponent,
+    head: () => ({
+    meta: [
+      {
+        title: "Contact"
+      }
+    ]
+  })
 });
 
 function ContactComponent() {

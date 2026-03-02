@@ -10,6 +10,13 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/about')({
   component: AboutComponent,
+    head: () => ({
+    meta: [
+      {
+        title: "About Arraz"
+      }
+    ]
+  })
 });
 
 function AboutComponent() {

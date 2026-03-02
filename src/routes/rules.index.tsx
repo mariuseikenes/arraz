@@ -4,6 +4,17 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/rules/')({
   component: RouteComponent,
+    head: () => ({
+    meta: [
+      {
+        title: "Darts Rulebook"
+      },
+      {
+        name: "description",
+        content: "Learn the rules and how to play various darts games, as well as a handy scorekeeping tool, all in one place!"
+      }
+    ]
+  })
 })
 
 function GameCard({name, link, children}: {link: string; name: string; children: React.ReactNode; }) {

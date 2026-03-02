@@ -10,6 +10,13 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/privacy-policy')({
   component: PrivacyPolicyComponent,
+    head: () => ({
+    meta: [
+      {
+        title: "Privacy Policy"
+      }
+    ]
+  })
 });
 
 function PolicySection({

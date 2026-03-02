@@ -11,6 +11,13 @@ import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/tos')({
   component: TermsOfServiceComponent,
+  head: () => ({
+    meta: [
+      {
+        title: "Terms of Service"
+      }
+    ]
+  })
 });
 
 function TosSection({
