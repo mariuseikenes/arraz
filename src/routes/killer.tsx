@@ -30,15 +30,14 @@ type Throw = {
 };
 
 function RouteComponent() {
-  //const playerNames = localStorage.getItem("playerNames")?.split(",");
-  const playerNames = undefined 
+  const playerNames = localStorage.getItem("playerNames")?.split(",");
   const [players, setPlayers] = useState<Player[]>(
     playerNames
       ? playerNames.map((p) => ({
           name: p,
           id: generateUUID(),
           lives: 0,
-          number: 1,
+          number: Math.ceil(Math.random()*20),
         }))
       : [
           {
@@ -55,7 +54,10 @@ function RouteComponent() {
           },
         ],
   );
-  const [lives, setLives] = useState(3)
+  const [lives, setLives] = useState(
+    localStorage.getItem("killer_lives") != "0" 
+      ? Number(localStorage.getItem("killer_lives")) 
+      : 3)
   const [ready, setReady] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
   const [currentTurn, setCurrentTurn] = useState<Turn>({
@@ -71,6 +73,13 @@ function RouteComponent() {
     );
   };
 
+  const handleUpdatePlayerNumberById = (idToUpdate: string, newNumber: number) => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.map((player) =>
+        player.id === idToUpdate ? { ...player, number: newNumber } : player,
+      ),
+    );
+  };
 
   function handleReady() {
     setReady(true)   
@@ -78,7 +87,11 @@ function RouteComponent() {
       playerId: players[0].id,
       throws: []
     })
+
+    localStorage.setItem("playerNames", players.map(p=>p.name).join(","))
+    localStorage.setItem("killer_lives", String(lives))
   }
+  
 
   if (!ready) {
     return (
@@ -132,6 +145,7 @@ function RouteComponent() {
             <Plus />
             </button>
           </label>
+          <p className="text-gray-400 text-sm">Determine player number by a throw with your non-dominant hand. No two players can share a number.</p>
           {players.map((p) => (
             <div className="inline-flex gap-2" key={p.id}>
               <input
@@ -141,14 +155,23 @@ function RouteComponent() {
                 }}
                 className="bg-text rounded-sm text-bg p-1"
               />
+              <input 
+                value={p.number}
+                type="number"
+                max={20}
+                min={1}
+                onChange={e=>{
+                  handleUpdatePlayerNumberById(p.id, Number(e.target.value))
+                }}
+                className="bg-text rounded-sm text-center text-bg aspect-square w-8" 
+                />
               <button
                 className="text-xl text-text/50 hover:text-text"
                 onClick={() => {
                   setPlayers(players.filter((pl) => pl.id !== p.id));
                 }}
               >
-                {" "}
-                <X />{" "}
+                <X />
               </button>
             </div>
           ))}
@@ -190,20 +213,17 @@ function RouteComponent() {
     });
   }
 
-   const handleBoardClick = (event: React.MouseEvent<HTMLDivElement>) => {
+  function handleBoardClick(event: React.MouseEvent<HTMLDivElement>) {
     if (currentTurn.throws.length >= 3) return;
     const target = event.target as SVGElement;
 
     if (target.id && target.dataset.score && target.dataset.multiplier) {
-      const segmentId = target.id;
       const score = parseInt(target.dataset.score, 10);
-      const multiplier = parseInt(target.dataset.multiplier, 10);
+      let multiplier = parseInt(target.dataset.multiplier, 10);
       let action: "none" | "heal" | "dmg" = "none"
 
-      console.log(`Hit: ${segmentId}`);
       const player = players.find(p=>p.id === currentTurn.playerId)
       if (!player) return;
-      console.log("y")
       if (player.lives === lives) {
         // Can Kill
         const potentialHitPlayer = players.find(p=>p.number===score)
@@ -212,14 +232,19 @@ function RouteComponent() {
           action = "dmg"
         }
       } else if (player.number === score){
-        console.log("life gained")
         action = "heal"
-        setPlayers(prevPlayers=>prevPlayers.map(p=>p.id===player.id ? {...p, lives: p.lives+1} : p))
+        const healAmount = Math.min(multiplier, lives-player.lives)
+        multiplier = healAmount
+        setPlayers(prevPlayers=>prevPlayers.map(p=>p.id===player.id ? {...p, lives: p.lives+healAmount} : p))
       }
       setCurrentTurn(o=>({...o, throws: [...o.throws, {multiplier, score, action }]}))
    }
   };
 
+  function handleMiss() {
+    if (currentTurn.throws.length === 3) return;
+    setCurrentTurn(o=>({...o, throws: [...o.throws, {score: 0, multiplier: 0, action: "none"}]}))
+  }
 
   function handleDeleteLast() {
     if (!currentTurn || currentTurn.throws.length === 0) {
@@ -235,6 +260,13 @@ function RouteComponent() {
     const newCurrentTurn = currentTurn.throws.slice(0, -1);
 
    setCurrentTurn(o=>({...o, throws: newCurrentTurn}));
+   if (lastThrow.action === "heal") {
+    decreasePlayerHealth(currentTurn.playerId, lastThrow.multiplier)
+    } else if (lastThrow.action === "dmg") {
+      setPlayers(prevPlayers=>{
+        return prevPlayers.map(p=>p.number === lastThrow.score ? {...p, lives: p.lives+lastThrow.multiplier} : p)
+      })
+    }
  }
 
   const activePlayer = players.find((p) => p.id === currentTurn?.playerId);
@@ -296,7 +328,7 @@ function RouteComponent() {
               </div>
         
         </div>
-        <div className='flex flex-col gap-1'>
+        <div className='flex flex-col px-2 gap-1'>
           {players.map(p=>{
             return (
               <div className={`inline-flex gap-2 ${p.lives < 0 ? "opacity-30" : ""}`}  >
@@ -314,6 +346,7 @@ function RouteComponent() {
             )
           })}
         </div>
+        <div className='flex flex-col gap-2 mt-2'>
           <Button
             variant="default"
             disabled={
@@ -323,26 +356,23 @@ function RouteComponent() {
             size="lg"
             onClick={handleNextPlayer}
           >
-            {" "}
-            Next{" "}
+            Next
           </Button>
           <Button
             variant="destructive"
             className={`border w-1/2 m-auto`}
-            onClick={()=>{}}
+            onClick={()=>handleMiss()}
             size="lg"
           >
-            {" "}
-            Miss{" "}
+            Miss
           </Button>
           <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}>
-            {" "}
-            Undo Last{" "}
+            Undo Last
           </Button>
- 
+        </div>
       </div>
 
-
+      <GameOverDialog players={players} gameOver={isGameOver} />
     </div> 
   )
  }
@@ -354,13 +384,15 @@ function GameOverDialog({
   gameOver: boolean;
   players: Player[];
 }) {
+  const [winner] = players.filter(p=>p.lives > -1)
 
   return (
     <Dialog open={gameOver}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle> won!</DialogTitle>
+          <DialogTitle>{winner.name} won!</DialogTitle>
           <DialogDescription>
+            <p>{winner.name} won the game. </p>
             <Button onClick={() => window.location.reload()}>Play Again</Button>
           </DialogDescription>
         </DialogHeader>
