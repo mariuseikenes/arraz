@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Target, BookOpenText, User, Github } from 'lucide-react';
+import { Target, BookOpenText, User, Github, ChevronsRight } from 'lucide-react';
 import {
   Card,
   CardContent,
@@ -66,6 +66,23 @@ function AboutComponent() {
               either bugged, had poor UX or simply outdated. Therefore I created Arraz, and have 
               continued to add more games and features since then, and my interest in darts has grown
               with it.
+              </p>
+            </CardContent>
+          </Card>
+
+          {/* The Future Card */}
+          <Card className="bg-light-charcoal border-inactive text-inherit">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-3">
+                <ChevronsRight className="h-6 w-6 text-accent" />
+                <span>What's next?</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+              There's a lot to write and create surrounding darts. Top priority for now is adding more games, especially
+              the most popular ones like Cricket. I would also like to introduce some practice games - and maybe some 
+              optional stat-keeping linked to an account, but it needs to be done in a way that doesn't make it bloated.
               </p>
             </CardContent>
           </Card>
