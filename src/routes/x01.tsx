@@ -20,6 +20,17 @@ import { setLocalStorageFromObject } from "@/lib/utils.ts";
 
 export const Route = createFileRoute("/x01")({
   component: RouteComponent,
+  head: () => ({
+    meta: [
+      {
+        name: "description",
+        content: "Scorekeeping for the popular dart game 'X01'. Play 301, 501, 701 or 1001 with an interactive dartboard for simple scorekeeping. Configure double ins & outs, legs and sets."
+      },
+      {
+        title: "X01 Scorekeeping Online"
+      }
+    ]
+  })
 });
 
 type Player = {

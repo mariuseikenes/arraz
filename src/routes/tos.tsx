@@ -7,6 +7,7 @@ import {
   RefreshCcw,
   Mail,
 } from 'lucide-react';
+import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/tos')({
   component: TermsOfServiceComponent,
@@ -36,6 +37,11 @@ function TermsOfServiceComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
+        <a href="/" className=""> 
+        <div className='p-2 border w-fit bg-white/10 rounded-md'>
+          <FaLongArrowAltLeft className='text-white' /> 
+        </div>
+        </a>
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             Terms of Service
