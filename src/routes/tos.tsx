@@ -44,7 +44,7 @@ function TermsOfServiceComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" className=""> 
+        <a href="/" className="" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
@@ -56,7 +56,7 @@ function TermsOfServiceComponent() {
           <p className="text-gray-400">Last updated: March 1, 2026</p>
         </header>
 
-        <div className="prose prose-invert prose-p:text-gray-300">
+        <main className="prose prose-invert prose-p:text-gray-300">
           <p className="mb-10 text-lg">
             Welcome to Arraz! These terms and conditions outline the rules and
             regulations for the use of our web application. By accessing and
@@ -124,7 +124,7 @@ function TermsOfServiceComponent() {
               (You can add your contact email or a link to a contact page here).
             </p>
           </TosSection>
-        </div>
+        </main>
       </div>
     </div>
   );

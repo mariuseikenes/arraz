@@ -41,7 +41,7 @@ function RouteComponent() {
   return (
      <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" className=""> 
+        <a href="/" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
@@ -53,7 +53,7 @@ function RouteComponent() {
           </p>
         </header>
       
-       <div className="prose prose-invert prose-p:text-gray-300 prose-a:text-accent">
+       <main className="prose prose-invert prose-p:text-gray-300 prose-a:text-accent">
           <p className="mb-10 text-md">
           Setting up your dartboard correctly is essential for keeping your throwing consistent
           across different setups. The standards set by the WDF (World Darts Federation)
@@ -83,7 +83,7 @@ function RouteComponent() {
           </SetupSection>
 
      
-      </div>
+      </main>
  
       </div>
     </div>

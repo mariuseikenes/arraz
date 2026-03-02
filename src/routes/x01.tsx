@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { setLocalStorageFromObject } from "@/lib/utils.ts";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 
 export const Route = createFileRoute("/x01")({
   component: RouteComponent,
@@ -143,50 +144,53 @@ function RouteComponent() {
 
   if (!ready) {
     return (
-      <div className="flex flex-col p-2 gap-4 items-center w-2/3 mx-auto justify-center">
-        <h1 className="text-3xl text-center font-bold">X01</h1>
+      <main className="flex flex-col p-2 gap-4 items-center w-4/5 md:w-2/3 mx-auto justify-center">
+        
+
+        <a href="/" className="w-full" aria-label='Back'> 
+        <div className='p-2 border w-fit bg-white/10 rounded-md'>
+          <FaLongArrowAltLeft className='text-white' /> 
+        </div>
+        </a>
+      <h1 className="text-3xl text-center font-bold">X01</h1>
 
         <div className="flex flex-col gap-2 w-full">
-          <label className="text-left text-xl font-semibold">
+          <label htmlFor="starting-score" className="text-left text-xl font-semibold">
             Starting Score:
           </label>
-          <ButtonGroup className="border border-accent rounded-md mx-auto">
+          <ButtonGroup id="starting-score" className="border border-accent rounded-md mx-auto">
             <Button
               className={`${isSelectedGoal(301, config) ? "text-bg bg-text border " : ""}`}
               onClick={() => setConfig((old) => ({ ...old, goal: 301 }))}
             >
-              {" "}
-              301{" "}
+              301
             </Button>
             <Button
               className={`${isSelectedGoal(501, config) ? "text-bg bg-text border " : ""}`}
               onClick={() => setConfig((old) => ({ ...old, goal: 501 }))}
             >
-              {" "}
-              501{" "}
+              501
             </Button>
             <Button
               className={`${isSelectedGoal(701, config) ? "text-bg bg-text border " : ""}`}
               onClick={() => setConfig((old) => ({ ...old, goal: 701 }))}
             >
-              {" "}
-              701{" "}
+              701
             </Button>
             <Button
               className={`${isSelectedGoal(1001, config) ? "text-bg bg-text border" : ""}`}
               onClick={() => setConfig((old) => ({ ...old, goal: 1001 }))}
             >
-              {" "}
-              1001{" "}
+              1001
             </Button>
           </ButtonGroup>
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="text-xl font-semibold">Double Ins & Outs</label>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left">Double In: </label>
+            <label className="text-left" htmlFor="double-in">Double In: </label>
             <Switch
-              className=""
+              id="double-in"
               onCheckedChange={(checked) =>
                 setConfig((old) => ({ ...old, doublein: checked }))
               }
@@ -194,9 +198,9 @@ function RouteComponent() {
             />
           </div>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left">Double Out: </label>
+            <label className="text-left" htmlFor="double-out">Double Out: </label>
             <Switch
-              className=""
+              id="double-out"
               onCheckedChange={(checked) =>
                 setConfig((old) => ({ ...old, doubleout: checked }))
               }
@@ -207,9 +211,10 @@ function RouteComponent() {
         <div className="flex flex-col gap-2 w-full">
           <label className="text-xl font-semibold">Legs & Sets</label>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left">Legs: </label>
+            <label className="text-left" htmlFor="legs">Legs: </label>
 
             <input
+              id="legs"
               type="number"
               className="bg-text rounded-sm text-center active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
               onChange={(e) =>
@@ -219,9 +224,10 @@ function RouteComponent() {
             />
           </div>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left">Sets: </label>
+            <label className="text-left" htmlFor="sets">Sets: </label>
             <input
               type="number"
+              id="sets"
               className="bg-text text-center rounded-sm active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
               onChange={(e) =>
                 setConfig((old) => ({ ...old, sets: Number(e.target.value) }))
@@ -246,14 +252,15 @@ function RouteComponent() {
                   },
                 ]);
               }}
+              aria-label="Add Player"
             >
-              {" "}
-              <Plus />{" "}
-            </button>{" "}
+              <Plus />
+            </button>
           </label>
           {players.map((p) => (
             <div className="inline-flex gap-2" key={p.id}>
               <input
+                aria-label="Player Name"
                 value={p.name}
                 onChange={(e) => {
                   handleUpdatePlayerNameById(p.id, e.target.value);
@@ -261,13 +268,13 @@ function RouteComponent() {
                 className="bg-text rounded-sm text-bg p-1"
               />
               <button
+                aria-label="Remove Player"
                 className="text-xl text-text/50 hover:text-text"
                 onClick={() => {
                   setPlayers(players.filter((pl) => pl.id !== p.id));
                 }}
               >
-                {" "}
-                <X />{" "}
+                <X />
               </button>
             </div>
           ))}
@@ -278,10 +285,9 @@ function RouteComponent() {
           className="w-full p-8 mt-8 shadow-accent shadow-md border border-accent active:translate-y-1 active:shadow-none text-xl"
           onClick={() => handleReady()}
         >
-          {" "}
-          Play{" "}
+          Play
         </Button>
-      </div>
+      </main>
     );
   }
 

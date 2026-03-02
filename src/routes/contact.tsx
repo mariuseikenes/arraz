@@ -25,7 +25,7 @@ function ContactComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" className=""> 
+        <a href="/" className="" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
@@ -37,7 +37,7 @@ function ContactComponent() {
             better.
           </p>
         </header>
-
+        <main>
         <Card className="bg-light-charcoal border-inactive text-center">
           <CardHeader>
             <CardTitle className="text-3xl text-white">Contact Us</CardTitle>
@@ -88,6 +88,7 @@ function ContactComponent() {
             </div>
           </div>
         </section>
+        </main>
       </div>
     </div>
   );

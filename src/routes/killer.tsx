@@ -23,6 +23,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 export const Route = createFileRoute("/killer")({
   component: RouteComponent,
   head: () => ({
@@ -126,38 +127,42 @@ function RouteComponent() {
 
   if (!ready) {
     return (
-      <div className="flex flex-col p-2 gap-4 md:w-lg items-center w-2/3 mx-auto justify-center">
-        <h1 className="text-3xl text-center font-bold">Killer</h1>
+      <main className="flex flex-col p-2 gap-4 md:w-lg items-center w-4/5 mx-auto justify-center">
+        
+        <a href="/" aria-label='Back' className="w-full"> 
+        <div className='p-2 border w-fit bg-white/10 rounded-md'>
+          <FaLongArrowAltLeft className='text-white' /> 
+        </div>
+        </a>
+      <h1 className="text-3xl text-center font-bold">Killer</h1>
         <div className="flex flex-col gap-2 w-full">
-          <label className="text-left text-xl font-semibold">Lives:</label>
-          <ButtonGroup className="border border-accent rounded-md mx-auto">
+          <label className="text-left text-xl font-semibold" htmlFor="lives">Lives:</label>
+          <ButtonGroup className="border border-accent rounded-md mx-auto" id="lives">
             <Button
               className={`${lives === 3 ? "text-bg bg-text border " : ""}`}
               onClick={() => setLives(3)}
             >
-              {" "}
-              3{" "}
+              3
             </Button>
             <Button
               className={`${lives === 5 ? "text-bg bg-text border " : ""}`}
               onClick={() => setLives(5)}
             >
-              {" "}
-              5{" "}
+              5
             </Button>
             <Button
               className={`${lives === 7 ? "text-bg bg-text border " : ""}`}
               onClick={() => setLives(7)}
             >
-              {" "}
-              7{" "}
+              7
             </Button>
           </ButtonGroup>
         </div>
         <div className="flex flex-col gap-2 w-full">
           <label className="text-xl font-semibold inline-flex justify-between">
-            Players{" "}
+            Players
             <button
+              aria-label="Add Player"
               className="bg-text text-bg w-8 h-8 font-normal rounded-sm flex items-center justify-center text-xs"
               onClick={() => {
                 setPlayers([
@@ -181,6 +186,7 @@ function RouteComponent() {
           {players.map((p) => (
             <div className="inline-flex gap-2" key={p.id}>
               <input
+                aria-label="Player Name"
                 value={p.name}
                 onChange={(e) => {
                   handleUpdatePlayerNameById(p.id, e.target.value);
@@ -190,6 +196,7 @@ function RouteComponent() {
               <input
                 value={p.number}
                 type="number"
+                aria-label="Board Section"
                 max={20}
                 min={1}
                 onChange={(e) => {
@@ -198,6 +205,7 @@ function RouteComponent() {
                 className="bg-text rounded-sm text-center text-bg aspect-square w-8"
               />
               <button
+                aria-label="Remove Player"
                 className="text-xl text-text/50 hover:text-text"
                 onClick={() => {
                   setPlayers(players.filter((pl) => pl.id !== p.id));
@@ -214,10 +222,9 @@ function RouteComponent() {
           className="w-full p-8 mt-8 shadow-accent shadow-md border border-accent active:translate-y-1 active:shadow-none text-xl"
           onClick={() => handleReady()}
         >
-          {" "}
-          Play{" "}
+          Play
         </Button>
-      </div>
+      </main>
     );
   }
 

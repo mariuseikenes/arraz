@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/rules/x01')({
   component: X01RulesComponent,
@@ -58,6 +59,12 @@ function X01RulesComponent() {
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
+
+        <a href="/" aria-label='Back' className=""> 
+        <div className='p-2 border w-fit bg-white/10 rounded-md'>
+          <FaLongArrowAltLeft className='text-white' /> 
+        </div>
+        </a>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             How to Play X01 Darts
           </h1>
@@ -65,7 +72,7 @@ function X01RulesComponent() {
             The complete guide to the most popular family of dart games, from 501 to 301.
           </p>
         </header>
-
+        <main>
         <RuleSection title="The Objective" icon={Goal}>
           <p>
             The goal of any X01 game is simple: be the first player to reach exactly zero from a starting score (like 501 or 301). The final dart thrown to win must land in a double segment.
@@ -144,7 +151,8 @@ function X01RulesComponent() {
         </RuleSection>
         <a href="/x01">
           <div className='mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2'>Play Now</div>
-        </a>  
+        </a>
+        </main>
       </div>
     </div>
   );

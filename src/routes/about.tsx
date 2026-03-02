@@ -23,7 +23,7 @@ function AboutComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <a href="/" className=""> 
+        <a href="/" aria-label="Back" className=""> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
@@ -39,7 +39,7 @@ function AboutComponent() {
         </header>
 
         {/* Content Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-200">
+        <main className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-200">
           {/* Our Mission Card */}
           <Card className="bg-light-charcoal border-inactive text-inherit">
             <CardHeader>
@@ -122,13 +122,12 @@ function AboutComponent() {
             <CardContent>
               <p>
                 Arraz is open source! Any contributions are highly appreciated. 
-                You can find the repo <a className='underline' href='https://github.com/mariuseikenes/arraz'>here</a>. Starring it would also be of 
+                You can find the repo <a className='underline' href='https://github.com/mariuseikenes/arraz'>on GitHub</a>. Starring it would also be of 
                 great help to me!
               </p>
             </CardContent>
           </Card>
-
-          </div>
+          </main>
       </div>
     </div>
   );

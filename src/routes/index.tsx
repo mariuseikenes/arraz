@@ -9,8 +9,9 @@ function App() {
   return (
     <div className="text-center p-8">
       <h1 className='text-3xl'>Welcome to <span className='text-accent font-bold'>Arraz</span>!</h1> 
-      <div className="flex flex-col mt-8 gap-4">
-        <h3 className="text-xl font-semibold"> Choose your game: </h3>
+      <div>
+      <main className="flex flex-col my-8 gap-4">
+        <h2 className="text-xl font-semibold"> Choose your game: </h2>
         <Gamebutton gamename="X01" description="The classic. Choose between 1001 / 701 / 501 / 301"/>
         <Gamebutton gamename="Killer" description="Eliminate your opponents"/>
 
@@ -35,7 +36,8 @@ function App() {
                 Learn the rules of all the games available on Arraz.
               </p>
             </a>
-        </div>
+          </div>
+        </main>
         <footer className='flex flex-col'>
         <p className='inline-flex text-gray-400 gap-2 items-center justify-center underline'>
          <Github /> <a href="https://github.com/mariuseikenes/arraz">I'm open source!</a>

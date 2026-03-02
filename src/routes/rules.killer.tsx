@@ -8,6 +8,7 @@ import {
   Trophy,
   Lightbulb,
 } from 'lucide-react';
+import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/rules/killer')({
   component: KillerRulesComponent,
@@ -51,6 +52,11 @@ function KillerRulesComponent() {
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
+        <a href="/" aria-label='Back' className=""> 
+        <div className='p-2 border w-fit bg-white/10 rounded-md'>
+          <FaLongArrowAltLeft className='text-white' /> 
+        </div>
+        </a>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             How to Play Killer
           </h1>
@@ -58,7 +64,7 @@ function KillerRulesComponent() {
             A fun, competitive multiplayer game of elimination. Ideal for 3 or more players.
           </p>
         </header>
-
+        <main>
         <RuleSection title="The Objective" icon={Swords}>
           <p>
             The goal of Killer is to be the last player standing. Players first
@@ -153,7 +159,8 @@ function KillerRulesComponent() {
 
         <a href="/killer">
           <div className='mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2'>Play Now</div>
-        </a>  
+        </a>
+        </main>
       </div>
     </div>
   );
