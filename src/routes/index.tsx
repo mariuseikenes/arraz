@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Gamebutton from "../components/Gamebutton.tsx"
-import {  Github, Target } from 'lucide-react'
+import {  BookOpen, Github, Target } from 'lucide-react'
 export const Route = createFileRoute('/')({
   component: App,
 })
@@ -26,6 +26,15 @@ function App() {
               </p>
             </a>
 
+          <a href="/rules" className="bg-light-charcoal p-6 rounded-lg border border-inactive">
+            <div className="inline-flex gap-2 w-full items-center">
+              <BookOpen className="h-10 w-10 text-accent" />
+              <h3 className="text-xl font-bold">Rulebook</h3>
+            </div>
+              <p className="text-gray-400 text-left text-md">
+                Learn the rules of all the games available on Arraz.
+              </p>
+            </a>
         </div>
         <footer className='flex flex-col'>
         <p className='inline-flex text-gray-400 gap-2 items-center justify-center underline'>

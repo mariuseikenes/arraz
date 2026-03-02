@@ -17,6 +17,9 @@ import { Route as KillerRouteImport } from './routes/killer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RulesIndexRouteImport } from './routes/rules.index'
+import { Route as RulesX01RouteImport } from './routes/rules.x01'
+import { Route as RulesKillerRouteImport } from './routes/rules.killer'
 
 const X01Route = X01RouteImport.update({
   id: '/x01',
@@ -58,6 +61,21 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RulesIndexRoute = RulesIndexRouteImport.update({
+  id: '/rules/',
+  path: '/rules/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RulesX01Route = RulesX01RouteImport.update({
+  id: '/rules/x01',
+  path: '/rules/x01',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RulesKillerRoute = RulesKillerRouteImport.update({
+  id: '/rules/killer',
+  path: '/rules/killer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +86,9 @@ export interface FileRoutesByFullPath {
   '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/rules/killer': typeof RulesKillerRoute
+  '/rules/x01': typeof RulesX01Route
+  '/rules/': typeof RulesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +99,9 @@ export interface FileRoutesByTo {
   '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/rules/killer': typeof RulesKillerRoute
+  '/rules/x01': typeof RulesX01Route
+  '/rules': typeof RulesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +113,9 @@ export interface FileRoutesById {
   '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/rules/killer': typeof RulesKillerRoute
+  '/rules/x01': typeof RulesX01Route
+  '/rules/': typeof RulesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +128,9 @@ export interface FileRouteTypes {
     | '/setup'
     | '/tos'
     | '/x01'
+    | '/rules/killer'
+    | '/rules/x01'
+    | '/rules/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +141,9 @@ export interface FileRouteTypes {
     | '/setup'
     | '/tos'
     | '/x01'
+    | '/rules/killer'
+    | '/rules/x01'
+    | '/rules'
   id:
     | '__root__'
     | '/'
@@ -121,6 +154,9 @@ export interface FileRouteTypes {
     | '/setup'
     | '/tos'
     | '/x01'
+    | '/rules/killer'
+    | '/rules/x01'
+    | '/rules/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +168,9 @@ export interface RootRouteChildren {
   SetupRoute: typeof SetupRoute
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
+  RulesKillerRoute: typeof RulesKillerRoute
+  RulesX01Route: typeof RulesX01Route
+  RulesIndexRoute: typeof RulesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +231,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rules/': {
+      id: '/rules/'
+      path: '/rules'
+      fullPath: '/rules/'
+      preLoaderRoute: typeof RulesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rules/x01': {
+      id: '/rules/x01'
+      path: '/rules/x01'
+      fullPath: '/rules/x01'
+      preLoaderRoute: typeof RulesX01RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rules/killer': {
+      id: '/rules/killer'
+      path: '/rules/killer'
+      fullPath: '/rules/killer'
+      preLoaderRoute: typeof RulesKillerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +264,9 @@ const rootRouteChildren: RootRouteChildren = {
   SetupRoute: SetupRoute,
   TosRoute: TosRoute,
   X01Route: X01Route,
+  RulesKillerRoute: RulesKillerRoute,
+  RulesX01Route: RulesX01Route,
+  RulesIndexRoute: RulesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
