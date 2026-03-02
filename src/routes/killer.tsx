@@ -340,7 +340,7 @@ function RouteComponent() {
               <p className={`${p.name === activePlayer?.name ? "text-accent" : ""}`}>{p.name} ({p.number}):</p> 
                 {new Array(lives)
                       .fill("")
-                      .map((v, i)=><LucideHeart className={`${i < p.lives ? "text-secondary" : "text-secondary/40"}`
+                      .map((_v, i)=><LucideHeart className={`${i < p.lives ? "text-secondary" : "text-secondary/40"}`
                 } />)}
               </div>
             )
