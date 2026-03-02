@@ -11,7 +11,8 @@ function App() {
       <h1 className='text-3xl'>Welcome to <span className='text-accent font-bold'>Arraz</span>!</h1> 
       <div className="flex flex-col mt-8 gap-4">
         <h3 className="text-xl font-semibold"> Choose your game: </h3>
-        <Gamebutton gamename="X01" description="1001 / 701 / 501 / 301"/>
+        <Gamebutton gamename="X01" description="The classic. Choose between 1001 / 701 / 501 / 301"/>
+        <Gamebutton gamename="Killer" description="Eliminate your opponents"/>
 
         <hr />
         <div className='flex flex-row flex-wrap justify-center gap-2'>
