@@ -1,4 +1,4 @@
-import OriginalDartboard from '../darboard.svg?react';
+import OriginalDartboard from '../dartboard.svg?react';
 
 export default function InteractiveDartboard() {
   // This is the same logic as your `modifySvgChildren` function,
