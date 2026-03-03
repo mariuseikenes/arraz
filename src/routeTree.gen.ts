@@ -17,7 +17,8 @@ import { Route as KillerRouteImport } from './routes/killer'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as RulesIndexRouteImport } from './routes/rules.index'
+import { Route as RulesIndexRouteImport } from './routes/rules/index'
+import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
 
 const X01Route = X01RouteImport.update({
@@ -65,6 +66,11 @@ const RulesIndexRoute = RulesIndexRouteImport.update({
   path: '/rules/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesIndexRoute = GuidesIndexRouteImport.update({
+  id: '/guides/',
+  path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
   id: '/rules/$ruleId',
   path: '/rules/$ruleId',
@@ -81,6 +87,7 @@ export interface FileRoutesByFullPath {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
 }
 export interface FileRoutesByTo {
@@ -93,6 +100,7 @@ export interface FileRoutesByTo {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
 }
 export interface FileRoutesById {
@@ -106,6 +114,7 @@ export interface FileRoutesById {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
 }
 export interface FileRouteTypes {
@@ -120,6 +129,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/rules/$ruleId'
+    | '/guides/'
     | '/rules/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -132,6 +142,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/rules/$ruleId'
+    | '/guides'
     | '/rules'
   id:
     | '__root__'
@@ -144,6 +155,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/rules/$ruleId'
+    | '/guides/'
     | '/rules/'
   fileRoutesById: FileRoutesById
 }
@@ -157,6 +169,7 @@ export interface RootRouteChildren {
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
   RulesRuleIdRoute: typeof RulesRuleIdRoute
+  GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
 }
 
@@ -225,6 +238,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/': {
+      id: '/guides/'
+      path: '/guides'
+      fullPath: '/guides/'
+      preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rules/$ruleId': {
       id: '/rules/$ruleId'
       path: '/rules/$ruleId'
@@ -245,6 +265,7 @@ const rootRouteChildren: RootRouteChildren = {
   TosRoute: TosRoute,
   X01Route: X01Route,
   RulesRuleIdRoute: RulesRuleIdRoute,
+  GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,
 }
 export const routeTree = rootRouteImport
