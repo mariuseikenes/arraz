@@ -1,14 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
 import { Switch } from "@/components/ui/switch";
-import { Plus, X } from "lucide-react";
-import InteractiveDartboard from "../components/InteractiveDartboard"; 
-
-import Dart from "../logo.svg?react";
-
-import { generateUUID } from "../lib/uuid.ts";
 import {
   Dialog,
   DialogContent,
@@ -16,8 +11,15 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { setLocalStorageFromObject } from "@/lib/utils.ts";
+
+import { Plus, X } from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
+import Dart from "../logo.svg?react";
+
+import InteractiveDartboard from "../components/InteractiveDartboard";
+
+import { generateUUID } from "@/lib/uuid.ts";
+import localStorageHelper from "@/lib/localStorageHelper.ts";
 
 export const Route = createFileRoute("/x01")({
   component: RouteComponent,
@@ -25,13 +27,14 @@ export const Route = createFileRoute("/x01")({
     meta: [
       {
         name: "description",
-        content: "Scorekeeping for the popular dart game 'X01'. Play 301, 501, 701 or 1001 with an interactive dartboard for simple scorekeeping. Configure double ins & outs, legs and sets."
+        content:
+          "Scorekeeping for the popular dart game 'X01'. Play 301, 501, 701 or 1001 with an interactive dartboard for simple scorekeeping. Configure double ins & outs, legs and sets.",
       },
       {
-        title: "X01 Scorekeeping Online"
-      }
-    ]
-  })
+        title: "X01 Scorekeeping Online",
+      },
+    ],
+  }),
 });
 
 type Player = {
@@ -59,6 +62,11 @@ type Config = {
   sets: number; // first to
 };
 
+type CurrentTurn = {
+  player: Player;
+  throws: Throw[];
+};
+
 type Leg = {
   id: string;
   winnerId: string | null; // player id
@@ -74,16 +82,16 @@ const isSelectedGoal = (goal: number, config: Config) => goal === config.goal;
 
 function RouteComponent() {
   const [config, setConfig] = useState<Config>({
-    goal: Number(localStorage.getItem("goal")) || 501,
-    doubleout: localStorage.getItem("doubleout") === "true" ? true : false,
-    doublein: localStorage.getItem("doublein") === "true" ? true : false,
-    legs: Number(localStorage.getItem("legs")) || 1,
-    sets: Number(localStorage.getItem("sets")) || 1,
+    goal: localStorageHelper.get("x01_goal"),
+    doubleout: localStorageHelper.get("x01_doubleout"),
+    doublein: localStorageHelper.get("x01_doublein"),
+    legs: localStorageHelper.get("x01_legs"),
+    sets: localStorageHelper.get("x01_sets"),
   });
-  const playerNames = localStorage.getItem("playerNames")?.split(",");
+  const playerNames: string[] = localStorageHelper.get("playerNames");
   const [players, setPlayers] = useState<Player[]>(
     playerNames
-      ? playerNames.map((p) => ({
+      ? playerNames.map((p: string) => ({
           name: p,
           rounds: [],
           id: generateUUID(),
@@ -104,9 +112,11 @@ function RouteComponent() {
           },
         ],
   );
-  const [playerTurn, setPlayerTurn] = useState<string>("");
   const [ready, setReady] = useState(false);
-  const [currentTurn, setCurrentTurn] = useState<Throw[]>([]);
+  const [currentTurn, setCurrentTurn] = useState<CurrentTurn>({
+    player: players[0],
+    throws: [],
+  });
   const [currentScore, setCurrentScore] = useState<number>(501);
   const [gameOver, setGameOver] = useState(false);
   const [legEnded, setLegEnded] = useState(false);
@@ -133,32 +143,46 @@ function RouteComponent() {
   };
 
   const handleReady = () => {
-    setLocalStorageFromObject(config);
-    localStorage.setItem("playerNames", players.map(p=>p.name).join(","))
+    localStorageHelper.set("x01_goal", config.goal);
+    localStorageHelper.set("x01_doublein", config.doublein);
+    localStorageHelper.set("x01_doubleout", config.doubleout);
+    localStorageHelper.set("x01_legs", config.legs);
+    localStorageHelper.set("x01_sets", config.sets);
+    localStorageHelper.set(
+      "playerNames",
+      players.map((p) => p.name),
+    );
 
     setReady(true);
     setCurrentScore(config.goal);
     setPlayers(players.map((p) => ({ ...p, score: config.goal })));
-    setPlayerTurn(players[0].id);
+    setCurrentTurn({
+      player: players[0],
+      throws: [],
+    });
   };
 
   if (!ready) {
     return (
       <main className="flex flex-col p-2 gap-4 items-center w-4/5 md:w-2/3 mx-auto justify-center">
-        
-
-        <a href="/" className="w-full" aria-label='Back'> 
-        <div className='p-2 border w-fit bg-white/10 rounded-md'>
-          <FaLongArrowAltLeft className='text-white' /> 
-        </div>
+        <a href="/" className="w-full" aria-label="Back">
+          <div className="p-2 border w-fit bg-white/10 rounded-md">
+            <FaLongArrowAltLeft className="text-white" />
+          </div>
         </a>
-      <h1 className="text-3xl text-center font-bold">X01</h1>
+        <h1 className="text-3xl text-center font-bold">X01</h1>
 
         <div className="flex flex-col gap-2 w-full">
-          <label htmlFor="starting-score" className="text-left text-xl font-semibold">
+          <label
+            htmlFor="starting-score"
+            className="text-left text-xl font-semibold"
+          >
             Starting Score:
           </label>
-          <ButtonGroup id="starting-score" className="border border-accent rounded-md mx-auto">
+          <ButtonGroup
+            id="starting-score"
+            className="border border-accent rounded-md mx-auto"
+          >
             <Button
               className={`${isSelectedGoal(301, config) ? "text-bg bg-text border " : ""}`}
               onClick={() => setConfig((old) => ({ ...old, goal: 301 }))}
@@ -186,9 +210,11 @@ function RouteComponent() {
           </ButtonGroup>
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <label className="text-xl font-semibold">Double Ins & Outs</label>
+          <h2 className="text-xl font-semibold">Double Ins & Outs</h2>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="double-in">Double In: </label>
+            <label className="text-left" htmlFor="double-in">
+              Double In:
+            </label>
             <Switch
               id="double-in"
               onCheckedChange={(checked) =>
@@ -198,7 +224,9 @@ function RouteComponent() {
             />
           </div>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="double-out">Double Out: </label>
+            <label className="text-left" htmlFor="double-out">
+              Double Out:
+            </label>
             <Switch
               id="double-out"
               onCheckedChange={(checked) =>
@@ -209,9 +237,11 @@ function RouteComponent() {
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <label className="text-xl font-semibold">Legs & Sets</label>
+          <h2 className="text-xl font-semibold">Legs & Sets</h2>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="legs">Legs: </label>
+            <label className="text-left" htmlFor="legs">
+              Legs:
+            </label>
 
             <input
               id="legs"
@@ -224,7 +254,9 @@ function RouteComponent() {
             />
           </div>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="sets">Sets: </label>
+            <label className="text-left" htmlFor="sets">
+              Sets:
+            </label>
             <input
               type="number"
               id="sets"
@@ -237,8 +269,8 @@ function RouteComponent() {
           </div>
         </div>
         <div className="flex flex-col gap-2 w-full">
-          <label className="text-xl font-semibold inline-flex justify-between">
-            Players{" "}
+          <h2 className="text-xl font-semibold inline-flex justify-between">
+            Players
             <button
               className="bg-text text-bg w-8 h-8 font-normal rounded-sm flex items-center justify-center text-xs"
               onClick={() => {
@@ -256,7 +288,7 @@ function RouteComponent() {
             >
               <Plus />
             </button>
-          </label>
+          </h2>
           {players.map((p) => (
             <div className="inline-flex gap-2" key={p.id}>
               <input
@@ -292,18 +324,18 @@ function RouteComponent() {
   }
 
   const handleBoardClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (currentTurn.length >= 3 || busted) return;
+    if (currentTurn.throws.length >= 3 || busted) return;
     const target = event.target as SVGElement;
 
     if (target.id && target.dataset.score && target.dataset.multiplier) {
-      const segmentId = target.id;
       const score = parseInt(target.dataset.score, 10);
       const multiplier = parseInt(target.dataset.multiplier, 10);
       const totalPoints = score * multiplier;
 
-      console.log(`Hit: ${segmentId}, Points: ${totalPoints}`);
-
-      setCurrentTurn((prev) => [...prev, { score, multiplier }]);
+      setCurrentTurn((prev) => ({
+        ...prev,
+        throws: [...prev.throws, { score, multiplier }],
+      }));
 
       if (multiplier !== 2 && config.doublein && currentScore === config.goal) {
         return;
@@ -316,37 +348,40 @@ function RouteComponent() {
 
       if (currentScore - totalPoints === 0) {
         if (config.doubleout && multiplier !== 2) return setBusted(true);
+        const winnerId = currentTurn.player.id;
 
         setPlayers((prevPlayers) =>
           prevPlayers.map((player) =>
-            player.id === playerTurn ? { ...player, score: 0 } : player,
+            player.id === currentTurn.player.id
+              ? { ...player, score: 0 }
+              : player,
           ),
         );
 
         const finishedLeg: Leg = {
           ...currentLeg,
-          winnerId: playerTurn,
+          winnerId,
           history: [
             ...currentLeg.history,
             {
-              throws: [...currentTurn, { score, multiplier }],
-              playerId: playerTurn,
+              throws: [...currentTurn.throws, { score, multiplier }],
+              playerId: currentTurn.player.id,
             },
           ],
         };
 
         const legsWonByPlayer =
-          currentSet.legs.filter((l) => l.winnerId === playerTurn).length + 1;
+          currentSet.legs.filter((l) => l.winnerId === winnerId).length + 1;
         const setWon = legsWonByPlayer >= Math.ceil(config.legs / 2);
 
         if (setWon) {
           const finishedSet: Set = {
-            winnerId: playerTurn,
+            winnerId,
             legs: [...currentSet.legs, finishedLeg],
           };
 
           const setsWonByPlayer =
-            sets.filter((s) => s.winnerId === playerTurn).length + 1;
+            sets.filter((s) => s.winnerId === winnerId).length + 1;
           const gameWon = setsWonByPlayer >= Math.ceil(config.sets / 2);
 
           if (gameWon) {
@@ -372,9 +407,11 @@ function RouteComponent() {
   };
 
   const handleMiss = () => {
-    if (currentTurn.length >= 3 || busted) return;
-
-    setCurrentTurn((prev) => [...prev, { score: 0, multiplier: 1 }]);
+    if (currentTurn.throws.length >= 3 || busted) return;
+    setCurrentTurn((prev) => ({
+      ...prev,
+      throws: [...prev.throws, { score: 0, multiplier: 1 }],
+    }));
   };
 
   const handleNewLeg = () => {
@@ -390,8 +427,10 @@ function RouteComponent() {
       history: [],
     });
     setPlayers(players.map((o) => ({ ...o, score: config.goal, rounds: [] })));
-    setPlayerTurn(players[0].id);
-    setCurrentTurn([]);
+    setCurrentTurn({
+      player: players[0],
+      throws: [],
+    });
     setCurrentScore(config.goal);
   };
 
@@ -399,18 +438,20 @@ function RouteComponent() {
     setSetEnded(false);
     setCurrentSet({ winnerId: null, legs: [] });
     setCurrentLeg({ id: generateUUID(), winnerId: null, history: [] });
-    setPlayerTurn(players[0].id);
-    setCurrentTurn([]);
+    setCurrentTurn({
+      player: players[0],
+      throws: [],
+    });
     setCurrentScore(config.goal);
     setPlayers(players.map((o) => ({ ...o, score: config.goal, rounds: [] })));
   };
 
   function handleNextPlayer() {
     setBusted(false);
-    const finishedPlayer = players.find((p) => p.id === playerTurn);
+    const finishedPlayer = players.find((p) => p.id === currentTurn.player.id);
     setPlayers((prevPlayers) =>
       prevPlayers.map((player) =>
-        player.id === playerTurn
+        player.id === currentTurn.player.id
           ? {
               ...player,
               score: busted ? (finishedPlayer?.score ?? 0) : currentScore,
@@ -420,7 +461,9 @@ function RouteComponent() {
     );
 
     const nextIndex =
-      players.indexOf(players.find((p) => p.id === playerTurn) as Player) + 1;
+      players.indexOf(
+        players.find((p) => p.id === currentTurn.player.id) as Player,
+      ) + 1;
     const nextPlayer =
       nextIndex > players.length - 1 ? players[0] : players[nextIndex];
     setCurrentLeg((o) => ({
@@ -429,44 +472,46 @@ function RouteComponent() {
         ...o.history,
         {
           playerId: finishedPlayer?.id || "",
-          throws: currentTurn,
+          throws: currentTurn.throws,
         },
       ],
     }));
-    setCurrentTurn([]);
+    setCurrentTurn({
+      player: nextPlayer,
+      throws: [],
+    });
     setCurrentScore(
-      nextPlayer.id === playerTurn && !busted ? currentScore : nextPlayer.score,
+      nextPlayer.id === currentTurn.player.id && !busted ? currentScore : nextPlayer.score,
     );
-    setPlayerTurn(nextPlayer.id);
   }
   function handleDeleteLast() {
-    if (currentTurn.length === 0) {
+    if (currentTurn.throws.length === 0) {
       return;
     }
 
-    const lastThrow = currentTurn.at(-1);
+    const lastThrow = currentTurn.throws.at(-1);
 
     if (!lastThrow) {
       return;
     }
 
-    const newCurrentTurn = currentTurn.slice(0, -1);
+    const newCurrentTurnThrows = currentTurn.throws.slice(0, -1);
 
     const scoreToRestore =
       currentScore === config.goal ? 0 : lastThrow.multiplier * lastThrow.score;
     const newCurrentScore = currentScore + scoreToRestore;
 
     setCurrentScore(newCurrentScore);
-    setCurrentTurn(newCurrentTurn);
+    setCurrentTurn(o=>({...o, throws: newCurrentTurnThrows}));
 
     if (busted) {
       setBusted(false);
     }
   }
 
-  const activePlayer = players.find((p) => p.id === playerTurn);
+  const activePlayer = players.find((p) => p.id === currentTurn.player.id);
 
-  if (activePlayer?.score === 0) handleNextPlayer();
+  if (!activePlayer || activePlayer.score === 0) handleNextPlayer();
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">
       <div className="flex-row flex md:flex-row justify-between md:w-1/2 md:m-auto">
@@ -474,7 +519,7 @@ function RouteComponent() {
           Leg {currentSet.legs.length + 1}/{config.legs}
         </p>
         <h2 className="w-fit text-2xl font-bold text-center">
-          {players.find((p) => p.id === playerTurn)?.name}'s turn{" "}
+          {players.find((p) => p.id === currentTurn.player.id)?.name}'s turn
         </h2>
         <p>
           Set {sets.length + 1}/{config.sets}
@@ -499,33 +544,33 @@ function RouteComponent() {
             </div>
             <div className="flex flex-row text-7xl m-auto items-center h-full justify-center">
               <div className="relative flex items-center justify-center">
-                {currentTurn[0] && (
+                {currentTurn.throws[0] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn[0].score * currentTurn[0].multiplier}
+                    {currentTurn.throws[0].score * currentTurn.throws[0].multiplier}
                   </p>
                 )}
                 <Dart
-                  className={`${currentTurn.length >= 1 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
+                  className={`${currentTurn.throws.length >= 1 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
                 />
               </div>
               <div className="relative flex items-center justify-center">
-                {currentTurn[1] && (
+                {currentTurn.throws[1] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn[1].score * currentTurn[1].multiplier}
+                    {currentTurn.throws[1].score * currentTurn.throws[1].multiplier}
                   </p>
                 )}
                 <Dart
-                  className={`${currentTurn.length >= 2 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
+                  className={`${currentTurn.throws.length >= 2 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
                 />
               </div>
               <div className="relative flex items-center justify-center">
-                {currentTurn[2] && (
+                {currentTurn.throws[2] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn[2].score * currentTurn[2].multiplier}
+                    {currentTurn.throws[2].score * currentTurn.throws[2].multiplier}
                   </p>
                 )}
                 <Dart
-                  className={`${currentTurn.length >= 3 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
+                  className={`${currentTurn.throws.length >= 3 ? "opacity-30" : ""} ${busted ? "text-red-500" : ""} h-20 w-auto`}
                 />
               </div>
             </div>
@@ -533,14 +578,13 @@ function RouteComponent() {
           <Button
             variant="default"
             disabled={
-              currentTurn.length !== 3 && !busted && activePlayer?.score !== 0
+              currentTurn.throws.length !== 3 && !busted && activePlayer?.score !== 0
             }
-            className={`border ${currentTurn.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent" : "border-secondary"} w-1/2 m-auto`}
+            className={`border ${currentTurn.throws.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent" : "border-secondary"} w-1/2 m-auto`}
             size="lg"
             onClick={handleNextPlayer}
           >
-            {" "}
-            Next{" "}
+            Next
           </Button>
           <Button
             variant="destructive"
@@ -548,12 +592,10 @@ function RouteComponent() {
             onClick={handleMiss}
             size="lg"
           >
-            {" "}
-            Miss{" "}
+            Miss
           </Button>
           <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}>
-            {" "}
-            Undo Last{" "}
+            Undo Last
           </Button>
         </div>
       </div>
