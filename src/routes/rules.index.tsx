@@ -46,10 +46,10 @@ function RouteComponent() {
         </header>
       
       <main className='flex flex-col gap-2'>
-        <GameCard name="X01" link="x01">
+        <GameCard name="X01" link="how-to-play-x01">
          Be the first to reach 0 points without going over.
          </GameCard>
-        <GameCard name="Killer" link="killer">
+        <GameCard name="Killer" link="how-to-play-killer">
           Eliminate other players and be the last one standing. 
         </GameCard>
       </main>
