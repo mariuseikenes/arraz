@@ -24,6 +24,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { FaLongArrowAltLeft } from "react-icons/fa";
+import localStorageHelper from "@/lib/localStorageHelper";
 export const Route = createFileRoute("/killer")({
   component: RouteComponent,
   head: () => ({
@@ -59,10 +60,10 @@ type Throw = {
 };
 
 function RouteComponent() {
-  const playerNames = localStorage.getItem("playerNames")?.split(",");
+  const playerNames = localStorageHelper.get("playerNames");
   const [players, setPlayers] = useState<Player[]>(
     playerNames
-      ? playerNames.map((p) => ({
+      ? playerNames.map((p: string) => ({
           name: p,
           id: generateUUID(),
           lives: 0,
@@ -121,7 +122,7 @@ function RouteComponent() {
       throws: [],
     });
 
-    localStorage.setItem("playerNames", players.map((p) => p.name).join(","));
+    localStorageHelper.set("playerNames", players.map((p) => p.name));
     localStorage.setItem("killer_lives", String(lives));
   }
 
