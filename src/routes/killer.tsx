@@ -260,6 +260,9 @@ function RouteComponent() {
     const target = event.target as SVGElement;
 
     if (target.id && target.dataset.score && target.dataset.multiplier) {
+
+
+      if (target.id === "miss") return handleMiss()
       const score = parseInt(target.dataset.score, 10);
       let multiplier = parseInt(target.dataset.multiplier, 10);
       let action: "none" | "heal" | "dmg" = "none";

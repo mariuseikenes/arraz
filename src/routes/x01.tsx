@@ -239,10 +239,7 @@ function RouteComponent() {
         <div className="flex flex-col gap-2 w-full">
           <h2 className="text-xl font-semibold">Legs & Sets</h2>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="legs">
-              Legs:
-            </label>
-
+            <label className="text-left" htmlFor="legs">Legs: </label>
             <input
               id="legs"
               type="number"
@@ -258,8 +255,8 @@ function RouteComponent() {
               Sets:
             </label>
             <input
-              type="number"
               id="sets"
+              type="number"
               className="bg-text text-center rounded-sm active:border border-accent text-bg w-8 h-8 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none "
               onChange={(e) =>
                 setConfig((old) => ({ ...old, sets: Number(e.target.value) }))
@@ -268,10 +265,11 @@ function RouteComponent() {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2 w-full">
+        <div className="flex flex-col gap-2 w-full mt-2">
           <h2 className="text-xl font-semibold inline-flex justify-between">
             Players
             <button
+              aria-label="Add Player"
               className="bg-text text-bg w-8 h-8 font-normal rounded-sm flex items-center justify-center text-xs"
               onClick={() => {
                 setPlayers([
@@ -284,7 +282,6 @@ function RouteComponent() {
                   },
                 ]);
               }}
-              aria-label="Add Player"
             >
               <Plus />
             </button>
@@ -312,12 +309,14 @@ function RouteComponent() {
           ))}
         </div>
 
+
         <Button
           size="lg"
           className="w-full p-8 mt-8 shadow-accent shadow-md border border-accent active:translate-y-1 active:shadow-none text-xl"
           onClick={() => handleReady()}
         >
-          Play
+          {" "}
+          Play{" "}
         </Button>
       </main>
     );
@@ -327,6 +326,7 @@ function RouteComponent() {
     if (currentTurn.throws.length >= 3 || busted) return;
     const target = event.target as SVGElement;
 
+    if (target.id === "miss") return handleMiss()
     if (target.id && target.dataset.score && target.dataset.multiplier) {
       const score = parseInt(target.dataset.score, 10);
       const multiplier = parseInt(target.dataset.multiplier, 10);
