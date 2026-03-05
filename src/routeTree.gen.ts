@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as X01RouteImport } from './routes/x01'
 import { Route as TosRouteImport } from './routes/tos'
-import { Route as SetupRouteImport } from './routes/setup'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as KillerRouteImport } from './routes/killer'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -20,6 +19,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
+import { Route as GuidesTestRouteImport } from './routes/guides/test'
+import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
 
 const X01Route = X01RouteImport.update({
   id: '/x01',
@@ -29,11 +30,6 @@ const X01Route = X01RouteImport.update({
 const TosRoute = TosRouteImport.update({
   id: '/tos',
   path: '/tos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SetupRoute = SetupRouteImport.update({
-  id: '/setup',
-  path: '/setup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -76,6 +72,16 @@ const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
   path: '/rules/$ruleId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesTestRoute = GuidesTestRouteImport.update({
+  id: '/guides/test',
+  path: '/guides/test',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GuidesDartboardSetupRoute = GuidesDartboardSetupRouteImport.update({
+  id: '/guides/dartboard-setup',
+  path: '/guides/dartboard-setup',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -83,9 +89,10 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -96,9 +103,10 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
@@ -110,9 +118,10 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/setup': typeof SetupRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
+  '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -125,9 +134,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/killer'
     | '/privacy-policy'
-    | '/setup'
     | '/tos'
     | '/x01'
+    | '/guides/dartboard-setup'
+    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -138,9 +148,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/killer'
     | '/privacy-policy'
-    | '/setup'
     | '/tos'
     | '/x01'
+    | '/guides/dartboard-setup'
+    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides'
     | '/rules'
@@ -151,9 +162,10 @@ export interface FileRouteTypes {
     | '/contact'
     | '/killer'
     | '/privacy-policy'
-    | '/setup'
     | '/tos'
     | '/x01'
+    | '/guides/dartboard-setup'
+    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -165,9 +177,10 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   KillerRoute: typeof KillerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  SetupRoute: typeof SetupRoute
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
+  GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
+  GuidesTestRoute: typeof GuidesTestRoute
   RulesRuleIdRoute: typeof RulesRuleIdRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
@@ -187,13 +200,6 @@ declare module '@tanstack/react-router' {
       path: '/tos'
       fullPath: '/tos'
       preLoaderRoute: typeof TosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/setup': {
-      id: '/setup'
-      path: '/setup'
-      fullPath: '/setup'
-      preLoaderRoute: typeof SetupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -252,6 +258,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesRuleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/test': {
+      id: '/guides/test'
+      path: '/guides/test'
+      fullPath: '/guides/test'
+      preLoaderRoute: typeof GuidesTestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/guides/dartboard-setup': {
+      id: '/guides/dartboard-setup'
+      path: '/guides/dartboard-setup'
+      fullPath: '/guides/dartboard-setup'
+      preLoaderRoute: typeof GuidesDartboardSetupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -261,9 +281,10 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   KillerRoute: KillerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  SetupRoute: SetupRoute,
   TosRoute: TosRoute,
   X01Route: X01Route,
+  GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
+  GuidesTestRoute: GuidesTestRoute,
   RulesRuleIdRoute: RulesRuleIdRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,

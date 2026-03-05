@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import Gamebutton from "../components/Gamebutton.tsx"
-import {  BookOpen, Github, Target } from 'lucide-react'
+import {  BookAlert, BookCheck,  Github } from 'lucide-react'
 export const Route = createFileRoute('/')({
   component: App,
 })
@@ -17,23 +17,22 @@ function App() {
 
         <hr />
         <div className='flex flex-row flex-wrap justify-center gap-2'>
-          <a href="/setup" className="bg-light-charcoal p-6 rounded-lg border border-inactive">
-            <div className="inline-flex gap-2 w-full items-center">
-              <Target className="h-10 w-10 text-accent" />
-              <h3 className="text-xl font-bold">Board Setup</h3>
-            </div>
-              <p className="text-gray-400 text-left text-md">
-                Learn how to set up your dartboard according to WDF standards.
-              </p>
-            </a>
-
           <a href="/rules" className="bg-light-charcoal p-6 rounded-lg border border-inactive">
             <div className="inline-flex gap-2 w-full items-center">
-              <BookOpen className="h-10 w-10 text-accent" />
+              <BookAlert className="h-10 w-10 text-accent" />
               <h3 className="text-xl font-bold">Rulebook</h3>
             </div>
               <p className="text-gray-400 text-left text-md">
                 Learn the rules of all the games available on Arraz.
+              </p>
+            </a>
+          <a href="/guides" className="bg-light-charcoal p-6 rounded-lg border border-inactive">
+            <div className="inline-flex gap-2 w-full items-center">
+              <BookCheck className="h-10 w-10 text-accent" />
+              <h3 className="text-xl font-bold">Guides</h3>
+            </div>
+              <p className="text-gray-400 text-left text-md">
+                Learn how to set up your dartboard, X01-checkout charts and more.
               </p>
             </a>
           </div>

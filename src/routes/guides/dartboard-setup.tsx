@@ -3,7 +3,7 @@ import {  Ruler, Target } from 'lucide-react';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
 
-export const Route = createFileRoute('/setup')({
+export const Route = createFileRoute('/guides/dartboard-setup')({
   component: RouteComponent,
   head: () => ({
     meta: [{
@@ -41,7 +41,7 @@ function RouteComponent() {
   return (
      <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" aria-label='Back'> 
+        <a href="/guides" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
@@ -71,7 +71,7 @@ function RouteComponent() {
             oche back that additional distance from the wall.
           </SetupSection>
 
-          <img src="setup.png" className="mb-8" alt="Diagram showing the distances for setting up a dartboard."/>
+          <img src="/setup.png" className="mb-8" alt="Diagram showing the distances for setting up a dartboard."/>
  
           <SetupSection title='Dartboard Dimensions' icon={Target}>
             The dimensions of a dartboard in a WDF tournament are highly specific and can be found in the WDF 
