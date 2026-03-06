@@ -13,6 +13,7 @@ function App() {
       <main className="flex flex-col my-8 gap-4">
         <h2 className="text-xl font-semibold"> Choose your game: </h2>
         <Gamebutton gamename="X01" description="The classic. Choose between 1001 / 701 / 501 / 301"/>
+        <Gamebutton gamename="Cricket" description="Strategy meets skill. Open a section to start scoring!"/>
         <Gamebutton gamename="Killer" description="Eliminate your opponents"/>
 
         <hr />
