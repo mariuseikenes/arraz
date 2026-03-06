@@ -52,6 +52,9 @@ function RouteComponent() {
         <GameCard name="Killer" link="how-to-play-killer">
           Eliminate other players and be the last one standing. 
         </GameCard>
+        <GameCard name="Cricket" link="how-to-play-cricket-darts">
+          Open beds to start scoring points.
+        </GameCard>
       </main>
       </div>
     </div>

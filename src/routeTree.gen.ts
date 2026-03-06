@@ -13,13 +13,13 @@ import { Route as X01RouteImport } from './routes/x01'
 import { Route as TosRouteImport } from './routes/tos'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as KillerRouteImport } from './routes/killer'
+import { Route as CricketRouteImport } from './routes/cricket'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
-import { Route as GuidesTestRouteImport } from './routes/guides/test'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
 
 const X01Route = X01RouteImport.update({
@@ -40,6 +40,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const KillerRoute = KillerRouteImport.update({
   id: '/killer',
   path: '/killer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CricketRoute = CricketRouteImport.update({
+  id: '/cricket',
+  path: '/cricket',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -72,11 +77,6 @@ const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
   path: '/rules/$ruleId',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GuidesTestRoute = GuidesTestRouteImport.update({
-  id: '/guides/test',
-  path: '/guides/test',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const GuidesDartboardSetupRoute = GuidesDartboardSetupRouteImport.update({
   id: '/guides/dartboard-setup',
   path: '/guides/dartboard-setup',
@@ -87,12 +87,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
-  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -101,12 +101,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
-  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
@@ -116,12 +116,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
-  '/guides/test': typeof GuidesTestRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -132,12 +132,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cricket'
     | '/killer'
     | '/privacy-policy'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
-    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -146,12 +146,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cricket'
     | '/killer'
     | '/privacy-policy'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
-    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides'
     | '/rules'
@@ -160,12 +160,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/cricket'
     | '/killer'
     | '/privacy-policy'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
-    | '/guides/test'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -175,12 +175,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  CricketRoute: typeof CricketRoute
   KillerRoute: typeof KillerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
-  GuidesTestRoute: typeof GuidesTestRoute
   RulesRuleIdRoute: typeof RulesRuleIdRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
@@ -214,6 +214,13 @@ declare module '@tanstack/react-router' {
       path: '/killer'
       fullPath: '/killer'
       preLoaderRoute: typeof KillerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cricket': {
+      id: '/cricket'
+      path: '/cricket'
+      fullPath: '/cricket'
+      preLoaderRoute: typeof CricketRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -258,13 +265,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesRuleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/guides/test': {
-      id: '/guides/test'
-      path: '/guides/test'
-      fullPath: '/guides/test'
-      preLoaderRoute: typeof GuidesTestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/guides/dartboard-setup': {
       id: '/guides/dartboard-setup'
       path: '/guides/dartboard-setup'
@@ -279,12 +279,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  CricketRoute: CricketRoute,
   KillerRoute: KillerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TosRoute: TosRoute,
   X01Route: X01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
-  GuidesTestRoute: GuidesTestRoute,
   RulesRuleIdRoute: RulesRuleIdRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,
