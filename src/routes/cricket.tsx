@@ -1,26 +1,17 @@
-import InteractiveDartboard from "@/components/InteractiveDartboard";
 import { Button } from "@/components/ui/button";
-import { ButtonGroup } from "@/components/ui/button-group";
 import { generateUUID } from "@/lib/uuid";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowBigRightDash,
   Check,
-  CircleSlash,
+  CircleQuestionMark,
   CircleX,
-  HeartPlus,
-  LucideHeart,
   Minus,
   Plus,
-  Shield,
-  Skull,
   Slash,
-  Sword,
-  Swords,
   X,
 } from "lucide-react";
-import { useState, type Dispatch, type SetStateAction } from "react";
-import Dart from "../logo.svg?react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -39,6 +30,11 @@ import {
   Table,
   TableFooter,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 export const Route = createFileRoute("/cricket")({
   component: RouteComponent,
   head: () => ({
@@ -64,8 +60,6 @@ type Player = {
 type Section = {
   number: number; // 15 - 20, and 25 for bull
   hits: Map<string, number>; // {playerId: hitCount}
-  state: "closed" | "unopened" | "open";
-  ownedBy: string; // playerId
 };
 
 const hitsToSymbol = (hits: number) => {
@@ -112,7 +106,7 @@ function SectionTable({
               <TableCell
                 key={p.id}
                 onClick={() => handler(p, s)}
-                className={`${i + 1 === players.length ? "" : "border-x border-x-inactive"} ${s.state === "closed" ? "text-secondary" : s.ownedBy === p.id ? "text-accent" : "text-white"}`}
+                className={`${i + 1 === players.length ? "" : "border-x border-x-inactive"}`}
               >
                 <div className="w-full flex items-center justify-center">
                   {hitsToSymbol(s.hits.get(p.id) ?? 0)}
@@ -138,44 +132,30 @@ const startingSections: Section[] = [
   {
     number: 15,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 16,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 17,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 18,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 19,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 20,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
   {
     number: 25,
     hits: new Map(),
-    state: "unopened",
-    ownedBy: "",
   },
 ];
 
@@ -206,6 +186,7 @@ function RouteComponent() {
   );
   const [roundsPlayed, setRoundsPlayed] = useState<number>(1);
   const [sections, setSections] = useState<Section[]>(startingSections);
+  const [cutThroat, setCutThroat] = useState(true);
   const [ready, setReady] = useState(false);
   const [mode, setMode] = useState<"add" | "remove">("add");
   const [isGameOver, setIsGameOver] = useState(false);
@@ -249,7 +230,6 @@ function RouteComponent() {
               (use 0 to play until all sections closed)
             </p>
           </div>
-          {/* TODO: Add round counter on gamepage */}
           <input
             value={roundCount}
             type="number"
@@ -302,6 +282,27 @@ function RouteComponent() {
               </button>
             </div>
           ))}
+          {players.length >= 3 && (
+            <div className="inline-flex gap-2">
+              <input
+                aria-label="Cut-Throat"
+                type="checkbox"
+                checked={cutThroat}
+                onChange={(e) => {
+                  setCutThroat(e.target.checked);
+                }}
+                id="cutthroat"
+                className=" accent-accent rounded-sm text-bg p-1 bg-secondary"
+              />
+              <label
+                htmlFor="cutthroat"
+                className="text-gray-400 text-sm flex items-center gap-2"
+              >
+                Cut-Throat
+                <span className="text-xs">(Recommended for 3+ players)</span>
+              </label>
+            </div>
+          )}
         </div>
 
         <Button
@@ -325,51 +326,42 @@ function RouteComponent() {
     setPlayers((o) => o.map((p) => (p.id === newPlayer.id ? newPlayer : p)));
   }
 
+  const isOpenForPlayer = (playerId: string, section: Section) =>
+    (section.hits.get(playerId) ?? 0) >= 3;
+
   function updateHitsOrAwardPoints(player: Player, section: Section) {
     const hits = section.hits.get(player.id) ?? 0;
+    const isClosed = players.every((p) => (section.hits.get(p.id) ?? 0) >= 3);
+    const isOpenFor = hits >= 3;
 
     if (mode === "add") {
-      if (section.state === "closed") return;
-      if (section.state === "open") {
-        if (section.ownedBy === player.id) {
-          player.points += section.number;
-          section.hits.set(player.id, hits + 1);
+      if (isClosed) return;
+      if (isOpenFor) {
+        if (cutThroat && players.length >= 3) {
+          players
+            .filter((p) => !isOpenForPlayer(p.id, section))
+            .map((p) => ({ ...p, points: (p.points += section.number) }))
+            .forEach((p) => updatePlayers(p));
         } else {
-          if (hits + 1 === 3) {
-            section.state = "closed";
-          }
-          section.hits.set(player.id, hits + 1);
+          player.points += section.number;
         }
-      } else if (section.state === "unopened") {
-        if (hits + 1 === 3) {
-          section.state = "open";
-          section.ownedBy = player.id;
-        }
-        section.hits.set(player.id, hits + 1);
       }
+      section.hits.set(player.id, hits + 1);
     } else {
       if (hits <= 0) return;
-      if (section.state === "closed") {
-        section.state = "open";
-        section.hits.set(player.id, hits - 1);
-      } else if (section.state === "open") {
-        if (section.ownedBy === player.id) {
-          if (hits > 3) {
-            // undo a scoring hit
-            player.points -= section.number;
-            section.hits.set(player.id, hits - 1);
+      if (isOpenFor) {
+        if (hits > 3) {
+          if (cutThroat && players.length >= 3) {
+            players
+              .filter((p) => !isOpenForPlayer(p.id, section))
+              .map((p) => ({ ...p, points: (p.points -= section.number) }))
+              .forEach((p) => updatePlayers(p));
           } else {
-            // hits === 3, undo the opening
-            section.state = "unopened";
-            section.ownedBy = "";
-            section.hits.set(player.id, hits - 1);
+            player.points -= section.number;
           }
-        } else {
-          section.hits.set(player.id, hits - 1);
         }
-      } else if (section.state === "unopened") {
-        section.hits.set(player.id, hits - 1);
       }
+      section.hits.set(player.id, hits - 1);
     }
 
     updateSections(section);
@@ -378,7 +370,7 @@ function RouteComponent() {
 
   const isAllClosed = sections.every((s) => {
     return players.every((p) => {
-      return s.hits.get(p.id) === 3;
+      return (s.hits.get(p.id) ?? 0) >= 3;
     });
   });
 
@@ -423,7 +415,7 @@ function RouteComponent() {
               <Button
                 className="w-fit aspect-square h-full border"
                 onClick={() => {
-                  if (roundsPlayed === roundCount) return setIsGameOver(true)
+                  if (roundsPlayed === roundCount) return setIsGameOver(true);
                   setRoundsPlayed(roundsPlayed + 1);
                 }}
               >
