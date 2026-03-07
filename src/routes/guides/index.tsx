@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { CheckCheck, Target } from 'lucide-react';
+import { Target } from 'lucide-react';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/guides/')({
