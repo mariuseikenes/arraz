@@ -4,7 +4,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import {
   ArrowBigRightDash,
   Check,
-  CircleQuestionMark,
   CircleX,
   Minus,
   Plus,
@@ -30,11 +29,7 @@ import {
   Table,
   TableFooter,
 } from "@/components/ui/table";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+
 export const Route = createFileRoute("/cricket")({
   component: RouteComponent,
   head: () => ({
@@ -374,6 +369,7 @@ function RouteComponent() {
     });
   });
 
+  // TODO: Figure out a neat way to determine if a 3+ player game is already over (without round limit or all sections closed)
   if (isAllClosed && isGameOver === false) {
     setIsGameOver(true);
   }
@@ -438,7 +434,6 @@ function RouteComponent() {
           )}
         </div>
       </div>
-
       <GameOverDialog players={players} gameOver={isGameOver} />
     </div>
   );
