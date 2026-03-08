@@ -24,15 +24,28 @@ export default defineConfig({
 
       dynamicRoutes: [
         '/',
-        '/rules', // Or whatever your rulebook URL is
-        '/setup',
+
+        // INFO
         '/about',
         '/contact',
         '/privacy-policy',
         '/tos',
+
+        // GAMES
         '/x01',
         '/killer',
-        '/rules/x01'
+        '/cricket',
+
+        // RULEBOOK
+        '/rules',
+        '/rules/how-to-play-x01',
+        '/rules/how-to-play-cricket-darts',
+        '/rules/how-to-play-killer',
+
+        // GUIDES
+        '/guides',
+        '/guides/dartboard-setup',
+        '/guides/x01-checkout-chart',
       ],
     })
   ],
