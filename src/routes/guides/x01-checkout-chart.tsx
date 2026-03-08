@@ -18,25 +18,6 @@ export const Route = createFileRoute("/guides/x01-checkout-chart")({
     ],
   }),
 });
-function SetupSection({
-  title,
-  icon: Icon,
-  children,
-}: {
-  title: string;
-  icon: React.ElementType;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="mb-8">
-      <h2 className="flex items-center gap-3 text-2xl font-semibold mb-3">
-        <Icon className="h-6 w-6 text-accent" />
-        <span>{title}</span>
-      </h2>
-      <div className="space-y-4 text-gray-300 ml-9">{children}</div>
-    </section>
-  );
-}
 
 function printImage() {
   const src = (document.getElementById("chart") as HTMLImageElement).src;
