@@ -20,6 +20,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
+import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
 
 const X01Route = X01RouteImport.update({
@@ -77,6 +78,11 @@ const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
   path: '/rules/$ruleId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GuidesX01CheckoutChartRoute = GuidesX01CheckoutChartRouteImport.update({
+  id: '/guides/x01-checkout-chart',
+  path: '/guides/x01-checkout-chart',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GuidesDartboardSetupRoute = GuidesDartboardSetupRouteImport.update({
   id: '/guides/dartboard-setup',
   path: '/guides/dartboard-setup',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByTo {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
@@ -122,6 +130,7 @@ export interface FileRoutesById {
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
+  '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -138,6 +147,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
+    | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -152,6 +162,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
+    | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
     | '/guides'
     | '/rules'
@@ -166,6 +177,7 @@ export interface FileRouteTypes {
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
+    | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
     | '/guides/'
     | '/rules/'
@@ -181,6 +193,7 @@ export interface RootRouteChildren {
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
+  GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
   RulesRuleIdRoute: typeof RulesRuleIdRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesRuleIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/guides/x01-checkout-chart': {
+      id: '/guides/x01-checkout-chart'
+      path: '/guides/x01-checkout-chart'
+      fullPath: '/guides/x01-checkout-chart'
+      preLoaderRoute: typeof GuidesX01CheckoutChartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guides/dartboard-setup': {
       id: '/guides/dartboard-setup'
       path: '/guides/dartboard-setup'
@@ -285,6 +305,7 @@ const rootRouteChildren: RootRouteChildren = {
   TosRoute: TosRoute,
   X01Route: X01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
+  GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
   RulesRuleIdRoute: RulesRuleIdRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,

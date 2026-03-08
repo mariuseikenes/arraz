@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Target } from 'lucide-react';
+import { CheckCheck, Target } from 'lucide-react';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 
 export const Route = createFileRoute('/guides/')({
@@ -52,9 +52,9 @@ function RouteComponent() {
         <GuideCard name="Dartboard Setup" link="dartboard-setup" icon={Target}>
           Learn how to set up your dartboard according to WDF standards. 
         </GuideCard>
-        {/* <GuideCard name="X01 Checkouts" link="x01-checkout-charts" icon={CheckCheck}>
+        <GuideCard name="X01 Checkouts" link="x01-checkout-chart" icon={CheckCheck}>
           Learn the X01 checkouts.
-        </GuideCard> */}
+        </GuideCard>
       </main>
       </div>
     </div>
