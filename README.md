@@ -71,7 +71,7 @@ I created Arraz as I found most existing scorekeeping webapps for darts either o
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Features
-- Scorekeeping for multiple games (X01 and Killer for now - more coming)
+- Scorekeeping for multiple games (X01, Cricket, Killer and Shanghai for now)
 - Guides (How to set up a dartboard for now, more coming)
 - Rulebook - Rules for all games Arraz supports
 
@@ -88,7 +88,7 @@ I created Arraz as I found most existing scorekeeping webapps for darts either o
 
 ## Planned Features
 
-* More games: Cricket and Shanghai are next up.
+* More games
 * Improved dartboard UX (the bull/doublebull may be a bit tricky to reliably hit)
 * Points per darts (and end-of-game stats)
 * See every players scores during others turns
