@@ -33,14 +33,16 @@ export default defineConfig({
 
         // GAMES
         '/x01',
-        '/killer',
         '/cricket',
+        '/killer',
+        '/shanghai',
 
         // RULEBOOK
         '/rules',
         '/rules/how-to-play-x01',
         '/rules/how-to-play-cricket-darts',
         '/rules/how-to-play-killer',
+        '/rules/how-to-play-shanghai',
 
         // GUIDES
         '/guides',
