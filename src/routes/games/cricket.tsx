@@ -30,7 +30,7 @@ import {
   TableFooter,
 } from "@/components/ui/table";
 
-export const Route = createFileRoute("/cricket")({
+export const Route = createFileRoute("/games/cricket")({
   component: RouteComponent,
   head: () => ({
     meta: [

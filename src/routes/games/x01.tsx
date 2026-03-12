@@ -14,14 +14,14 @@ import {
 
 import { Plus, X } from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
-import Dart from "../logo.svg?react";
+import Dart from "../../logo.svg?react";
 
-import InteractiveDartboard from "../components/InteractiveDartboard";
+import InteractiveDartboard from "../../components/InteractiveDartboard";
 
 import { generateUUID } from "@/lib/uuid.ts";
 import localStorageHelper from "@/lib/localStorageHelper.ts";
 
-export const Route = createFileRoute("/x01")({
+export const Route = createFileRoute("/games/x01")({
   component: RouteComponent,
   head: () => ({
     meta: [
