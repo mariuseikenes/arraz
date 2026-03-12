@@ -4,7 +4,7 @@ import { generateUUID } from "@/lib/uuid";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
-import Dart from "../logo.svg?react";
+import Dart from "../../logo.svg?react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import {
   TableBody,
@@ -22,7 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-export const Route = createFileRoute("/shanghai")({
+export const Route = createFileRoute("/games/shanghai")({
   component: RouteComponent,
   head: () => ({
     meta: [
@@ -347,6 +347,10 @@ function RouteComponent() {
         >
           Next
         </Button>
+
+        <p className="text-inactive w-4/5 text-center">
+          Click the darts to cycle through the single, double, triple or miss.
+        </p>
       </div>
 
       <GameOverDialog
@@ -379,7 +383,7 @@ function GameOverDialog({
         <DialogHeader>
           <DialogTitle>{winner.name} won!</DialogTitle>
           <DialogDescription className="flex gap-4 flex-col">
-            <p>{message}</p>
+            <span>{message}</span>
             <Button
               onClick={() => window.location.reload()}
               className="border-accent border w-1/2 m-auto"

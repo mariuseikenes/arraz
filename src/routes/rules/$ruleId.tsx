@@ -137,7 +137,7 @@ function CricketRulesComponent() {
               yet opened that section. The person with the lowest score wins.
             </p>
           </RuleSection>
-          <a href="/cricket">
+          <a href="/games/cricket">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>
@@ -283,7 +283,7 @@ function X01RulesComponent() {
               which can be harder to check out.
             </p>
           </RuleSection>
-          <a href="/x01">
+          <a href="/games/x01">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>
@@ -339,7 +339,7 @@ function ShanghaiRulesComponent() {
             </p>
           </RuleSection>
 
-          <a href="/shanghai">
+          <a href="/games/shanghai">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>
@@ -466,7 +466,7 @@ function KillerRulesComponent() {
             </p>
           </RuleSection>
 
-          <a href="/killer">
+          <a href="/games/killer">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>

@@ -9,12 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as X01RouteImport } from './routes/x01'
 import { Route as TosRouteImport } from './routes/tos'
-import { Route as ShanghaiRouteImport } from './routes/shanghai'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as KillerRouteImport } from './routes/killer'
-import { Route as CricketRouteImport } from './routes/cricket'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -23,35 +19,19 @@ import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
 import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
+import { Route as GamesX01RouteImport } from './routes/games/x01'
+import { Route as GamesShanghaiRouteImport } from './routes/games/shanghai'
+import { Route as GamesKillerRouteImport } from './routes/games/killer'
+import { Route as GamesCricketRouteImport } from './routes/games/cricket'
 
-const X01Route = X01RouteImport.update({
-  id: '/x01',
-  path: '/x01',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const TosRoute = TosRouteImport.update({
   id: '/tos',
   path: '/tos',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShanghaiRoute = ShanghaiRouteImport.update({
-  id: '/shanghai',
-  path: '/shanghai',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const KillerRoute = KillerRouteImport.update({
-  id: '/killer',
-  path: '/killer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CricketRoute = CricketRouteImport.update({
-  id: '/cricket',
-  path: '/cricket',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -94,17 +74,37 @@ const GuidesDartboardSetupRoute = GuidesDartboardSetupRouteImport.update({
   path: '/guides/dartboard-setup',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesX01Route = GamesX01RouteImport.update({
+  id: '/games/x01',
+  path: '/games/x01',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesShanghaiRoute = GamesShanghaiRouteImport.update({
+  id: '/games/shanghai',
+  path: '/games/shanghai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesKillerRoute = GamesKillerRouteImport.update({
+  id: '/games/killer',
+  path: '/games/killer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesCricketRoute = GamesCricketRouteImport.update({
+  id: '/games/cricket',
+  path: '/games/cricket',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/cricket': typeof CricketRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
-  '/x01': typeof X01Route
+  '/games/cricket': typeof GamesCricketRoute
+  '/games/killer': typeof GamesKillerRoute
+  '/games/shanghai': typeof GamesShanghaiRoute
+  '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
@@ -115,12 +115,12 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/cricket': typeof CricketRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
-  '/x01': typeof X01Route
+  '/games/cricket': typeof GamesCricketRoute
+  '/games/killer': typeof GamesKillerRoute
+  '/games/shanghai': typeof GamesShanghaiRoute
+  '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
@@ -132,12 +132,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/cricket': typeof CricketRoute
-  '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
-  '/x01': typeof X01Route
+  '/games/cricket': typeof GamesCricketRoute
+  '/games/killer': typeof GamesKillerRoute
+  '/games/shanghai': typeof GamesShanghaiRoute
+  '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
@@ -150,12 +150,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/cricket'
-    | '/killer'
     | '/privacy-policy'
-    | '/shanghai'
     | '/tos'
-    | '/x01'
+    | '/games/cricket'
+    | '/games/killer'
+    | '/games/shanghai'
+    | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
@@ -166,12 +166,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/cricket'
-    | '/killer'
     | '/privacy-policy'
-    | '/shanghai'
     | '/tos'
-    | '/x01'
+    | '/games/cricket'
+    | '/games/killer'
+    | '/games/shanghai'
+    | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
@@ -182,12 +182,12 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/cricket'
-    | '/killer'
     | '/privacy-policy'
-    | '/shanghai'
     | '/tos'
-    | '/x01'
+    | '/games/cricket'
+    | '/games/killer'
+    | '/games/shanghai'
+    | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
@@ -199,12 +199,12 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
-  CricketRoute: typeof CricketRoute
-  KillerRoute: typeof KillerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  ShanghaiRoute: typeof ShanghaiRoute
   TosRoute: typeof TosRoute
-  X01Route: typeof X01Route
+  GamesCricketRoute: typeof GamesCricketRoute
+  GamesKillerRoute: typeof GamesKillerRoute
+  GamesShanghaiRoute: typeof GamesShanghaiRoute
+  GamesX01Route: typeof GamesX01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
   GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
   RulesRuleIdRoute: typeof RulesRuleIdRoute
@@ -214,13 +214,6 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/x01': {
-      id: '/x01'
-      path: '/x01'
-      fullPath: '/x01'
-      preLoaderRoute: typeof X01RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/tos': {
       id: '/tos'
       path: '/tos'
@@ -228,32 +221,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TosRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shanghai': {
-      id: '/shanghai'
-      path: '/shanghai'
-      fullPath: '/shanghai'
-      preLoaderRoute: typeof ShanghaiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/killer': {
-      id: '/killer'
-      path: '/killer'
-      fullPath: '/killer'
-      preLoaderRoute: typeof KillerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cricket': {
-      id: '/cricket'
-      path: '/cricket'
-      fullPath: '/cricket'
-      preLoaderRoute: typeof CricketRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -312,6 +284,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuidesDartboardSetupRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games/x01': {
+      id: '/games/x01'
+      path: '/games/x01'
+      fullPath: '/games/x01'
+      preLoaderRoute: typeof GamesX01RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/shanghai': {
+      id: '/games/shanghai'
+      path: '/games/shanghai'
+      fullPath: '/games/shanghai'
+      preLoaderRoute: typeof GamesShanghaiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/killer': {
+      id: '/games/killer'
+      path: '/games/killer'
+      fullPath: '/games/killer'
+      preLoaderRoute: typeof GamesKillerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/cricket': {
+      id: '/games/cricket'
+      path: '/games/cricket'
+      fullPath: '/games/cricket'
+      preLoaderRoute: typeof GamesCricketRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -319,12 +319,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
-  CricketRoute: CricketRoute,
-  KillerRoute: KillerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  ShanghaiRoute: ShanghaiRoute,
   TosRoute: TosRoute,
-  X01Route: X01Route,
+  GamesCricketRoute: GamesCricketRoute,
+  GamesKillerRoute: GamesKillerRoute,
+  GamesShanghaiRoute: GamesShanghaiRoute,
+  GamesX01Route: GamesX01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
   GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
   RulesRuleIdRoute: RulesRuleIdRoute,

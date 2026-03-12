@@ -15,7 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
-import Dart from "../logo.svg?react";
+import Dart from "../../logo.svg?react";
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/dialog";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import localStorageHelper from "@/lib/localStorageHelper";
-export const Route = createFileRoute("/killer")({
+export const Route = createFileRoute("/games/killer")({
   component: RouteComponent,
   head: () => ({
     meta: [
