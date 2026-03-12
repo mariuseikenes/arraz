@@ -32,10 +32,10 @@ export default defineConfig({
         '/tos',
 
         // GAMES
-        '/x01',
-        '/cricket',
-        '/killer',
-        '/shanghai',
+        '/games/x01',
+        '/games/cricket',
+        '/games/killer',
+        '/games/shanghai',
 
         // RULEBOOK
         '/rules',
