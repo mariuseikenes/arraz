@@ -15,6 +15,7 @@ function App() {
         <Gamebutton gamename="X01" description="The classic. Choose between 1001 / 701 / 501 / 301"/>
         <Gamebutton gamename="Cricket" description="Strategy meets skill. Open a section to start scoring!"/>
         <Gamebutton gamename="Killer" description="Eliminate your opponents"/>
+        <Gamebutton gamename="Shanghai" description="Score points on beds 1-7"/>
 
         <hr />
         <div className='flex flex-row flex-wrap justify-center gap-2'>

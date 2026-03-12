@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as X01RouteImport } from './routes/x01'
 import { Route as TosRouteImport } from './routes/tos'
+import { Route as ShanghaiRouteImport } from './routes/shanghai'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as KillerRouteImport } from './routes/killer'
 import { Route as CricketRouteImport } from './routes/cricket'
@@ -31,6 +32,11 @@ const X01Route = X01RouteImport.update({
 const TosRoute = TosRouteImport.update({
   id: '/tos',
   path: '/tos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShanghaiRoute = ShanghaiRouteImport.update({
+  id: '/shanghai',
+  path: '/shanghai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
@@ -127,6 +135,7 @@ export interface FileRoutesById {
   '/cricket': typeof CricketRoute
   '/killer': typeof KillerRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/shanghai': typeof ShanghaiRoute
   '/tos': typeof TosRoute
   '/x01': typeof X01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
@@ -144,6 +153,7 @@ export interface FileRouteTypes {
     | '/cricket'
     | '/killer'
     | '/privacy-policy'
+    | '/shanghai'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
@@ -159,6 +169,7 @@ export interface FileRouteTypes {
     | '/cricket'
     | '/killer'
     | '/privacy-policy'
+    | '/shanghai'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
@@ -174,6 +185,7 @@ export interface FileRouteTypes {
     | '/cricket'
     | '/killer'
     | '/privacy-policy'
+    | '/shanghai'
     | '/tos'
     | '/x01'
     | '/guides/dartboard-setup'
@@ -190,6 +202,7 @@ export interface RootRouteChildren {
   CricketRoute: typeof CricketRoute
   KillerRoute: typeof KillerRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ShanghaiRoute: typeof ShanghaiRoute
   TosRoute: typeof TosRoute
   X01Route: typeof X01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
@@ -213,6 +226,13 @@ declare module '@tanstack/react-router' {
       path: '/tos'
       fullPath: '/tos'
       preLoaderRoute: typeof TosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shanghai': {
+      id: '/shanghai'
+      path: '/shanghai'
+      fullPath: '/shanghai'
+      preLoaderRoute: typeof ShanghaiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -302,6 +322,7 @@ const rootRouteChildren: RootRouteChildren = {
   CricketRoute: CricketRoute,
   KillerRoute: KillerRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ShanghaiRoute: ShanghaiRoute,
   TosRoute: TosRoute,
   X01Route: X01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,

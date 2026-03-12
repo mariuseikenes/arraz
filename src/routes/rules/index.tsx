@@ -55,6 +55,9 @@ function RouteComponent() {
         <GameCard name="Cricket" link="how-to-play-cricket-darts">
           Open beds to start scoring points.
         </GameCard>
+        <GameCard name="Shanghai" link="how-to-play-shanghai">
+          Score points on beds 1-7.
+        </GameCard>
       </main>
       </div>
     </div>
