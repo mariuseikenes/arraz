@@ -315,8 +315,7 @@ function RouteComponent() {
           className="w-full p-8 mt-8 shadow-accent shadow-md border border-accent active:translate-y-1 active:shadow-none text-xl"
           onClick={() => handleReady()}
         >
-          {" "}
-          Play{" "}
+          Play
         </Button>
       </main>
     );
@@ -512,6 +511,9 @@ function RouteComponent() {
   const activePlayer = players.find((p) => p.id === currentTurn.player.id);
 
   if (!activePlayer || activePlayer.score === 0) handleNextPlayer();
+
+  console.log(players.map(p=>(p.name)))
+
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">
       <div className="flex-row flex md:flex-row justify-between md:w-1/2 md:m-auto">
@@ -637,7 +639,7 @@ function LegOverDialog({
           </DialogTitle>
           <DialogDescription>
             <div className="w-2/3 m-auto">
-              {players
+              {[...players]
                 .sort((a, b) => a.score - b.score)
                 .map((p) => (
                   <p className="text-left">
@@ -666,7 +668,7 @@ function SetOverDialog({
 }) {
   const winner = currentSet.legs.at(-1)?.winnerId ?? "None";
   const playerObj = players.find((p) => p.id === winner);
-  const playerToLegWins = players
+  const playerToLegWins = [...players]
     .map((p) => ({
       player: p.id,
       name: p.name,
@@ -706,7 +708,7 @@ function GameOverDialog({
   sets: Set[];
   players: Player[];
 }) {
-  const playerToSetWins = players
+  const playerToSetWins = [...players]
     .map((p) => ({
       player: p.id,
       name: p.name,
