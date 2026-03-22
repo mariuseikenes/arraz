@@ -1,11 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { Calculator, Target, Trophy } from 'lucide-react';
-import { FaLongArrowAltLeft } from 'react-icons/fa';
+import { createFileRoute } from "@tanstack/react-router";
+import { Calculator, Target, Trophy } from "lucide-react";
+import { FaLongArrowAltLeft } from "react-icons/fa";
 
-export const Route = createFileRoute('/rules/how-to-play-shanghai')({
+export const Route = createFileRoute("/rules/how-to-play-shanghai")({
   component: RouteComponent,
-})
-
+  head: () => ({
+    meta: [
+      {
+        title: "How to play Shanghai",
+      },
+      {
+        name: "description",
+        content:
+          "Guide on how to play Shanghai, the popular darts game where the goal is to score points on beds 1-7. Hit the single, double and triple in one turn to instantly win the game!",
+      },
+    ],
+  }),
+});
 
 function RuleSection({
   title,
@@ -50,27 +61,32 @@ function RouteComponent() {
           <RuleSection title="The Objective" icon={Target}>
             <p>
               The winner of Shanghai is simply the player that has scored the
-              most points by the end of a round. Score points by hitting the active bed, 
-              which changes each round from 1-7.
+              most points by the end of a round. Score points by hitting the
+              active bed, which changes each round from 1-7.
             </p>
           </RuleSection>
 
           <RuleSection title="Scoring" icon={Calculator}>
             <p>
-              The active bed is the same as the current round number. This means on round one the target bed is
-              1, on round 2 you aim for the 2-bed. Hitting the bed awards the same amount of points, meaning hits
-              in late-game can turn the tide, even if you're lagging behind.
+              The active bed is the same as the current round number. This means
+              on round one the target bed is 1, on round 2 you aim for the
+              2-bed. Hitting the bed awards the same amount of points, meaning
+              hits in late-game can turn the tide, even if you're lagging
+              behind.
             </p>
             <p>
-              Doubles and triple beds give double and triple points respectively.
+              Doubles and triple beds give double and triple points
+              respectively.
             </p>
           </RuleSection>
 
           <RuleSection title="Winning the Game" icon={Trophy}>
             <p>
-              There are two ways of winning. The first is simply the player with the most points at the end of a match
-              (after round 7) wins. However, if you manage to hit a single, double and triple in one round (in any order), 
-              you instantly win. This is called a "Shanghai".
+              There are two ways of winning. The first is simply the player with
+              the most points at the end of a match (after round 7) wins.
+              However, if you manage to hit a single, double and triple in one
+              round (in any order), you instantly win. This is called a
+              "Shanghai".
             </p>
           </RuleSection>
 
@@ -82,4 +98,5 @@ function RouteComponent() {
         </main>
       </div>
     </div>
-  );}
+  );
+}

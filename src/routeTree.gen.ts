@@ -17,8 +17,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as GamesIndexRouteImport } from './routes/games/index'
+import { Route as RulesHowToPlayX01RouteImport } from './routes/rules/how-to-play-x01'
 import { Route as RulesHowToPlayShanghaiRouteImport } from './routes/rules/how-to-play-shanghai'
-import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
+import { Route as RulesHowToPlayKillerRouteImport } from './routes/rules/how-to-play-killer'
+import { Route as RulesHowToPlayCricketDartsRouteImport } from './routes/rules/how-to-play-cricket-darts'
 import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
 import { Route as GamesX01RouteImport } from './routes/games/x01'
@@ -66,16 +68,27 @@ const GamesIndexRoute = GamesIndexRouteImport.update({
   path: '/games/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RulesHowToPlayX01Route = RulesHowToPlayX01RouteImport.update({
+  id: '/rules/how-to-play-x01',
+  path: '/rules/how-to-play-x01',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RulesHowToPlayShanghaiRoute = RulesHowToPlayShanghaiRouteImport.update({
   id: '/rules/how-to-play-shanghai',
   path: '/rules/how-to-play-shanghai',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
-  id: '/rules/$ruleId',
-  path: '/rules/$ruleId',
+const RulesHowToPlayKillerRoute = RulesHowToPlayKillerRouteImport.update({
+  id: '/rules/how-to-play-killer',
+  path: '/rules/how-to-play-killer',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RulesHowToPlayCricketDartsRoute =
+  RulesHowToPlayCricketDartsRouteImport.update({
+    id: '/rules/how-to-play-cricket-darts',
+    path: '/rules/how-to-play-cricket-darts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GuidesX01CheckoutChartRoute = GuidesX01CheckoutChartRouteImport.update({
   id: '/guides/x01-checkout-chart',
   path: '/guides/x01-checkout-chart',
@@ -119,8 +132,10 @@ export interface FileRoutesByFullPath {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
-  '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
+  '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
   '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -137,8 +152,10 @@ export interface FileRoutesByTo {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
-  '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
+  '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
   '/games': typeof GamesIndexRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
@@ -156,8 +173,10 @@ export interface FileRoutesById {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
-  '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
+  '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
   '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -176,8 +195,10 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
-    | '/rules/$ruleId'
+    | '/rules/how-to-play-cricket-darts'
+    | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
+    | '/rules/how-to-play-x01'
     | '/games/'
     | '/guides/'
     | '/rules/'
@@ -194,8 +215,10 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
-    | '/rules/$ruleId'
+    | '/rules/how-to-play-cricket-darts'
+    | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
+    | '/rules/how-to-play-x01'
     | '/games'
     | '/guides'
     | '/rules'
@@ -212,8 +235,10 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
-    | '/rules/$ruleId'
+    | '/rules/how-to-play-cricket-darts'
+    | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
+    | '/rules/how-to-play-x01'
     | '/games/'
     | '/guides/'
     | '/rules/'
@@ -231,8 +256,10 @@ export interface RootRouteChildren {
   GamesX01Route: typeof GamesX01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
   GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
-  RulesRuleIdRoute: typeof RulesRuleIdRoute
+  RulesHowToPlayCricketDartsRoute: typeof RulesHowToPlayCricketDartsRoute
+  RulesHowToPlayKillerRoute: typeof RulesHowToPlayKillerRoute
   RulesHowToPlayShanghaiRoute: typeof RulesHowToPlayShanghaiRoute
+  RulesHowToPlayX01Route: typeof RulesHowToPlayX01Route
   GamesIndexRoute: typeof GamesIndexRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
@@ -296,6 +323,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rules/how-to-play-x01': {
+      id: '/rules/how-to-play-x01'
+      path: '/rules/how-to-play-x01'
+      fullPath: '/rules/how-to-play-x01'
+      preLoaderRoute: typeof RulesHowToPlayX01RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rules/how-to-play-shanghai': {
       id: '/rules/how-to-play-shanghai'
       path: '/rules/how-to-play-shanghai'
@@ -303,11 +337,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesHowToPlayShanghaiRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/rules/$ruleId': {
-      id: '/rules/$ruleId'
-      path: '/rules/$ruleId'
-      fullPath: '/rules/$ruleId'
-      preLoaderRoute: typeof RulesRuleIdRouteImport
+    '/rules/how-to-play-killer': {
+      id: '/rules/how-to-play-killer'
+      path: '/rules/how-to-play-killer'
+      fullPath: '/rules/how-to-play-killer'
+      preLoaderRoute: typeof RulesHowToPlayKillerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rules/how-to-play-cricket-darts': {
+      id: '/rules/how-to-play-cricket-darts'
+      path: '/rules/how-to-play-cricket-darts'
+      fullPath: '/rules/how-to-play-cricket-darts'
+      preLoaderRoute: typeof RulesHowToPlayCricketDartsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/guides/x01-checkout-chart': {
@@ -367,8 +408,10 @@ const rootRouteChildren: RootRouteChildren = {
   GamesX01Route: GamesX01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
   GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
-  RulesRuleIdRoute: RulesRuleIdRoute,
+  RulesHowToPlayCricketDartsRoute: RulesHowToPlayCricketDartsRoute,
+  RulesHowToPlayKillerRoute: RulesHowToPlayKillerRoute,
   RulesHowToPlayShanghaiRoute: RulesHowToPlayShanghaiRoute,
+  RulesHowToPlayX01Route: RulesHowToPlayX01Route,
   GamesIndexRoute: GamesIndexRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,
