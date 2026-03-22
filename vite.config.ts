@@ -32,6 +32,7 @@ export default defineConfig({
         '/tos',
 
         // GAMES
+        '/games',
         '/games/x01',
         '/games/cricket',
         '/games/killer',

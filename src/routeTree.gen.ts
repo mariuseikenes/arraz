@@ -16,6 +16,8 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
+import { Route as GamesIndexRouteImport } from './routes/games/index'
+import { Route as RulesHowToPlayShanghaiRouteImport } from './routes/rules/how-to-play-shanghai'
 import { Route as RulesRuleIdRouteImport } from './routes/rules/$ruleId'
 import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
@@ -57,6 +59,16 @@ const RulesIndexRoute = RulesIndexRouteImport.update({
 const GuidesIndexRoute = GuidesIndexRouteImport.update({
   id: '/guides/',
   path: '/guides/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GamesIndexRoute = GamesIndexRouteImport.update({
+  id: '/games/',
+  path: '/games/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RulesHowToPlayShanghaiRoute = RulesHowToPlayShanghaiRouteImport.update({
+  id: '/rules/how-to-play-shanghai',
+  path: '/rules/how-to-play-shanghai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RulesRuleIdRoute = RulesRuleIdRouteImport.update({
@@ -108,6 +120,8 @@ export interface FileRoutesByFullPath {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
 }
@@ -124,6 +138,8 @@ export interface FileRoutesByTo {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/games': typeof GamesIndexRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
 }
@@ -141,6 +157,8 @@ export interface FileRoutesById {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/$ruleId': typeof RulesRuleIdRoute
+  '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
+  '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
 }
@@ -159,6 +177,8 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
+    | '/rules/how-to-play-shanghai'
+    | '/games/'
     | '/guides/'
     | '/rules/'
   fileRoutesByTo: FileRoutesByTo
@@ -175,6 +195,8 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
+    | '/rules/how-to-play-shanghai'
+    | '/games'
     | '/guides'
     | '/rules'
   id:
@@ -191,6 +213,8 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/$ruleId'
+    | '/rules/how-to-play-shanghai'
+    | '/games/'
     | '/guides/'
     | '/rules/'
   fileRoutesById: FileRoutesById
@@ -208,6 +232,8 @@ export interface RootRouteChildren {
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
   GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
   RulesRuleIdRoute: typeof RulesRuleIdRoute
+  RulesHowToPlayShanghaiRoute: typeof RulesHowToPlayShanghaiRoute
+  GamesIndexRoute: typeof GamesIndexRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
 }
@@ -261,6 +287,20 @@ declare module '@tanstack/react-router' {
       path: '/guides'
       fullPath: '/guides/'
       preLoaderRoute: typeof GuidesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/games/': {
+      id: '/games/'
+      path: '/games'
+      fullPath: '/games/'
+      preLoaderRoute: typeof GamesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rules/how-to-play-shanghai': {
+      id: '/rules/how-to-play-shanghai'
+      path: '/rules/how-to-play-shanghai'
+      fullPath: '/rules/how-to-play-shanghai'
+      preLoaderRoute: typeof RulesHowToPlayShanghaiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rules/$ruleId': {
@@ -328,6 +368,8 @@ const rootRouteChildren: RootRouteChildren = {
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
   GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
   RulesRuleIdRoute: RulesRuleIdRoute,
+  RulesHowToPlayShanghaiRoute: RulesHowToPlayShanghaiRoute,
+  GamesIndexRoute: GamesIndexRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,
 }
