@@ -1,6 +1,5 @@
-import Gamebutton from '@/components/Gamebutton';
 import { createFileRoute } from '@tanstack/react-router'
-import { Bug, CheckCheck, Sword, Target, TargetIcon } from 'lucide-react';
+import { Sword } from 'lucide-react';
 import { GiAsianLantern, GiCricket } from "react-icons/gi";
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { SiDart } from "react-icons/si"
