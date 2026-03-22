@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import Gamebutton from "../components/Gamebutton.tsx";
 import { BookAlert, BookCheck, Calculator, Github } from "lucide-react";
 export const Route = createFileRoute("/")({
   component: App,
