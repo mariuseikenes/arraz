@@ -14,7 +14,6 @@ import {
 
 import {
   ArrowBigRightDash,
-  ArrowRight,
   CircleX,
   Plus,
   Undo2,
