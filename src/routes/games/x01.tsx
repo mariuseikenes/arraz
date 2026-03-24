@@ -12,13 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import {
-  ArrowBigRightDash,
-  CircleX,
-  Plus,
-  Undo2,
-  X,
-} from "lucide-react";
+import { ArrowBigRightDash, CircleX, Plus, Undo2, X } from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import Dart from "../../logo.svg?react";
 
@@ -26,6 +20,7 @@ import InteractiveDartboard from "../../components/InteractiveDartboard";
 
 import { generateUUID } from "@/lib/uuid.ts";
 import localStorageHelper from "@/lib/localStorageHelper.ts";
+import { Divider } from "@/components/Divider";
 
 export const Route = createFileRoute("/games/x01")({
   component: RouteComponent,
@@ -75,7 +70,7 @@ type CurrentTurn = {
 
 type Leg = {
   id: string;
-  winnerId: string | null; // player id
+  winnerId: string | null;
   history: Turn[];
 };
 
@@ -518,10 +513,12 @@ function RouteComponent() {
   }
 
   const activePlayer = players.find((p) => p.id === currentTurn.player.id);
-
   if (!activePlayer || activePlayer.score === 0) handleNextPlayer();
 
-  console.log(players.map((p) => p.name));
+  const throwCount = currentLeg.history
+    .filter((p) => p.playerId === currentTurn.player.id)
+    .map((t) => t.throws.length)
+    .reduce((pV, cV) => (pV += cV), 0);
 
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">
@@ -537,7 +534,6 @@ function RouteComponent() {
         </p>
       </div>
       <div className="flex md:flex-row flex-col md:h-full md:px-18">
-        {/* @ts-ignore */}
         <div
           onClick={handleBoardClick}
           className="dartboard-container h-auto md:w-1/2 md:p-8"
@@ -617,6 +613,37 @@ function RouteComponent() {
             </Button>
           </div>
         </div>
+        <Divider className="my-2" />
+        <div className="flex flex-col gap-2 px-4 text-2xl">
+          <ol>
+            {players.map((p) => (
+              <li
+                className={currentTurn.player.id === p.id ? "text-accent" : ""}
+              >
+                <span className="font-semibold">{p.name}</span>: {p.score}pts
+              </li>
+            ))}
+          </ol>
+        </div>
+        <Divider className="my-2" />
+        <div className="flex flex-col gap-2 px-4">
+          <h3 className="text-2xl">Your Stats:</h3>
+          <div className="flex flex-row justify-between">
+            <div className="flex flex-col w-full">
+              <p>
+                Points Per Dart:
+                {throwCount === 0
+                  ? "N/A"
+                  : (config.goal - currentTurn.player.score) / throwCount}
+              </p>
+              <p>Darts Thrown: {throwCount}</p>
+            </div>
+            <div className="flex flex-col w-full">
+              <p>Legs Won: {currentSet.legs.filter(l=>l.winnerId === currentTurn.player.id).length}</p>
+              <p>Sets Won: {sets.filter(s=>s.winnerId === currentTurn.player.id).length}</p>
+            </div>
+          </div>
+        </div>
       </div>
       <LegOverDialog
         players={players}
@@ -648,7 +675,10 @@ function LegOverDialog({
 }) {
   return (
     <Dialog open={legEnded}>
-      <DialogContent>
+      <DialogContent
+        className="border border-secondary"
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle>
             {players.find((p) => p.id === currentLeg.winnerId)?.name} won this
@@ -664,7 +694,12 @@ function LegOverDialog({
                   </p>
                 ))}
             </div>
-            <Button onClick={continueGame}>Continue</Button>
+            <Button
+              onClick={continueGame}
+              className="border-accent border mt-4"
+            >
+              Continue
+            </Button>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
@@ -695,7 +730,10 @@ function SetOverDialog({
 
   return (
     <Dialog open={setEnded}>
-      <DialogContent>
+      <DialogContent
+        className="border border-secondary"
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle>
             {players.find((p) => p.id === currentSet.winnerId)?.name} won this
@@ -708,7 +746,12 @@ function SetOverDialog({
                 {p.name}: {p.wins} leg{p.wins !== 1 && "s"}
               </p>
             ))}
-            <Button onClick={continueGame}>Continue</Button>
+            <Button
+              onClick={continueGame}
+              className="border-accent border mt-4"
+            >
+              Continue
+            </Button>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
@@ -737,7 +780,10 @@ function GameOverDialog({
 
   return (
     <Dialog open={gameOver}>
-      <DialogContent>
+      <DialogContent
+        className="border border-secondary"
+        showCloseButton={false}
+      >
         <DialogHeader>
           <DialogTitle>{winner?.name} won!</DialogTitle>
           <DialogDescription>
@@ -747,7 +793,12 @@ function GameOverDialog({
                 {p.name}: {p.wins} set{p.wins !== 1 && "s"}
               </p>
             ))}
-            <Button onClick={() => window.location.reload()}>Play Again</Button>
+            <Button
+              onClick={() => window.location.reload()}
+              className="border-accent border mt-4"
+            >
+              Play Again
+            </Button>
           </DialogDescription>
         </DialogHeader>
       </DialogContent>
