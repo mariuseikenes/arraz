@@ -4,7 +4,9 @@ import { ButtonGroup } from "@/components/ui/button-group";
 import { generateUUID } from "@/lib/uuid";
 import { createFileRoute } from "@tanstack/react-router";
 import {
+  ArrowBigRightDash,
   CircleSlash,
+  CircleX,
   HeartPlus,
   LucideHeart,
   Plus,
@@ -12,6 +14,7 @@ import {
   Skull,
   Sword,
   Swords,
+  Undo2,
   X,
 } from "lucide-react";
 import { useState } from "react";
@@ -420,26 +423,24 @@ function RouteComponent() {
               );
             })}
           </div>
-          <div className="flex flex-col gap-2 mt-2">
+          <div className="flex flex-row justify-center gap-2 mt-4">
             <Button
               variant="default"
               disabled={currentTurn.throws.length !== 3}
-              className={`border ${currentTurn.throws.length === 3 ? "shadow shadow-accent border-accent" : "border-secondary"} w-1/2 m-auto`}
-              size="lg"
+              className={`aspect-square h-12 border ${currentTurn.throws.length === 3 ? "shadow shadow-accent border-accent" : "border-secondary"}`}
               onClick={handleNextPlayer}
             >
-              Next
+              <ArrowBigRightDash />
             </Button>
             <Button
               variant="destructive"
-              className={`border w-1/2 m-auto`}
+              className={`aspect-square h-12 border`}
               onClick={() => handleMiss()}
-              size="lg"
             >
-              Miss
+              <CircleX />
             </Button>
-            <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}>
-              Undo Last
+            <Button className="aspect-square h-12 border" onClick={handleDeleteLast}>
+              <Undo2 />
             </Button>
           </div>
         </div>

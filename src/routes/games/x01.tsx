@@ -12,7 +12,14 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { Plus, X } from "lucide-react";
+import {
+  ArrowBigRightDash,
+  ArrowRight,
+  CircleX,
+  Plus,
+  Undo2,
+  X,
+} from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import Dart from "../../logo.svg?react";
 
@@ -239,7 +246,9 @@ function RouteComponent() {
         <div className="flex flex-col gap-2 w-full">
           <h2 className="text-xl font-semibold">Legs & Sets</h2>
           <div className="inline-flex justify-between w-full">
-            <label className="text-left" htmlFor="legs">Legs: </label>
+            <label className="text-left" htmlFor="legs">
+              Legs:{" "}
+            </label>
             <input
               id="legs"
               type="number"
@@ -309,7 +318,6 @@ function RouteComponent() {
           ))}
         </div>
 
-
         <Button
           size="lg"
           className="w-full p-8 mt-8 shadow-accent shadow-md border border-accent active:translate-y-1 active:shadow-none text-xl"
@@ -325,7 +333,7 @@ function RouteComponent() {
     if (currentTurn.throws.length >= 3 || busted) return;
     const target = event.target as SVGElement;
 
-    if (target.id === "miss") return handleMiss()
+    if (target.id === "miss") return handleMiss();
     if (target.id && target.dataset.score && target.dataset.multiplier) {
       const score = parseInt(target.dataset.score, 10);
       const multiplier = parseInt(target.dataset.multiplier, 10);
@@ -480,7 +488,9 @@ function RouteComponent() {
       throws: [],
     });
     setCurrentScore(
-      nextPlayer.id === currentTurn.player.id && !busted ? currentScore : nextPlayer.score,
+      nextPlayer.id === currentTurn.player.id && !busted
+        ? currentScore
+        : nextPlayer.score,
     );
   }
   function handleDeleteLast() {
@@ -501,7 +511,7 @@ function RouteComponent() {
     const newCurrentScore = currentScore + scoreToRestore;
 
     setCurrentScore(newCurrentScore);
-    setCurrentTurn(o=>({...o, throws: newCurrentTurnThrows}));
+    setCurrentTurn((o) => ({ ...o, throws: newCurrentTurnThrows }));
 
     if (busted) {
       setBusted(false);
@@ -512,7 +522,7 @@ function RouteComponent() {
 
   if (!activePlayer || activePlayer.score === 0) handleNextPlayer();
 
-  console.log(players.map(p=>(p.name)))
+  console.log(players.map((p) => p.name));
 
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">
@@ -548,7 +558,8 @@ function RouteComponent() {
               <div className="relative flex items-center justify-center">
                 {currentTurn.throws[0] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn.throws[0].score * currentTurn.throws[0].multiplier}
+                    {currentTurn.throws[0].score *
+                      currentTurn.throws[0].multiplier}
                   </p>
                 )}
                 <Dart
@@ -558,7 +569,8 @@ function RouteComponent() {
               <div className="relative flex items-center justify-center">
                 {currentTurn.throws[1] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn.throws[1].score * currentTurn.throws[1].multiplier}
+                    {currentTurn.throws[1].score *
+                      currentTurn.throws[1].multiplier}
                   </p>
                 )}
                 <Dart
@@ -568,7 +580,8 @@ function RouteComponent() {
               <div className="relative flex items-center justify-center">
                 {currentTurn.throws[2] && (
                   <p className="absolute  top-auto w-full z-10 text-center font-bold text-5xl">
-                    {currentTurn.throws[2].score * currentTurn.throws[2].multiplier}
+                    {currentTurn.throws[2].score *
+                      currentTurn.throws[2].multiplier}
                   </p>
                 )}
                 <Dart
@@ -577,28 +590,33 @@ function RouteComponent() {
               </div>
             </div>
           </div>
-          <Button
-            variant="default"
-            disabled={
-              currentTurn.throws.length !== 3 && !busted && activePlayer?.score !== 0
-            }
-            className={`border ${currentTurn.throws.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent" : "border-secondary"} w-1/2 m-auto`}
-            size="lg"
-            onClick={handleNextPlayer}
-          >
-            Next
-          </Button>
-          <Button
-            variant="destructive"
-            className={`border w-1/2 m-auto`}
-            onClick={handleMiss}
-            size="lg"
-          >
-            Miss
-          </Button>
-          <Button className="border w-1/2 m-auto" onClick={handleDeleteLast}>
-            Undo Last
-          </Button>
+          <div className="flex flex-row gap-2 justify-center">
+            <Button
+              variant="default"
+              disabled={
+                currentTurn.throws.length !== 3 &&
+                !busted &&
+                activePlayer?.score !== 0
+              }
+              className={`h-12 border ${currentTurn.throws.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent text-accent" : "border-secondary"} w-fit aspect-square`}
+              onClick={handleNextPlayer}
+            >
+              <ArrowBigRightDash />
+            </Button>
+            <Button
+              variant="destructive"
+              className={`border w-fit aspect-square h-12`}
+              onClick={handleMiss}
+            >
+              <CircleX />
+            </Button>
+            <Button
+              className="border w-fit aspect-square h-12"
+              onClick={handleDeleteLast}
+            >
+              <Undo2 />
+            </Button>
+          </div>
         </div>
       </div>
       <LegOverDialog

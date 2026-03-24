@@ -423,12 +423,12 @@ function RouteComponent() {
               </Button>
             )}
           </div>
-          <p className="text-center text-sm text-gray-500 mt-4 prose">
+          <p className="text-center text-sm text-gray-500 mt-4 prose mx-auto">
             Use the button above to toggle between adding/removing hits. Click a
             cell in the table to update.
           </p>
           {roundCount > 0 && (
-            <p className="text-center text-sm text-gray-500 mt-4 prose">
+            <p className="text-center text-sm text-gray-500 mt-4 prose mx-auto">
               Use the button on the right to increase round count.
             </p>
           )}
