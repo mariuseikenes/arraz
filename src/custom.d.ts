@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 
-// Add this block
 declare module '*.svg?react' {
   import * as React from 'react';
   const ReactComponent: React.FunctionComponent<
