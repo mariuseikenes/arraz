@@ -21,7 +21,7 @@ export default function Header() {
           <Menu size={24} />
         </button>
      */}
-    <h1 className="ml-4 text-xl font-semibold inline-flex">
+    <h1 className="ml-4 text-xl font-semibold inline-flex text-text">
           <Link to="/" className="flex gap-2 text-2xl flex-row">
           <div className="text-left inline-flex h-full">
             <Logo className="h-18 w-18" /> 

@@ -65,14 +65,14 @@ function App() {
             </a>
             <a
               href="/blog"
-              className="bg-light-charcoal p-6 rounded-lg border border-inactive"
+              className="bg-light-charcoal p-6 rounded-lg border border-inactive w-full"
             >
               <div className="inline-flex gap-2 w-full items-center">
                 <NotebookPen className="h-10 w-10 text-accent" />
                 <h3 className="text-xl font-bold">Blog & Articles</h3>
               </div>
               <p className="text-gray-400 text-left text-md">
-                Read blog posts and articles regarding Arraz and more in the darts world.
+                Blog posts & articles
               </p>
             </a>
           </div>

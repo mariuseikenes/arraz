@@ -32,12 +32,14 @@ function RouteComponent() {
     <main>
       <article>
         <a href="/blog" aria-label="Back">
-          <div className="p-2 border w-fit bg-white/10 rounded-md ml-16">
+          <div className="p-2 border w-fit bg-white/10 rounded-md md:ml-16 ml-8 text-white">
             Go Back
           </div>
         </a>
         <MDXProvider components={mdxComponents}>
-          <article className="prose px-8">
+          <article
+            className="prose prose-invert mx-auto px-8 cprose"
+          >
             <PostComponent />
           </article>
         </MDXProvider>
