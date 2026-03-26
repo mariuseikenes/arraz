@@ -20,11 +20,26 @@ code {
     monospace;
 }
 
-@theme {
+.prose {
+  max-width: 72ch;
+  margin: 0 auto;
+  line-height: 1.7;
+  color: var(--color-text)
 }
 
-.gamebutto:hover {
-  box-shadow: 0 0 8px var(--color-accent);
+.prose h1, h2, h3, h4 {
+  color: var(--color-accent)
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
 }
 
 @theme inline {
@@ -153,27 +168,15 @@ code {
   }
 }
 
-/* This container will define the dartboard's size and position */
 .dartboard-containerr {
-  /* Let's make it take up 80% of its parent's width */
   width: 80%; 
-
-  /* But don't let it get bigger than its original size */
   max-width: 512px; 
-
-  /* Center the container horizontally */
   margin: 20px auto; 
 }
 
-/* This is the magic part. We target the SVG *inside* our container. */
 .dartboard-container svg {
-  /* Make the SVG fill 100% of the container's width */
   width: 100%;
-
-  /* Let the height adjust automatically to maintain the aspect ratio */
   height: auto;
-
-  /* Good practice: removes any extra space below the SVG */
   display: block; 
 }
 

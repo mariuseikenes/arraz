@@ -4,6 +4,7 @@ import viteReact from '@vitejs/plugin-react'
 import svgr from "vite-plugin-svgr"
 import tailwindcss from '@tailwindcss/vite'
 import Sitemap from "vite-plugin-sitemap"
+import mdx from "@mdx-js/rollup"
 
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -49,8 +50,20 @@ export default defineConfig({
         '/guides',
         '/guides/dartboard-setup',
         '/guides/x01-checkout-chart',
+
+        // BLOG
+        '/blog',
+        '/blog/techstack',
+        '/blog/welcome',
       ],
-    })
+    }),
+    {
+      enforce: "pre",
+      ...mdx({
+        remarkPlugins: [],
+        rehypePlugins: []
+      })
+    }
   ],
   resolve: {
     alias: {

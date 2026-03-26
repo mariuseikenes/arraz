@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BookAlert, BookCheck, Calculator, Github } from "lucide-react";
+import { BookAlert, BookCheck, Calculator, Github, NotebookPen } from "lucide-react";
 export const Route = createFileRoute("/")({
   component: App,
 });
@@ -61,6 +61,18 @@ function App() {
               <p className="text-gray-400 text-left text-md">
                 Learn how to set up your dartboard, X01-checkout charts and
                 more.
+              </p>
+            </a>
+            <a
+              href="/blog"
+              className="bg-light-charcoal p-6 rounded-lg border border-inactive"
+            >
+              <div className="inline-flex gap-2 w-full items-center">
+                <NotebookPen className="h-10 w-10 text-accent" />
+                <h3 className="text-xl font-bold">Blog & Articles</h3>
+              </div>
+              <p className="text-gray-400 text-left text-md">
+                Read blog posts and articles regarding Arraz and more in the darts world.
               </p>
             </a>
           </div>

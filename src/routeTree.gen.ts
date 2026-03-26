@@ -17,6 +17,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as RulesIndexRouteImport } from './routes/rules/index'
 import { Route as GuidesIndexRouteImport } from './routes/guides/index'
 import { Route as GamesIndexRouteImport } from './routes/games/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as RulesHowToPlayX01RouteImport } from './routes/rules/how-to-play-x01'
 import { Route as RulesHowToPlayShanghaiRouteImport } from './routes/rules/how-to-play-shanghai'
 import { Route as RulesHowToPlayKillerRouteImport } from './routes/rules/how-to-play-killer'
@@ -27,6 +28,7 @@ import { Route as GamesX01RouteImport } from './routes/games/x01'
 import { Route as GamesShanghaiRouteImport } from './routes/games/shanghai'
 import { Route as GamesKillerRouteImport } from './routes/games/killer'
 import { Route as GamesCricketRouteImport } from './routes/games/cricket'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const TosRoute = TosRouteImport.update({
   id: '/tos',
@@ -66,6 +68,11 @@ const GuidesIndexRoute = GuidesIndexRouteImport.update({
 const GamesIndexRoute = GamesIndexRouteImport.update({
   id: '/games/',
   path: '/games/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RulesHowToPlayX01Route = RulesHowToPlayX01RouteImport.update({
@@ -119,6 +126,11 @@ const GamesCricketRoute = GamesCricketRouteImport.update({
   path: '/games/cricket',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -126,6 +138,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -136,6 +149,7 @@ export interface FileRoutesByFullPath {
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
   '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
+  '/blog/': typeof BlogIndexRoute
   '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -146,6 +160,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -156,6 +171,7 @@ export interface FileRoutesByTo {
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
   '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
+  '/blog': typeof BlogIndexRoute
   '/games': typeof GamesIndexRoute
   '/guides': typeof GuidesIndexRoute
   '/rules': typeof RulesIndexRoute
@@ -167,6 +183,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/tos': typeof TosRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -177,6 +194,7 @@ export interface FileRoutesById {
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
   '/rules/how-to-play-x01': typeof RulesHowToPlayX01Route
+  '/blog/': typeof BlogIndexRoute
   '/games/': typeof GamesIndexRoute
   '/guides/': typeof GuidesIndexRoute
   '/rules/': typeof RulesIndexRoute
@@ -189,6 +207,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy-policy'
     | '/tos'
+    | '/blog/$slug'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -199,6 +218,7 @@ export interface FileRouteTypes {
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
     | '/rules/how-to-play-x01'
+    | '/blog/'
     | '/games/'
     | '/guides/'
     | '/rules/'
@@ -209,6 +229,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy-policy'
     | '/tos'
+    | '/blog/$slug'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -219,6 +240,7 @@ export interface FileRouteTypes {
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
     | '/rules/how-to-play-x01'
+    | '/blog'
     | '/games'
     | '/guides'
     | '/rules'
@@ -229,6 +251,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/privacy-policy'
     | '/tos'
+    | '/blog/$slug'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -239,6 +262,7 @@ export interface FileRouteTypes {
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
     | '/rules/how-to-play-x01'
+    | '/blog/'
     | '/games/'
     | '/guides/'
     | '/rules/'
@@ -250,6 +274,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   TosRoute: typeof TosRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   GamesCricketRoute: typeof GamesCricketRoute
   GamesKillerRoute: typeof GamesKillerRoute
   GamesShanghaiRoute: typeof GamesShanghaiRoute
@@ -260,6 +285,7 @@ export interface RootRouteChildren {
   RulesHowToPlayKillerRoute: typeof RulesHowToPlayKillerRoute
   RulesHowToPlayShanghaiRoute: typeof RulesHowToPlayShanghaiRoute
   RulesHowToPlayX01Route: typeof RulesHowToPlayX01Route
+  BlogIndexRoute: typeof BlogIndexRoute
   GamesIndexRoute: typeof GamesIndexRoute
   GuidesIndexRoute: typeof GuidesIndexRoute
   RulesIndexRoute: typeof RulesIndexRoute
@@ -321,6 +347,13 @@ declare module '@tanstack/react-router' {
       path: '/games'
       fullPath: '/games/'
       preLoaderRoute: typeof GamesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/rules/how-to-play-x01': {
@@ -393,6 +426,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesCricketRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -402,6 +442,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   TosRoute: TosRoute,
+  BlogSlugRoute: BlogSlugRoute,
   GamesCricketRoute: GamesCricketRoute,
   GamesKillerRoute: GamesKillerRoute,
   GamesShanghaiRoute: GamesShanghaiRoute,
@@ -412,6 +453,7 @@ const rootRouteChildren: RootRouteChildren = {
   RulesHowToPlayKillerRoute: RulesHowToPlayKillerRoute,
   RulesHowToPlayShanghaiRoute: RulesHowToPlayShanghaiRoute,
   RulesHowToPlayX01Route: RulesHowToPlayX01Route,
+  BlogIndexRoute: BlogIndexRoute,
   GamesIndexRoute: GamesIndexRoute,
   GuidesIndexRoute: GuidesIndexRoute,
   RulesIndexRoute: RulesIndexRoute,
