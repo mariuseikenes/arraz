@@ -166,7 +166,7 @@ function RouteComponent() {
       : [
           {
             name: "Player 1",
-            number: 1,
+            points: 0,
             id: generateUUID(),
           },
           {
