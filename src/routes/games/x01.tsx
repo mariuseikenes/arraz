@@ -587,18 +587,6 @@ function RouteComponent() {
           </div>
           <div className="flex flex-row gap-2 justify-center">
             <Button
-              variant="default"
-              disabled={
-                currentTurn.throws.length !== 3 &&
-                !busted &&
-                activePlayer?.score !== 0
-              }
-              className={`h-12 border ${currentTurn.throws.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent text-accent" : "border-secondary"} w-fit aspect-square`}
-              onClick={handleNextPlayer}
-            >
-              <ArrowBigRightDash />
-            </Button>
-            <Button
               variant="destructive"
               className={`border w-fit aspect-square h-12`}
               onClick={handleMiss}
@@ -610,6 +598,18 @@ function RouteComponent() {
               onClick={handleDeleteLast}
             >
               <Undo2 />
+            </Button>
+            <Button
+              variant="default"
+              disabled={
+                currentTurn.throws.length !== 3 &&
+                !busted &&
+                activePlayer?.score !== 0
+              }
+              className={`h-12 border ${currentTurn.throws.length === 3 || busted || activePlayer?.score == 0 ? "shadow shadow-accent border-accent text-accent" : "border-secondary"} w-fit aspect-square`}
+              onClick={handleNextPlayer}
+            >
+              <ArrowBigRightDash />
             </Button>
           </div>
         </div>
@@ -634,7 +634,7 @@ function RouteComponent() {
                 Points Per Dart:
                 {throwCount === 0
                   ? "N/A"
-                  : (config.goal - currentTurn.player.score) / throwCount}
+                  :((config.goal - currentTurn.player.score) / throwCount).toFixed(2)}
               </p>
               <p>Darts Thrown: {throwCount}</p>
             </div>

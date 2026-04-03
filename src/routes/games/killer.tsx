@@ -425,14 +425,6 @@ function RouteComponent() {
           </div>
           <div className="flex flex-row justify-center gap-2 mt-4">
             <Button
-              variant="default"
-              disabled={currentTurn.throws.length !== 3}
-              className={`aspect-square h-12 border ${currentTurn.throws.length === 3 ? "shadow shadow-accent border-accent" : "border-secondary"}`}
-              onClick={handleNextPlayer}
-            >
-              <ArrowBigRightDash />
-            </Button>
-            <Button
               variant="destructive"
               className={`aspect-square h-12 border`}
               onClick={() => handleMiss()}
@@ -441,6 +433,14 @@ function RouteComponent() {
             </Button>
             <Button className="aspect-square h-12 border" onClick={handleDeleteLast}>
               <Undo2 />
+            </Button>
+            <Button
+              variant="default"
+              disabled={currentTurn.throws.length !== 3}
+              className={`aspect-square h-12 border ${currentTurn.throws.length === 3 ? "shadow shadow-accent border-accent" : "border-secondary"}`}
+              onClick={handleNextPlayer}
+            >
+              <ArrowBigRightDash />
             </Button>
           </div>
         </div>

@@ -1,0 +1,60 @@
+export const meta = {
+  title: "Contributing",
+  description: "A guide for developers on contributing to Arraz!",
+  date: "2026-04-04",
+  tags: ["technical"],
+  published: true,
+};
+
+# Contributing
+
+### 2026-04-04
+
+Welcome to a guide on contributing. Arraz is open-source, and the GitHub repository can be found [here](https://github.com/mariuseikenes/arraz).
+
+The flow for contributing to Arraz is pretty simple and contributions are low-barrier. Any contributions are appreciated:
+fixing typos, small bugs, large bugs, new features, UI-improvements, entire new games.
+
+If you're a GitHub user, starring the repository is also very much appreciated!
+
+## How to contribute
+
+#### Prerequisites
+
+Obtaining and running the repository locally requires [git](https://git-scm.com/) and [bun](https://bun.com/) installed.
+Follow their respective links to set it up.
+
+#### Setting up your local repository
+
+To start, you'll need to set up Arraz on your local device.
+First, create a fork of Arraz. Then:
+
+1. `git clone https://github.com/url-to-fork`
+2. `cd arraz` (or other name if you've renamed it)
+3. `bun install`
+
+To run Arraz: `bun dev`. Arraz will now be available at localhost:3000
+
+#### Creating a branch
+
+Create a new branch for your codechanges.
+
+`git checkout -b feat/new-feature`
+
+Preferably use conventional commits.
+
+#### Push your changes
+
+After making your changes, run this to push them and create a pull request.
+
+1. `git add .` or `git add path/to/file`
+2. `git commit -m "Descriptive Commit Message"`
+3. `git push origin feat/new-feature` (replace with your branch name)
+4. Go to your forked repository, and click **Compare & Pull Request**. Write a clear description of your changes.
+
+That's it! I'll take a look at the pull request and approve it.
+
+## Keep in mind
+
+Arraz is meant to be minimal, low-friction and bloat-free. Also, prioritize mobile UI as most players will be using 
+a mobile device while playing. Keep your code clean and readable. Thanks for contributing!
