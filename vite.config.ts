@@ -55,6 +55,9 @@ export default defineConfig({
         '/blog',
         '/blog/techstack',
         '/blog/welcome',
+        '/blog/future',
+        '/blog/contributing',
+        '/blog/best-way-to-keep-score-without-chalkboard',
       ],
     }),
     {
