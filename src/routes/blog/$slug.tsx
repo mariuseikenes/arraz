@@ -13,6 +13,32 @@ export const Route = createFileRoute("/blog/$slug")({
 
     return { post };
   },
+  head: ({ loaderData }) => {
+  const post = loaderData?.post;
+
+  if (!post) {
+    return {
+      meta: [{ title: "Post not found" }],
+    };
+  }
+
+  const url = `https://arraz.app/blog/${post.slug}`;
+
+  return {
+    meta: [
+      { title: `${post.meta.title} | Arraz` },
+      { name: "description", content: post.meta.description },
+      { name: "og:title", content: post.meta.title },
+      { name: "og:description", content: post.meta.description },
+      { name: "og:type", content: "article" },
+      { name: "og:url", content: url },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: post.meta.title },
+      { name: "twitter:description", content: post.meta.description },
+    ],
+    links: [{ rel: "canonical", href: url }],
+  };
+}
 });
 
 const mdxComponents = {

@@ -59,6 +59,7 @@ export default defineConfig({
         '/blog/future',
         '/blog/contributing',
         '/blog/best-way-to-keep-score-without-chalkboard',
+        '/blog/april-darts-amazon-sales',
       ],
     }),
     {
