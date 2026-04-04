@@ -65,7 +65,7 @@ function App() {
             </a>
             <a
               href="/blog"
-              className="bg-light-charcoal p-6 rounded-lg border border-inactive w-full"
+              className="bg-light-charcoal p-6 rounded-lg border border-inactive w-full md:w-auto"
             >
               <div className="inline-flex gap-2 w-full items-center">
                 <NotebookPen className="h-10 w-10 text-accent" />
@@ -99,6 +99,9 @@ function App() {
             </a>
             <a href="/about" className="underline text-gray-400 text-sm">
               About
+            </a>
+            <a href="https://donate.stripe.com/9AQcPo6or91r7cIdQQ" className="underline text-gray-400 text-sm">
+              Donate
             </a>
           </div>
         </footer>
