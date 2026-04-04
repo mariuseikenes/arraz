@@ -22,6 +22,7 @@ import { Route as RulesHowToPlayX01RouteImport } from './routes/rules/how-to-pla
 import { Route as RulesHowToPlayShanghaiRouteImport } from './routes/rules/how-to-play-shanghai'
 import { Route as RulesHowToPlayKillerRouteImport } from './routes/rules/how-to-play-killer'
 import { Route as RulesHowToPlayCricketDartsRouteImport } from './routes/rules/how-to-play-cricket-darts'
+import { Route as RulesHowToPlayAroundTheClockRouteImport } from './routes/rules/how-to-play-around-the-clock'
 import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
 import { Route as GamesX01RouteImport } from './routes/games/x01'
@@ -96,6 +97,12 @@ const RulesHowToPlayCricketDartsRoute =
     path: '/rules/how-to-play-cricket-darts',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RulesHowToPlayAroundTheClockRoute =
+  RulesHowToPlayAroundTheClockRouteImport.update({
+    id: '/rules/how-to-play-around-the-clock',
+    path: '/rules/how-to-play-around-the-clock',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GuidesX01CheckoutChartRoute = GuidesX01CheckoutChartRouteImport.update({
   id: '/guides/x01-checkout-chart',
   path: '/guides/x01-checkout-chart',
@@ -145,6 +152,7 @@ export interface FileRoutesByFullPath {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
+  '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -167,6 +175,7 @@ export interface FileRoutesByTo {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
+  '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -190,6 +199,7 @@ export interface FileRoutesById {
   '/games/x01': typeof GamesX01Route
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
+  '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
+    | '/rules/how-to-play-around-the-clock'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -236,6 +247,7 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
+    | '/rules/how-to-play-around-the-clock'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -258,6 +270,7 @@ export interface FileRouteTypes {
     | '/games/x01'
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
+    | '/rules/how-to-play-around-the-clock'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -281,6 +294,7 @@ export interface RootRouteChildren {
   GamesX01Route: typeof GamesX01Route
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
   GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
+  RulesHowToPlayAroundTheClockRoute: typeof RulesHowToPlayAroundTheClockRoute
   RulesHowToPlayCricketDartsRoute: typeof RulesHowToPlayCricketDartsRoute
   RulesHowToPlayKillerRoute: typeof RulesHowToPlayKillerRoute
   RulesHowToPlayShanghaiRoute: typeof RulesHowToPlayShanghaiRoute
@@ -384,6 +398,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesHowToPlayCricketDartsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rules/how-to-play-around-the-clock': {
+      id: '/rules/how-to-play-around-the-clock'
+      path: '/rules/how-to-play-around-the-clock'
+      fullPath: '/rules/how-to-play-around-the-clock'
+      preLoaderRoute: typeof RulesHowToPlayAroundTheClockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/guides/x01-checkout-chart': {
       id: '/guides/x01-checkout-chart'
       path: '/guides/x01-checkout-chart'
@@ -449,6 +470,7 @@ const rootRouteChildren: RootRouteChildren = {
   GamesX01Route: GamesX01Route,
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
   GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
+  RulesHowToPlayAroundTheClockRoute: RulesHowToPlayAroundTheClockRoute,
   RulesHowToPlayCricketDartsRoute: RulesHowToPlayCricketDartsRoute,
   RulesHowToPlayKillerRoute: RulesHowToPlayKillerRoute,
   RulesHowToPlayShanghaiRoute: RulesHowToPlayShanghaiRoute,

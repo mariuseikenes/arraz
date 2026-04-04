@@ -58,6 +58,9 @@ function RouteComponent() {
         <GameCard name="Shanghai" link="how-to-play-shanghai">
           Score points on beds 1-7.
         </GameCard>
+        <GameCard name="Around the Clock" link="how-to-play-around-the-clock">
+          Work your way around the board, beds 1 through 20.
+        </GameCard>
       </main>
       </div>
     </div>

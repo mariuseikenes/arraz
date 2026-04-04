@@ -45,6 +45,7 @@ export default defineConfig({
         '/rules/how-to-play-cricket-darts',
         '/rules/how-to-play-killer',
         '/rules/how-to-play-shanghai',
+        '/rules/how-to-play-around-the-clock',
 
         // GUIDES
         '/guides',
