@@ -1,11 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   Crosshair,
-  HeartCrack,
-  KeyRound,
-  Lightbulb,
-  ListChecks,
-  Swords,
   Trophy,
 } from "lucide-react";
 import { FaLongArrowAltLeft, FaQuestion } from "react-icons/fa";
