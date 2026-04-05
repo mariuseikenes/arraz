@@ -1,3 +1,4 @@
+import { useAuth } from "@/context/AuthContext";
 import { createFileRoute } from "@tanstack/react-router";
 import { BookAlert, BookCheck, Calculator, Github, NotebookPen } from "lucide-react";
 export const Route = createFileRoute("/")({
@@ -5,6 +6,9 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
+  const { user, logout, loading } = useAuth();
+  console.log(user)
+
   return (
     <div className="text-center p-8">
       <h1 className="text-3xl md:text-5xl">
