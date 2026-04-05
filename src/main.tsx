@@ -6,6 +6,7 @@ import { routeTree } from './routeTree.gen'
 
 import './styles.css'
 import reportWebVitals from './reportWebVitals.ts'
+import { AuthProvider } from './context/AuthContext.tsx'
 
 const router = createRouter({
   routeTree,
@@ -27,7 +28,9 @@ if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
+      <AuthProvider>
       <RouterProvider router={router} />
+      </AuthProvider>
     </StrictMode>,
   )
 }
