@@ -25,6 +25,7 @@ import { Route as RulesHowToPlayX01RouteImport } from './routes/rules/how-to-pla
 import { Route as RulesHowToPlayShanghaiRouteImport } from './routes/rules/how-to-play-shanghai'
 import { Route as RulesHowToPlayKillerRouteImport } from './routes/rules/how-to-play-killer'
 import { Route as RulesHowToPlayCricketDartsRouteImport } from './routes/rules/how-to-play-cricket-darts'
+import { Route as RulesHowToPlayBobs27RouteImport } from './routes/rules/how-to-play-bobs-27'
 import { Route as RulesHowToPlayAroundTheClockRouteImport } from './routes/rules/how-to-play-around-the-clock'
 import { Route as GuidesX01CheckoutChartRouteImport } from './routes/guides/x01-checkout-chart'
 import { Route as GuidesDartboardSetupRouteImport } from './routes/guides/dartboard-setup'
@@ -32,6 +33,7 @@ import { Route as GamesX01RouteImport } from './routes/games/x01'
 import { Route as GamesShanghaiRouteImport } from './routes/games/shanghai'
 import { Route as GamesKillerRouteImport } from './routes/games/killer'
 import { Route as GamesCricketRouteImport } from './routes/games/cricket'
+import { Route as GamesBobs27RouteImport } from './routes/games/bobs-27'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const TosRoute = TosRouteImport.update({
@@ -115,6 +117,11 @@ const RulesHowToPlayCricketDartsRoute =
     path: '/rules/how-to-play-cricket-darts',
     getParentRoute: () => rootRouteImport,
   } as any)
+const RulesHowToPlayBobs27Route = RulesHowToPlayBobs27RouteImport.update({
+  id: '/rules/how-to-play-bobs-27',
+  path: '/rules/how-to-play-bobs-27',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RulesHowToPlayAroundTheClockRoute =
   RulesHowToPlayAroundTheClockRouteImport.update({
     id: '/rules/how-to-play-around-the-clock',
@@ -151,6 +158,11 @@ const GamesCricketRoute = GamesCricketRouteImport.update({
   path: '/games/cricket',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GamesBobs27Route = GamesBobs27RouteImport.update({
+  id: '/games/bobs-27',
+  path: '/games/bobs-27',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
@@ -167,6 +179,7 @@ export interface FileRoutesByFullPath {
   '/register': typeof RegisterRoute
   '/tos': typeof TosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/games/bobs-27': typeof GamesBobs27Route
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -174,6 +187,7 @@ export interface FileRoutesByFullPath {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
+  '/rules/how-to-play-bobs-27': typeof RulesHowToPlayBobs27Route
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -193,6 +207,7 @@ export interface FileRoutesByTo {
   '/register': typeof RegisterRoute
   '/tos': typeof TosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/games/bobs-27': typeof GamesBobs27Route
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -200,6 +215,7 @@ export interface FileRoutesByTo {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
+  '/rules/how-to-play-bobs-27': typeof RulesHowToPlayBobs27Route
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -220,6 +236,7 @@ export interface FileRoutesById {
   '/register': typeof RegisterRoute
   '/tos': typeof TosRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/games/bobs-27': typeof GamesBobs27Route
   '/games/cricket': typeof GamesCricketRoute
   '/games/killer': typeof GamesKillerRoute
   '/games/shanghai': typeof GamesShanghaiRoute
@@ -227,6 +244,7 @@ export interface FileRoutesById {
   '/guides/dartboard-setup': typeof GuidesDartboardSetupRoute
   '/guides/x01-checkout-chart': typeof GuidesX01CheckoutChartRoute
   '/rules/how-to-play-around-the-clock': typeof RulesHowToPlayAroundTheClockRoute
+  '/rules/how-to-play-bobs-27': typeof RulesHowToPlayBobs27Route
   '/rules/how-to-play-cricket-darts': typeof RulesHowToPlayCricketDartsRoute
   '/rules/how-to-play-killer': typeof RulesHowToPlayKillerRoute
   '/rules/how-to-play-shanghai': typeof RulesHowToPlayShanghaiRoute
@@ -248,6 +266,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tos'
     | '/blog/$slug'
+    | '/games/bobs-27'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -255,6 +274,7 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/how-to-play-around-the-clock'
+    | '/rules/how-to-play-bobs-27'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -274,6 +294,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tos'
     | '/blog/$slug'
+    | '/games/bobs-27'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -281,6 +302,7 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/how-to-play-around-the-clock'
+    | '/rules/how-to-play-bobs-27'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -300,6 +322,7 @@ export interface FileRouteTypes {
     | '/register'
     | '/tos'
     | '/blog/$slug'
+    | '/games/bobs-27'
     | '/games/cricket'
     | '/games/killer'
     | '/games/shanghai'
@@ -307,6 +330,7 @@ export interface FileRouteTypes {
     | '/guides/dartboard-setup'
     | '/guides/x01-checkout-chart'
     | '/rules/how-to-play-around-the-clock'
+    | '/rules/how-to-play-bobs-27'
     | '/rules/how-to-play-cricket-darts'
     | '/rules/how-to-play-killer'
     | '/rules/how-to-play-shanghai'
@@ -327,6 +351,7 @@ export interface RootRouteChildren {
   RegisterRoute: typeof RegisterRoute
   TosRoute: typeof TosRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  GamesBobs27Route: typeof GamesBobs27Route
   GamesCricketRoute: typeof GamesCricketRoute
   GamesKillerRoute: typeof GamesKillerRoute
   GamesShanghaiRoute: typeof GamesShanghaiRoute
@@ -334,6 +359,7 @@ export interface RootRouteChildren {
   GuidesDartboardSetupRoute: typeof GuidesDartboardSetupRoute
   GuidesX01CheckoutChartRoute: typeof GuidesX01CheckoutChartRoute
   RulesHowToPlayAroundTheClockRoute: typeof RulesHowToPlayAroundTheClockRoute
+  RulesHowToPlayBobs27Route: typeof RulesHowToPlayBobs27Route
   RulesHowToPlayCricketDartsRoute: typeof RulesHowToPlayCricketDartsRoute
   RulesHowToPlayKillerRoute: typeof RulesHowToPlayKillerRoute
   RulesHowToPlayShanghaiRoute: typeof RulesHowToPlayShanghaiRoute
@@ -458,6 +484,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RulesHowToPlayCricketDartsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/rules/how-to-play-bobs-27': {
+      id: '/rules/how-to-play-bobs-27'
+      path: '/rules/how-to-play-bobs-27'
+      fullPath: '/rules/how-to-play-bobs-27'
+      preLoaderRoute: typeof RulesHowToPlayBobs27RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rules/how-to-play-around-the-clock': {
       id: '/rules/how-to-play-around-the-clock'
       path: '/rules/how-to-play-around-the-clock'
@@ -507,6 +540,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GamesCricketRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/games/bobs-27': {
+      id: '/games/bobs-27'
+      path: '/games/bobs-27'
+      fullPath: '/games/bobs-27'
+      preLoaderRoute: typeof GamesBobs27RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/$slug': {
       id: '/blog/$slug'
       path: '/blog/$slug'
@@ -527,6 +567,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegisterRoute: RegisterRoute,
   TosRoute: TosRoute,
   BlogSlugRoute: BlogSlugRoute,
+  GamesBobs27Route: GamesBobs27Route,
   GamesCricketRoute: GamesCricketRoute,
   GamesKillerRoute: GamesKillerRoute,
   GamesShanghaiRoute: GamesShanghaiRoute,
@@ -534,6 +575,7 @@ const rootRouteChildren: RootRouteChildren = {
   GuidesDartboardSetupRoute: GuidesDartboardSetupRoute,
   GuidesX01CheckoutChartRoute: GuidesX01CheckoutChartRoute,
   RulesHowToPlayAroundTheClockRoute: RulesHowToPlayAroundTheClockRoute,
+  RulesHowToPlayBobs27Route: RulesHowToPlayBobs27Route,
   RulesHowToPlayCricketDartsRoute: RulesHowToPlayCricketDartsRoute,
   RulesHowToPlayKillerRoute: RulesHowToPlayKillerRoute,
   RulesHowToPlayShanghaiRoute: RulesHowToPlayShanghaiRoute,

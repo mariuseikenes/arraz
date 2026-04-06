@@ -61,6 +61,9 @@ function RouteComponent() {
         <GameCard name="Around the Clock" link="how-to-play-around-the-clock">
           Work your way around the board, beds 1 through 20.
         </GameCard>
+        <GameCard name="Bob's 27" link="how-to-play-bobs-27">
+          Practice your doubles with this simple game.
+        </GameCard>
       </main>
       </div>
     </div>
