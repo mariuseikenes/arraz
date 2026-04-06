@@ -3,6 +3,7 @@ import { Sword } from 'lucide-react';
 import { GiAsianLantern, GiCricket } from "react-icons/gi";
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 import { SiDart } from "react-icons/si"
+import { TbNumber27Small } from 'react-icons/tb';
 
 export const Route = createFileRoute('/games/')({
   component: RouteComponent,
@@ -55,6 +56,7 @@ function RouteComponent() {
         <GameCard name="Cricket" link="cricket" icon={GiCricket}> Strategy meets skill. Open a section to start scoring! </GameCard>
         <GameCard name="Killer" link="killer" icon={Sword}> Eliminate your opponents. </GameCard>
         <GameCard name="Shanghai" link="shanghai" icon={GiAsianLantern}> Score points on beds 1-7. </GameCard>
+        <GameCard name="Bob's 27" link="bobs-27" icon={TbNumber27Small}> Great solo practice game </GameCard>
       </main>
       
       <p className='text-center text-white/60 text-sm mt-4'>Can't find the game you're playing? <a href="/contact" className="text-accent">Contact</a> me to get it added!</p>
