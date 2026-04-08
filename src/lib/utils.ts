@@ -15,3 +15,10 @@ export function setLocalStorageFromObject(obj: Record<string, any>): void {
     }
   });
 }
+
+const dateFormatter = new Intl.DateTimeFormat("en-GB", {
+  dateStyle: "medium",
+  timeStyle: "short",
+})
+
+export const formatDate = dateFormatter.format 

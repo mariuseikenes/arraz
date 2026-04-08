@@ -59,7 +59,7 @@ export const api = {
   },
 
   insertBobsGame: (data: {bed: number; score: number}) => 
-    request<Bobs27Game>("/api/games/bobs", {
+    request<Bobs27Game>("/games/bobs", {
       method: "POST",
       body: JSON.stringify(data)
     })
