@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 
 import { useState } from "react";
-import { BookAlert, BookCheck, Calculator, Home, House, LogIn, LogOut, Menu, Notebook, NotebookPen, User, X } from "lucide-react";
+import { BookAlert, BookCheck, Calculator, House, LogIn, LogOut, Menu, NotebookPen, User, X } from "lucide-react";
 import Logo from "../logo.svg?react";
 import { useAuth } from "@/context/AuthContext";
 export default function Header() {
