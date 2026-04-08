@@ -14,7 +14,6 @@ import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/games/bobs-27")({
   component: RouteComponent,
-  
 });
 
 type Turn = {
@@ -51,11 +50,11 @@ function RouteComponent() {
     setCurrentTurn((ct) => ({ ...ct, throws: newThrows }));
   }
 
-  function insertGame( {bed, score}: {bed: number; score: number}) {
+  function insertGame({ bed, score }: { bed: number; score: number }) {
     api.insertBobsGame({
       bed,
-      score
-    })
+      score,
+    });
   }
 
   function next() {
@@ -74,16 +73,16 @@ function RouteComponent() {
 
     if (score + scoreChange <= 0) {
       setIsGameOver(true);
-      insertGame({bed: currentBed, score: 0})
+      insertGame({ bed: currentBed, score: 0 });
     }
 
     if (currentBed === 25 && score + scoreChange > 0) {
-      setIsGameOver(true)
-      insertGame({bed: 25, score: score+scoreChange})
+      setIsGameOver(true);
+      insertGame({ bed: 25, score: score + scoreChange });
     }
 
     setScore(score + scoreChange);
-    setTurns([...turns, currentTurn])
+    setTurns([...turns, currentTurn]);
     setCurrentTurn({
       bed: currentBed + 1,
       throws: ["not-thrown", "not-thrown", "not-thrown"],
@@ -193,7 +192,7 @@ function GameOverDialog({
           <DialogDescription className="flex gap-4 flex-col">
             {score <= 0 ? (
               <>
-                <p>You lost at bed {bed-1}.</p>
+                <p>You lost at bed {bed - 1}.</p>
               </>
             ) : (
               <>
