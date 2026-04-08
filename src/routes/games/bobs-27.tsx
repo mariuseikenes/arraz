@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/games/bobs-27")({
   component: RouteComponent,
@@ -50,11 +51,16 @@ function RouteComponent() {
     setCurrentTurn((ct) => ({ ...ct, throws: newThrows }));
   }
 
+  function insertGame( {bed, score}: {bed: number; score: number}) {
+    api.insertBobsGame({
+      bed,
+      score
+    })
+  }
+
   function next() {
     if (currentBed === 20) {
       setCurrentBed(25);
-    } else if (currentBed === 25) {
-      setIsGameOver(true)
     } else {
       setCurrentBed(currentBed + 1);
     }
@@ -68,6 +74,12 @@ function RouteComponent() {
 
     if (score + scoreChange <= 0) {
       setIsGameOver(true);
+      insertGame({bed: currentBed, score: 0})
+    }
+
+    if (currentBed === 25 && score + scoreChange > 0) {
+      setIsGameOver(true)
+      insertGame({bed: 25, score: score+scoreChange})
     }
 
     setScore(score + scoreChange);

@@ -1,9 +1,6 @@
 const API_URL = "http://localhost:8080/api";
 
-async function request<T>(
-  endpoint: string,
-  options?: RequestInit
-): Promise<T> {
+async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const token = localStorage.getItem("token");
 
   const res = await fetch(`${API_URL}${endpoint}`, {
@@ -47,7 +44,34 @@ export const api = {
     request<{ message: string }>("/user/profile", {
       method: "DELETE",
     }),
+
+  getBobsGames: (data: { amount: number; offset: number }) => {
+    const params = new URLSearchParams({
+      amount: data.amount.toString(),
+      offset: data.offset.toString(),
+    });
+    return request<{
+      games: Bobs27Game[];
+      total: number;
+      amount: number;
+      offset: number;
+    }>(`/games/bobs?${params}`);
+  },
+
+  insertBobsGame: (data: {bed: number; score: number}) => 
+    request<Bobs27Game>("/api/games/bobs", {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
 };
+
+export interface Bobs27Game {
+  id: number;
+  user_id: number;
+  played_at: string;
+  bed: number;
+  score: number;
+}
 
 export interface User {
   id: number;
