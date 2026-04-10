@@ -30,6 +30,7 @@ function RouteComponent() {
     bed: 1,
     throws: ["not-thrown", "not-thrown", "not-thrown"],
   });
+  const [beds, setBeds] = useState<{bed: number; hits: number;}[]>([])
 
   function updateThrow(index: number) {
     const newThrows = [...currentTurn.throws];
@@ -54,6 +55,10 @@ function RouteComponent() {
     api.insertBobsGame({
       bed,
       score,
+      beds: [...beds, {
+        bed: currentBed,
+        hits: currentTurn.throws.filter(t=>t==="hit").length
+      }]
     });
   }
 
@@ -81,6 +86,10 @@ function RouteComponent() {
       insertGame({ bed: 25, score: score + scoreChange });
     }
 
+    setBeds(o=>[...o, {
+      bed: currentBed,
+      hits: currentTurn.throws.filter(t=>t==="hit").length
+    }])
     setScore(score + scoreChange);
     setTurns([...turns, currentTurn]);
     setCurrentTurn({

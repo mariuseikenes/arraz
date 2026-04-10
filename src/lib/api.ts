@@ -13,6 +13,11 @@ async function request<T>(endpoint: string, options?: RequestInit): Promise<T> {
 
   if (!res.ok) {
     const err = await res.json();
+    if (err.error === "authorization header required") {
+      localStorage.removeItem("token");
+      window.location.href = "/login";
+      return undefined as never;
+    }
     throw new Error(err.error || "Something went wrong");
   }
 
@@ -58,11 +63,15 @@ export const api = {
     }>(`/games/bobs?${params}`);
   },
 
-  insertBobsGame: (data: {bed: number; score: number}) => 
+  insertBobsGame: (data: {
+    bed: number;
+    score: number;
+    beds: { bed: number; hits: number }[];
+  }) =>
     request<Bobs27Game>("/games/bobs", {
       method: "POST",
-      body: JSON.stringify(data)
-    })
+      body: JSON.stringify(data),
+    }),
 };
 
 export interface Bobs27Game {
@@ -71,6 +80,10 @@ export interface Bobs27Game {
   played_at: string;
   bed: number;
   score: number;
+  beds: {
+    bed: number;
+    hits: number;
+  }[];
 }
 
 export interface User {

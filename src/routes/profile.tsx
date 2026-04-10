@@ -25,8 +25,9 @@ export const Route = createFileRoute("/profile")({
       },
     ],
   }),
-  loader: ({ context }) =>
-    context.queryClient.ensureQueryData(bobsGamesOptions(0)),
+  loader: ({ context }) => {
+    context.queryClient.ensureQueryData(bobsGamesOptions(0));
+  },
 });
 
 function RouteComponent() {
@@ -34,7 +35,7 @@ function RouteComponent() {
   const nav = useNavigate();
   const { data } = useSuspenseQuery(bobsGamesOptions(0));
 
-  if (!user && !loading) {
+  if ((!user && !loading) ) {
     return nav({
       to: "/login",
     });
@@ -42,6 +43,24 @@ function RouteComponent() {
     return "loading";
   }
   const joinDate = new Date(user.created_at);
+
+  function bedStats() {
+    const bedsOnly = data.games.flatMap((g) => g.beds).filter((b) => b);
+    const bedMap = new Map();
+    for (let i = 1; i <= 20; i++) {
+      const hits = bedsOnly
+        .filter((b) => b.bed === i)
+        .reduce((pv, cv) => pv + cv.hits, 0);
+      bedMap.set(i, hits);
+    }
+    bedMap.set(
+      25,
+      bedsOnly.filter((b) => b.bed === 25).reduce((pv, cv) => pv + cv.hits, 0),
+    );
+    return bedMap;
+  }
+
+  const bedStatistic = bedStats();
 
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
@@ -63,41 +82,65 @@ function RouteComponent() {
           <section className="gap-2 flex flex-col">
             <h2 className="text-3xl font-semibold">Bob's 27</h2>
             <div>
-              <h3 className="text-lg font-semibold">Statistics <small>(last 50 games)</small></h3>
+              <h3 className="text-lg font-semibold">
+                Statistics <small>(last 50 games)</small>
+              </h3>
               <ul>
                 <li>
-                  Average Bed: {(data.games
-                    .map((g) => g.bed)
-                    .reduce((pv, cv) => (pv += cv), 0) / data.games.length).toFixed(1)}
+                  Average Bed:{" "}
+                  {(
+                    data.games
+                      .map((g) => g.bed)
+                      .reduce((pv, cv) => (pv += cv), 0) / data.games.length
+                  ).toFixed(1)}
                 </li>
                 <li>
-                  Average Score (only wins): {(data.games
-                    .filter(g=>g.score > 0)
-                    .map((g) => g.score)
-                    .reduce((pv, cv) => (pv += cv), 0) / data.games.filter(g=>g.score>0).length).toFixed(1)}
+                  Average Score (only wins):{" "}
+                  {(
+                    data.games
+                      .filter((g) => g.score > 0)
+                      .map((g) => g.score)
+                      .reduce((pv, cv) => (pv += cv), 0) /
+                    data.games.filter((g) => g.score > 0).length
+                  ).toFixed(1)}
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="text-lg font-semibold">Last 5 games</h3>
-              <div className="gap-2 flex flex-wrap w-full mt-2 justify-center">
-                {data.games.slice(0, 5).reverse().map((g) => {
-                  if (g.score > 0) {
-                    return (
-                      <div className="border border-green-600 rounded-md p-2 w-fit px-4">
-                        <p>Score: {g.score}</p>
-                        <small>{formatDate(new Date(g.played_at))}</small>
-                      </div>
-                    );
-                  } else {
-                    return (
-                      <div className="border border-secondary p-2 rounded-md w-fit px-4">
-                        <p>You lost at bed {g.bed}</p>
-                        <small>{formatDate(new Date(g.played_at))}</small>
-                      </div>
-                    );
-                  }
-                })}
+              <div className="gap-2 grid grid-cols-2 w-full mt-2 justify-center">
+                {data.games
+                  .slice(0, 5)
+                  .reverse()
+                  .map((g) => {
+                    if (g.score > 0) {
+                      return (
+                        <div className="border border-green-600 rounded-md p-2 w-fit px-4 w-full">
+                          <p>Score: {g.score}</p>
+                          <small>{formatDate(new Date(g.played_at))}</small>
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="border border-secondary p-2 rounded-md w-fit px-4 w-full">
+                          <p>You lost at bed {g.bed}</p>
+                          <small>{formatDate(new Date(g.played_at))}</small>
+                        </div>
+                      );
+                    }
+                  })}
+              </div>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">Bed Statistics</h3>
+              <div className="gap-2 w-full mt-2 justify-center">
+                <ul>
+                  {Array.from(bedStatistic.entries()).map((bs) => (
+                    <li>
+                      D{bs[0]}: {bs[1]}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </section>
