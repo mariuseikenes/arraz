@@ -540,8 +540,9 @@ function RouteComponent() {
         >
           <InteractiveDartboard />
         </div>
+<div className="flex flex-col gap-2 justify-center items-center ">
 
-        <div className="h-full flex flex-col gap-4 m-auto">
+        <div className="h-full md:h-fit flex flex-col gap-4 md:m-0 m-auto ">
           <div
             className={`${busted && "text-red-500"} flex flex-row px-4 h-fit`}
           >
@@ -614,34 +615,55 @@ function RouteComponent() {
           </div>
         </div>
         <Divider className="my-2" />
-        <div className="flex flex-col gap-2 px-4 text-2xl">
-          <ol>
-            {players.map((p) => (
-              <li
-                className={currentTurn.player.id === p.id ? "text-accent" : ""}
-              >
-                <span className="font-semibold">{p.name}</span>: {p.score}pts
-              </li>
-            ))}
-          </ol>
-        </div>
-        <Divider className="my-2" />
-        <div className="flex flex-col gap-2 px-4">
-          <h3 className="text-2xl">Your Stats:</h3>
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-col w-full">
-              <p>
-                Points Per Dart:
-                {throwCount === 0
-                  ? "N/A"
-                  :((config.goal - currentTurn.player.score) / throwCount).toFixed(2)}
-              </p>
-              <p>Darts Thrown: {throwCount}</p>
+        <div className="w-full">
+          <div className="flex flex-col gap-2 px-4 text-2xl">
+            <ol>
+              {players.map((p) => (
+                <li
+                  className={
+                    currentTurn.player.id === p.id ? "text-accent" : ""
+                  }
+                >
+                  <span className="font-semibold">{p.name}</span>: {p.score}pts
+                </li>
+              ))}
+            </ol>
+          </div>
+          <Divider className="my-2 md:hidden block" />
+          <div className="flex flex-col gap-2 px-4">
+            <h3 className="text-2xl">Your Stats:</h3>
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-col w-full">
+                <p>
+                  Points Per Dart:
+                  {throwCount === 0
+                    ? "N/A"
+                    : (
+                        (config.goal - currentTurn.player.score) /
+                        throwCount
+                      ).toFixed(2)}
+                </p>
+                <p>Darts Thrown: {throwCount}</p>
+              </div>
+              <div className="flex flex-col w-full">
+                <p>
+                  Legs Won:{" "}
+                  {
+                    currentSet.legs.filter(
+                      (l) => l.winnerId === currentTurn.player.id,
+                    ).length
+                  }
+                </p>
+                <p>
+                  Sets Won:{" "}
+                  {
+                    sets.filter((s) => s.winnerId === currentTurn.player.id)
+                      .length
+                  }
+                </p>
+              </div>
             </div>
-            <div className="flex flex-col w-full">
-              <p>Legs Won: {currentSet.legs.filter(l=>l.winnerId === currentTurn.player.id).length}</p>
-              <p>Sets Won: {sets.filter(s=>s.winnerId === currentTurn.player.id).length}</p>
-            </div>
+          </div>
           </div>
         </div>
       </div>
