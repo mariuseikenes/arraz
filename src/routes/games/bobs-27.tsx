@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { api } from "@/lib/api";
+import { useAuth } from "@/context/AuthContext";
 
 export const Route = createFileRoute("/games/bobs-27")({
   component: RouteComponent,
@@ -22,6 +23,7 @@ type Turn = {
 };
 
 function RouteComponent() {
+  const {user} = useAuth();
   const [isGameOver, setIsGameOver] = useState(false);
   const [score, setScore] = useState(27);
   const [currentBed, setCurrentBed] = useState(1);
@@ -52,6 +54,7 @@ function RouteComponent() {
   }
 
   function insertGame({ bed, score }: { bed: number; score: number }) {
+    if (!user) return;
     api.insertBobsGame({
       bed,
       score,
