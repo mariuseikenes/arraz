@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -166,11 +166,11 @@ function RouteComponent() {
   if (!ready) {
     return (
       <main className="flex flex-col p-2 gap-4 items-center w-4/5 md:w-2/3 mx-auto justify-center">
-        <a href="/" className="w-full" aria-label="Back">
+        <Link to="/" className="w-full" aria-label="Back">
           <div className="p-2 border w-fit bg-white/10 rounded-md">
             <FaLongArrowAltLeft className="text-white" />
           </div>
-        </a>
+        </Link>
         <h1 className="text-3xl text-center font-bold">X01</h1>
 
         <div className="flex flex-col gap-2 w-full">

@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Calculator,
   CheckCircle2,
@@ -60,11 +60,11 @@ function RouteComponent() {
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
-          <a href="/rules" aria-label="Back">
+          <Link to="/rules" aria-label="Back">
             <div className="p-2 border w-fit bg-white/10 rounded-md">
               <FaLongArrowAltLeft className="text-white" />
             </div>
-          </a>
+          </Link>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             How to Play X01
           </h1>
@@ -190,11 +190,11 @@ function RouteComponent() {
               which can be harder to check out.
             </p>
           </RuleSection>
-          <a href="/games/x01">
+          <Link to="/games/x01">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>
-          </a>
+          </Link>
         </main>
       </div>
     </div>

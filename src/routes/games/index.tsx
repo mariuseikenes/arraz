@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { Sword } from 'lucide-react';
 import { GiAsianLantern, GiCricket } from "react-icons/gi";
 import { FaLongArrowAltLeft } from 'react-icons/fa';
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/games/')({
 
 function GameCard({name, link, icon: Icon, children}: {link: string; name: string; icon: React.ElementType; children: React.ReactNode; }) {
   return (
-    <a href={"/games/"+link} className='w-md'>
+    <Link to={"/games/"+link} className='w-md'>
     <div className="bg-light-charcoal p-6 rounded-lg border border-inactive hover:border-accent"> 
     <div className='inline-flex gap-2 items-center'>
       <Icon className="h-10 w-10 text-accent" />
@@ -30,7 +30,7 @@ function GameCard({name, link, icon: Icon, children}: {link: string; name: strin
     </div>
     <p className='text-gray-400 text-md'>{children}</p>
     </div>
-    </a>
+    </Link>
   )
 }
 
@@ -39,11 +39,11 @@ function RouteComponent() {
 
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-5xl mx-auto">
-        <a href="/" aria-label="Back" className=""> 
+        <Link to="/" aria-label="Back" className=""> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">Games</h1>
           <p className="text-gray-400">
@@ -59,7 +59,7 @@ function RouteComponent() {
         <GameCard name="Bob's 27" link="bobs-27" icon={TbNumber27Small}> Great solo practice game </GameCard>
       </main>
       
-      <p className='text-center text-white/60 text-sm mt-4'>Can't find the game you're playing? <a href="/contact" className="text-accent">Contact</a> me to get it added!</p>
+      <p className='text-center text-white/60 text-sm mt-4'>Can't find the game you're playing? <Link to="/contact" className="text-accent">Contact</Link> me to get it added!</p>
       
       </div>
     </div>

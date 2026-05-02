@@ -46,11 +46,11 @@ function RouteComponent() {
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
-          <a href="/rules" aria-label="Back" className="">
+          <Link to="/rules" aria-label="Back" className="">
             <div className="p-2 border w-fit bg-white/10 rounded-md">
               <FaLongArrowAltLeft className="text-white" />
             </div>
-          </a>
+          </Link>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             How to Play Bob's 27
           </h1>

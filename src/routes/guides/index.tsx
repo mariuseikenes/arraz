@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { CheckCheck, Target } from 'lucide-react';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 
@@ -19,7 +19,7 @@ export const Route = createFileRoute('/guides/')({
 
 function GuideCard({name, link, icon: Icon, children}: {link: string; name: string; icon: React.ElementType; children: React.ReactNode; }) {
   return (
-    <a href={"/guides/"+link}>
+    <Link to={"/guides/"+link}>
     <div className="bg-light-charcoal p-6 rounded-lg border border-inactive"> 
     <div className='inline-flex gap-2 items-center'>
       <Icon className="h-10 w-10 text-accent" />
@@ -27,7 +27,7 @@ function GuideCard({name, link, icon: Icon, children}: {link: string; name: stri
     </div>
     <p className='text-gray-400 text-md'>{children}</p>
     </div>
-    </a>
+    </Link>
   )
 }
 
@@ -36,11 +36,11 @@ function RouteComponent() {
 
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" aria-label='Back' className=""> 
+        <Link to="/" aria-label='Back' className=""> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">Guides</h1>
           <p className="text-gray-400">

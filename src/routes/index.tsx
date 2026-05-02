@@ -1,5 +1,5 @@
 import { useAuth } from "@/context/AuthContext";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookAlert, BookCheck, Calculator, Github, NotebookPen } from "lucide-react";
 export const Route = createFileRoute("/")({
   component: App,
@@ -30,8 +30,8 @@ function App() {
 
           <div className=" bg-linear-to-r h-px md:w-2/3 w-full mx-auto from-transparent via-accent to-transparent"/>
           <div className="flex flex-row flex-wrap justify-center gap-2 md:w-2/3 md:mx-auto">
-            <a
-              href="/games"
+            <Link
+              to="/games"
               className="bg-light-charcoal p-6 rounded-lg md:w-fit w-full border border-accent"
             >
               <div className="inline-flex gap-2 w-full items-center">
@@ -41,9 +41,9 @@ function App() {
               <p className="text-gray-400 text-left text-md">
                 Find the game you need a scorekeeper for. 
               </p>
-            </a>
-            <a
-              href="/rules"
+            </Link>
+            <Link
+              to="/rules"
               className="bg-light-charcoal p-6 rounded-lg border border-inactive"
             >
               <div className="inline-flex gap-2 w-full items-center">
@@ -53,9 +53,9 @@ function App() {
               <p className="text-gray-400 text-left text-md">
                 Learn the rules of all the games available on Arraz.
               </p>
-            </a>
-            <a
-              href="/guides"
+            </Link>
+            <Link
+              to="/guides"
               className="bg-light-charcoal p-6 rounded-lg border border-inactive"
             >
               <div className="inline-flex gap-2 w-full items-center">
@@ -66,9 +66,9 @@ function App() {
                 Learn how to set up your dartboard, X01-checkout charts and
                 more.
               </p>
-            </a>
-            <a
-              href="/blog"
+            </Link>
+            <Link
+              to="/blog"
               className="bg-light-charcoal p-6 rounded-lg border border-inactive w-full md:w-auto"
             >
               <div className="inline-flex gap-2 w-full items-center">
@@ -78,7 +78,7 @@ function App() {
               <p className="text-gray-400 text-left text-md">
                 Blog posts & articles
               </p>
-            </a>
+            </Link>
           </div>
         </main>
         <footer className="flex flex-col">
@@ -89,21 +89,21 @@ function App() {
             </a>
           </p>
           <div className="inline-flex gap-2 mt-4 items-center justify-center">
-            <a href="/contact" className="underline text-gray-400 text-sm">
+            <Link to="/contact" className="underline text-gray-400 text-sm">
               Contact
-            </a>
-            <a href="/tos" className="underline text-gray-400 text-sm">
+            </Link>
+            <Link to="/tos" className="underline text-gray-400 text-sm">
               Terms of Service
-            </a>
-            <a
-              href="/privacy-policy"
+            </Link>
+            <Link
+              to="/privacy-policy"
               className="underline text-gray-400 text-sm"
             >
               Privacy Policy
-            </a>
-            <a href="/about" className="underline text-gray-400 text-sm">
+            </Link>
+            <Link to="/about" className="underline text-gray-400 text-sm">
               About
-            </a>
+            </Link>
             <a href="https://donate.stripe.com/9AQcPo6or91r7cIdQQ" className="underline text-gray-400 text-sm">
               Donate
             </a>

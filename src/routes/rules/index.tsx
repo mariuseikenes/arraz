@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import type React from 'react';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 
@@ -19,12 +19,12 @@ export const Route = createFileRoute('/rules/')({
 
 function GameCard({name, link, children}: {link: string; name: string; children: React.ReactNode; }) {
   return (
-    <a href={"/rules/"+link}>
+    <Link to={"/rules/"+link}>
     <div className="bg-light-charcoal p-6 rounded-lg border border-inactive">
       <h2 className='font-bold text-xl'>{name}</h2>
       <p className='text-gray-400 text-md'>{children}</p>
     </div>
-    </a>
+    </Link>
   )
 }
 
@@ -33,11 +33,11 @@ function RouteComponent() {
 
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" aria-label='Back' className=""> 
+        <Link to="/" aria-label='Back' className=""> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">Rulebook</h1>
           <p className="text-gray-400">
