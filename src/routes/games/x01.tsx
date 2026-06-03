@@ -747,7 +747,7 @@ function RouteComponent() {
   }
 
   const activePlayer = game.players.find((p) => p.id === game.currentTurn.player.id);
-  if ((!activePlayer || activePlayer.score === 0) && !gameOver) game.handleNextPlayer();
+  if ((!activePlayer || activePlayer.score === 0) && !game.gameOver) game.handleNextPlayer();
 
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">

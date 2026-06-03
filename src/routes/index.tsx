@@ -6,7 +6,7 @@ export const Route = createFileRoute("/")({
 });
 
 function App() {
-  const { user, logout, loading } = useAuth();
+  const { user } = useAuth();
   console.log(user)
 
   return (

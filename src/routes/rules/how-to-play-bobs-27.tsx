@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Calculator, Target, Trophy } from "lucide-react";
+import { Calculator, Target } from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
 import { GiFinishLine } from "react-icons/gi";
 
