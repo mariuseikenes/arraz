@@ -86,8 +86,8 @@ function RouteComponent() {
     goal: localStorageHelper.get("x01_goal"),
     doubleout: localStorageHelper.get("x01_doubleout"),
     doublein: localStorageHelper.get("x01_doublein"),
-    legs: localStorageHelper.get("x01_legs"),
-    sets: localStorageHelper.get("x01_sets"),
+    legs: localStorageHelper.get("x01_legs") ?? 1,
+    sets: localStorageHelper.get("x01_sets") ?? 1,
   });
   const playerNames: string[] = localStorageHelper.get("playerNames");
   const [players, setPlayers] = useState<Player[]>(
@@ -513,7 +513,7 @@ function RouteComponent() {
   }
 
   const activePlayer = players.find((p) => p.id === currentTurn.player.id);
-  if (!activePlayer || activePlayer.score === 0) handleNextPlayer();
+  if ((!activePlayer || activePlayer.score === 0) && !gameOver) handleNextPlayer();
 
   const throwCount = currentLeg.history
     .filter((p) => p.playerId === currentTurn.player.id)

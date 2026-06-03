@@ -109,7 +109,7 @@ export default function Header() {
             <NotebookPen size={20} />
             <span className="font-medium">Blogs & Articles</span>
           </Link>
-          {!user && <Link
+          { /* !user && <Link
             to="/login"
             onClick={() => setIsOpen(false)}
             className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-800 transition-colors mb-2"
@@ -120,7 +120,7 @@ export default function Header() {
           >
             <LogIn size={20} />
             <span className="font-medium">Log In</span>
-          </Link>}
+          </Link> */}
           {user && <Link
             to="/profile"
             onClick={() => setIsOpen(false)}
