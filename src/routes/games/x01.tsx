@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -528,8 +528,8 @@ function RouteComponent() {
     goal: localStorageHelper.get("x01_goal"),
     doubleout: localStorageHelper.get("x01_doubleout"),
     doublein: localStorageHelper.get("x01_doublein"),
-    legs: localStorageHelper.get("x01_legs"),
-    sets: localStorageHelper.get("x01_sets"),
+    legs: localStorageHelper.get("x01_legs") ?? 1,
+    sets: localStorageHelper.get("x01_sets") ?? 1,
   });
   const playerNames: string[] = localStorageHelper.get("playerNames");
 
@@ -589,11 +589,11 @@ function RouteComponent() {
   if (!ready) {
     return (
       <main className="flex flex-col p-2 gap-4 items-center w-4/5 md:w-2/3 mx-auto justify-center">
-        <a href="/" className="w-full" aria-label="Back">
+        <Link to="/" className="w-full" aria-label="Back">
           <div className="p-2 border w-fit bg-white/10 rounded-md">
             <FaLongArrowAltLeft className="text-white" />
           </div>
-        </a>
+        </Link>
         <h1 className="text-3xl text-center font-bold">X01</h1>
 
         <div className="flex flex-col gap-2 w-full">
@@ -747,7 +747,7 @@ function RouteComponent() {
   }
 
   const activePlayer = game.players.find((p) => p.id === game.currentTurn.player.id);
-  if (!activePlayer || activePlayer.score === 0) game.handleNextPlayer();
+  if ((!activePlayer || activePlayer.score === 0) && !gameOver) game.handleNextPlayer();
 
   return (
     <div className="flex flex-col px-2 gap-2 md:m-auto md:h-full">

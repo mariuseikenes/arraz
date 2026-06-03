@@ -38,6 +38,7 @@ export default defineConfig({
         '/games/cricket',
         '/games/killer',
         '/games/shanghai',
+        '/games/bobs-27',
 
         // RULEBOOK
         '/rules',
@@ -46,6 +47,7 @@ export default defineConfig({
         '/rules/how-to-play-killer',
         '/rules/how-to-play-shanghai',
         '/rules/how-to-play-around-the-clock',
+        '/rules/how-to-play-bobs-27',
 
         // GUIDES
         '/guides',

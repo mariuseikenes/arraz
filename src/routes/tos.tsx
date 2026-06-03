@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import {
   Gavel,
   ShieldOff,
@@ -44,11 +44,11 @@ function TermsOfServiceComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/" className="" aria-label='Back'> 
+        <Link to="/" className="" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             Terms of Service

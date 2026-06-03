@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { AlertCircle, Calculator, Goal, LockOpen, Scan, Users } from 'lucide-react';
 import { FaLongArrowAltLeft } from 'react-icons/fa';
 
@@ -44,11 +44,11 @@ function RouteComponent() {
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
         <header className="text-center mb-12">
-          <a href="/rules" aria-label="Back" className="">
+          <Link to="/rules" aria-label="Back" className="">
             <div className="p-2 border w-fit bg-white/10 rounded-md">
               <FaLongArrowAltLeft className="text-white" />
             </div>
-          </a>
+          </Link>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
             How to play Cricket
           </h1>
@@ -122,11 +122,11 @@ function RouteComponent() {
               yet opened that section. The person with the lowest score wins.
             </p>
           </RuleSection>
-          <a href="/games/cricket">
+          <Link to="/games/cricket">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>
-          </a>
+          </Link>
         </main>
       </div>
     </div>

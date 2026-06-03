@@ -1,5 +1,5 @@
 import { getPostBySlug } from "@/lib/blog";
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { MDXProvider } from "@mdx-js/react";
 
 export const Route = createFileRoute("/blog/$slug")({
@@ -57,11 +57,11 @@ function RouteComponent() {
   return (
     <main>
       <article>
-        <a href="/blog" aria-label="Back">
+        <Link to="/blog" aria-label="Back">
           <div className="p-2 border w-fit bg-white/10 rounded-md md:ml-16 ml-8 text-white">
             Go Back
           </div>
-        </a>
+        </Link>
         <MDXProvider components={mdxComponents}>
           <article
             className="prose prose-invert mx-auto px-8 cprose"

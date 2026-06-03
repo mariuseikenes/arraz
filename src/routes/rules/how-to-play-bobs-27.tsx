@@ -1,18 +1,19 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Calculator, Target, Trophy } from "lucide-react";
 import { FaLongArrowAltLeft } from "react-icons/fa";
+import { GiFinishLine } from "react-icons/gi";
 
-export const Route = createFileRoute("/rules/how-to-play-shanghai")({
+export const Route = createFileRoute("/rules/how-to-play-bobs-27")({
   component: RouteComponent,
   head: () => ({
     meta: [
       {
-        title: "How to play Shanghai",
+        title: "How to play Bob's 27",
       },
       {
         name: "description",
         content:
-          "Guide on how to play Shanghai, the popular darts game where the goal is to score points on beds 1-7. Hit the single, double and triple in one turn to instantly win the game!",
+          "Bob's 27 is a practice game by Bob Anderson to improve your doubles. You start off with 27 points, go around the clock, aiming for the double. A hit grants you the respective points, but miss all 3 and you lose points equal the value of the bed.",
       },
     ],
   }),
@@ -51,46 +52,53 @@ function RouteComponent() {
             </div>
           </Link>
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">
-            How to Play Shanghai
+            How to Play Bob's 27
           </h1>
           <p className="text-lg text-gray-300">
-            A short and simple game for any amount of players.
+            Practice your doubles in this simple game.
           </p>
         </header>
         <main>
           <RuleSection title="The Objective" icon={Target}>
             <p>
-              The winner of Shanghai is simply the player that has scored the
-              most points by the end of a round. Score points by hitting the
-              active bed, which changes each round from 1-7.
+              Make your way around the clock, hitting only doubles to gain
+              points. Start with 27 and miss all 3 throws to lose points. 0
+              points and you're out!
             </p>
           </RuleSection>
 
           <RuleSection title="Scoring" icon={Calculator}>
             <p>
-              The active bed is the same as the current round number. This means
-              on round one the target bed is 1, on round 2 you aim for the
-              2-bed. Hitting the bed awards the same amount of points, meaning
-              hits in late-game can turn the tide, even if you're lagging
-              behind.
+              You start the game with 27 points. Each round you throw all 3
+              darts at the same double bed, starting at 1, then 2 all the way
+              until the bull.
             </p>
             <p>
-              Doubles and triple beds give double and triple points
-              respectively.
+              Hitting a double gives you points equal to the value of the bed.
+              You hit the double 3, you gain 6 points. This means you can get up
+              to 6 times (3 doubles) the bed each round.
+            </p>
+            <p>
+              If you miss all 3 throws, you lose points equal to the value of
+              the double bed. For example, if you're aiming for double 5, and
+              miss all 3 darts, you'll lose 10 points.
             </p>
           </RuleSection>
 
-          <RuleSection title="Winning the Game" icon={Trophy}>
+          <RuleSection title="Game End" icon={GiFinishLine}>
             <p>
-              There are two ways of winning. The first is simply the player with
-              the most points at the end of a match (after round 7) wins.
-              However, if you manage to hit a single, double and triple in one
-              round (in any order), you instantly win. This is called a
-              "Shanghai".
+              The game can end in two ways: finishing all beds or losing.
+            </p>
+            <p>
+              Once you've thrown your 3 darts at the double bull, the game is over. However, you've still got a score, 
+              so if you can consistently complete all doubles you've still got the points to compete against yourself with, for a maximum score of 1437.
+            </p>
+            <p>
+              You lose the game if you end up at 0 (or less) points. At this points you're out. If you miss everything, you'll still get 5 rounds of play.
             </p>
           </RuleSection>
 
-          <Link to="/games/shanghai">
+          <Link to="/games/bobs-27">
             <div className="mx-auto border border-accent rounded-sm bg-light-charcoal text-center py-2">
               Play Now
             </div>

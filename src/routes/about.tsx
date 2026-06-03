@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { Target, BookOpenText, User, Github, ChevronsRight } from 'lucide-react';
 import {
   Card,
@@ -23,11 +23,11 @@ function AboutComponent() {
   return (
     <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-4xl mx-auto">
-        <a href="/" aria-label="Back" className=""> 
+        <Link to="/" aria-label="Back" className=""> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         {/* Header Section */}
         <header className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-bold mb-2">

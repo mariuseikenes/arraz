@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import {  Ruler, Target } from 'lucide-react';
 import { FaLongArrowAltLeft } from "react-icons/fa";
 
@@ -41,11 +41,11 @@ function RouteComponent() {
   return (
      <div className="min-h-screen bg-bg text-text p-4 sm:p-6 md:p-8">
       <div className="max-w-3xl mx-auto">
-        <a href="/guides" aria-label='Back'> 
+        <Link to="/guides" aria-label='Back'> 
         <div className='p-2 border w-fit bg-white/10 rounded-md'>
           <FaLongArrowAltLeft className='text-white' /> 
         </div>
-        </a>
+        </Link>
         <header className="text-center mt-4 mb-12">
           <h1 className="text-3xl sm:text-5xl font-bold mb-2">How to set up a dartboard</h1>
           <p className="text-gray-400">

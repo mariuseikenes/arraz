@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import localStorageHelper from "@/lib/localStorageHelper";
 import { generateUUID } from "@/lib/uuid";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { Plus, X } from "lucide-react";
 import { useState } from "react";
 import Dart from "../../logo.svg?react";
@@ -146,11 +146,11 @@ function RouteComponent() {
   if (!ready) {
     return (
       <main className="flex flex-col p-2 gap-4 md:w-lg items-center w-4/5 mx-auto justify-center">
-        <a href="/" aria-label="Back" className="w-full">
+        <Link to="/" aria-label="Back" className="w-full">
           <div className="p-2 border w-fit bg-white/10 rounded-md">
             <FaLongArrowAltLeft className="text-white" />
           </div>
-        </a>
+        </Link>
         <h1 className="text-3xl text-center font-bold">Shanghai</h1>
         <div className="flex flex-col gap-2 w-full">
           <label className="text-xl font-semibold inline-flex justify-between">
